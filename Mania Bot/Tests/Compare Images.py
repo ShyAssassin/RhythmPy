@@ -1,6 +1,7 @@
 import PIL
 from PIL import Image
 import time
+
 Image1 = Image.open(r"gnome.png")
 Image2 = Image.open(r"Sunset.png")
 
