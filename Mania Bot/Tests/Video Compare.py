@@ -40,6 +40,7 @@ while True:
             diff_frame -= diff_frame.min()
             disp_frame = np.uint8(255.0*diff_frame/float(diff_frame.max()))
             cv2.imshow('diff_frame',disp_frame)
+            print('screen has updated')
         old_frame = gray
 
         if cv2.waitKey(30) & 0xFF == ord('q'):
