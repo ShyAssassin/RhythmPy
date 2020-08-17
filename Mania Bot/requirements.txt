@@ -4,6 +4,7 @@ isort==4.3.21
 lazy-object-proxy==1.4.3
 mccabe==0.6.1
 MouseInfo==0.1.3
+mss==2.0.22
 numpy==1.19.1
 opencv-python==4.4.0.40
 Pillow==7.2.0

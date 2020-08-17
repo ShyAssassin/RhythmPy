@@ -9,4 +9,5 @@ except:
     print('something went wrong \n press ENTER to exit')
     input()
     exit()
-    
+else:
+    exit()
