@@ -22,8 +22,8 @@ import numpy as np
 from cv2 import cv2
 
 # Capture video from file
-cap=cv2.VideoCapture(r'Mania Bot\Tests\video0 (1).mp4')
-cap2 = cv2.VideoCapture(r'Mania Bot\Tests\video0 (1).mp4')
+cap=cv2.VideoCapture(r'Mania Bot\Tests\FOOL MOON NIGHT 2MISS 932K 10487PP.mp4')
+cap2 = cv2.VideoCapture(r'Mania Bot\Tests\FOOL MOON NIGHT 2MISS 932K 10487PP.mp4')
 
 old_frame = None
 
