@@ -20,13 +20,18 @@ gray=cv2.imread(r"Mania Bot\Tests\atsisiusti_2.png",cv2.IMREAD_GRAYSCALE)
 # OpenCV loads the color images in reverse order: 
 # so it reads (R,G,B) like (B,G,R)
 # So, we need to flip color order back to (R,G,B)
+
+
 plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
-# We can use comand plt.axis("off") to delete axis
-# from our image
+# Y goes before X
+(b, g, r) = img[114,232]
+print("Pixel at (50, 50) - Red: {}, Green: {}, Blue: {}".format(r,g,b))
+
+dimensions = img.shape
+print(dimensions)
 plt.title('Original')
 plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
 plt.show()
-
 
 
 # while True:
