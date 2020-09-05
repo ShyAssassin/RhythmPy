@@ -33,3 +33,6 @@ def Osu7k(ImShow=True, ConfigFile=''):
         if RGBString != '[ 68  34  34 255]':
             print('something changed')
             # pyautogui.move(0, 10)
+
+if __name__ == '__main__':
+    Osu7k(ImShow=True)

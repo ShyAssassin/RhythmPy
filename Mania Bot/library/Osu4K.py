@@ -34,4 +34,7 @@ def Osu4k(ImShow=True, ConfigFile=''):
             print('something changed')
             # pyautogui.move(0, 10)
 
+if __name__ == '__main__':
+    Osu4k(ImShow=True)
+
 
