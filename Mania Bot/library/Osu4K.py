@@ -15,6 +15,7 @@ def Osu4k(ImShow=True, ConfigFile=''):
         ScreenCap = sct.grab(bounding_box)
         # turns ScreenCap into Numpy array
         ScreenCap2 = np.array(ScreenCap)
+        # checks if Imshow is called in run
         if ImShow == True:
             cv2.imshow('screen', ScreenCap2)
             if (cv2.waitKey(1) & 0xFF) == ord('q'):
@@ -36,5 +37,3 @@ def Osu4k(ImShow=True, ConfigFile=''):
 
 if __name__ == '__main__':
     Osu4k(ImShow=True)
-
-
