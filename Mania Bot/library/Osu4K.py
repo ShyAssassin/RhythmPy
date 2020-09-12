@@ -10,7 +10,7 @@ import json
 bounding_box = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 
 sct = mss()
-def Osu4k(ImShow=True, ConfigFile=''):
+def Osu4kRun(ImShow=True, ConfigFile=''):
     while True:
         ScreenCap = sct.grab(bounding_box)
         # turns ScreenCap into Numpy array
@@ -36,4 +36,4 @@ def Osu4k(ImShow=True, ConfigFile=''):
             # pyautogui.move(0, 10)
 
 if __name__ == '__main__':
-    Osu4k(ImShow=True)
+    Osu4kRun(ImShow=True)

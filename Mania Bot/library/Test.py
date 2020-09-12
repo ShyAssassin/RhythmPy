@@ -23,7 +23,7 @@ Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 
 
 sct = mss()
-def Test(ImShow=True, ConfigFile='', Debug=True):
+def TestRun(ImShow=True, ConfigFile='', Debug=True):
     count = 0
     while True:
         # captures screen
@@ -69,4 +69,4 @@ def Test(ImShow=True, ConfigFile='', Debug=True):
                 # pyautogui.move(0, 10)
 
 if __name__ == '__main__':
-    Test(ImShow=False, Debug=True)
+    TestRun(ImShow=False, Debug=True)
