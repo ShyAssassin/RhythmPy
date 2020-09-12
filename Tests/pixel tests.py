@@ -22,7 +22,7 @@ gray=cv2.imread(r"Mania Bot\Tests\atsisiusti_2.png",cv2.IMREAD_GRAYSCALE)
 # So, we need to flip color order back to (R,G,B)
 
 
-plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+
 # Y goes before X
 (b, g, r) = img[114,232]
 print("Pixel at (50, 50) - Red: {}, Green: {}, Blue: {}".format(r,g,b))
