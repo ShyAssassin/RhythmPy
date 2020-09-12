@@ -8,4 +8,4 @@ A simple bot that plays mania for you
 
 ## How do I install the bot?
 <p><strong>Mania Bot has been tested to work with python verisons 3.7 or lower.</strong><p>
-<p>Simply run the setup script or run ```pip install -r requirements.txt``` to install needed dependencies.<p>
+Simply run the setup script or run `pip install -r requirements.txt` to install needed dependencies.
