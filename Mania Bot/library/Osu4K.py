@@ -11,6 +11,7 @@ bounding_box = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 
 sct = mss()
 def Osu4kRun(ImShow=True, ConfigFile=''):
+    x = 0
     while True:
         ScreenCap = sct.grab(bounding_box)
         # turns ScreenCap into Numpy array
@@ -34,6 +35,9 @@ def Osu4kRun(ImShow=True, ConfigFile=''):
         if RGBString != '[ 68  34  34 255]':
             print('something changed')
             # pyautogui.move(0, 10)
+
+        x = x + 1
+        print(x)
 
 if __name__ == '__main__':
     Osu4kRun(ImShow=True)

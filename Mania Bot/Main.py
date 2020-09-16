@@ -1,5 +1,7 @@
 import json
 import library
+import threading
+import logging
 
 Game = input('osu or Quaver \n')
 if Game == 'osu':
@@ -22,5 +24,3 @@ elif Game == 'quaver':
        # runs 7k 
        print('7k has been selected \n')
         
-
-

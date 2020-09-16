@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import time
 import pyautogui
 import json
+import logging
+import os
 
 # this test is used on quaver 
 
@@ -19,7 +21,7 @@ Collum3 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 
 sct = mss()
-def TestRun(ImShow=True, ConfigFile='', Debug=True):
+def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     count = 0
     while True:
         # captures screen
@@ -79,4 +81,4 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True):
             
 
 if __name__ == '__main__':
-    TestRun(ImShow=False, Debug=True)
+    TestRun(ImShow=True, Debug=True, Logging=False)
