@@ -23,6 +23,33 @@ Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 sct = mss()
 def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     count = 0
+
+    ##########################################
+    #                                       #       
+    #                 Logging               #
+    #                                       #
+    #########################################
+
+    # Gets or creates a logger
+    logger = logging.getLogger(__name__)
+
+    # set log level
+    if Debug == True:
+        logger.setLevel(logging.DEBUG)
+    else:
+        logger.setLevel(logging.WARNING)
+
+    # define file handler and set formatter
+    LoggingFile = logging.FileHandler('app.log')
+    formatter = logging.Formatter('%(name)s || %(asctime)s :: %(levelname)s :: %(message)s')
+    LoggingFile.setFormatter(formatter)
+
+    # add file handler to logger
+    logger.addHandler(LoggingFile)
+
+    logger.info('Bot started')
+    ###########################################
+
     while True:
         # captures screen
         Collum1Cap = sct.grab(Collum1)
@@ -45,15 +72,16 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
             cv2.imshow('collum4', Collum4Array)
             
             if (cv2.waitKey(1) & 0xFF) == ord('q'):
+                logger.info('ImShow has been closed')
                 cv2.destroyAllWindows()
                 exit()
-
-            ##########################################
-            #                                       #       
-            #       image is in BGR Not RGB         #
-            #         and Y goes before X           #  
-            #                                       #
-            #########################################
+                
+        ##########################################
+        #                                       #       
+        #       image is in BGR Not RGB         #
+        #         and Y goes before X           #  
+        #                                       #
+        #########################################
 
         # gets the BGR colour from the Cords in the brackets
         # A                   y   x
@@ -74,6 +102,7 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         Collum2BGR = str(Collum2BGR)
         Collum3BGR = str(Collum3BGR)
         Collum4BGR = str(Collum4BGR)
+        ########################################
 
         if Debug == True:
             print(count)
@@ -81,4 +110,4 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
             
 
 if __name__ == '__main__':
-    TestRun(ImShow=True, Debug=True, Logging=False)
+    TestRun(ImShow=True, Debug=True, Logging=True)
