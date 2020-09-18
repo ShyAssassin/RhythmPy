@@ -2,6 +2,8 @@ import json
 import library
 import threading
 import logging
+import os.path
+from os import path
 
 ##########################################
 #                                       #       
@@ -13,7 +15,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # set log level  
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.WARNING)
 
 # define file handler and set formatter
 LoggingFile = logging.FileHandler('app.log')
@@ -23,8 +25,15 @@ LoggingFile.setFormatter(formatter)
 # add file handler to logger
 logger.addHandler(LoggingFile)
 
-logger.info('Main started')
 ###########################################
+
+# checks if config file exists
+if path.exists('Config.json') == False:
+    print('Config file is missing')
+    logger.warning('Config file missing, creating now')
+    ConfigCreate  = open("Config.json", "w+") 
+else:
+    logger.info('Main started')
 
 
 Game = input('osu or Quaver \n')
