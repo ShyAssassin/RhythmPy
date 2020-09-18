@@ -23,7 +23,6 @@ Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 sct = mss()
 def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     count = 0
-
     ##########################################
     #                                       #       
     #                 Logging               #
