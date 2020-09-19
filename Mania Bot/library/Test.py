@@ -23,6 +23,7 @@ Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 sct = mss()
 def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     count = 0
+    last_time = time.time()
     ##########################################
     #                                       #       
     #                 Logging               #
@@ -104,8 +105,8 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         ########################################
 
         if Debug == True:
-            print(count)
-            count = count + 1
+            print('Loop took {} seconds'.format(time.time()-last_time))
+            last_time = time.time()
             
 
 if __name__ == '__main__':

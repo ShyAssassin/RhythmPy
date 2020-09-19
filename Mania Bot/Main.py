@@ -5,7 +5,7 @@ import logging
 import os.path
 from os import path
 
-def main():
+def Main():
     # Gets or creates a logger
     logger = logging.getLogger(__name__)
 
@@ -20,20 +20,21 @@ def main():
     # add file handler to logger
     logger.addHandler(LoggingFile)
 
+    logger.info("Started")
     ###########################################
 
     # checks if config file exists
     if path.exists('Config.json') == False:
         print('Config file is missing')
         logger.warning('Config file missing, creating now')
-        ConfigCreate  = open("Config.json", "w+") 
+        open("Config.json", "w+") 
        # writes defualt Config to file
        
     else:
-        logger.info('Main started')
+        logger.info('started')
 
     game = input()
 
 
 if __name__ == "__main__":
-    pass
+    Main()
