@@ -8,6 +8,8 @@ import pyautogui
 import json
 import logging
 import os
+import multiprocessing
+import threading
 
 # this test is used on quaver 
 
@@ -20,10 +22,22 @@ Collum3 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 # L
 Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
 
-sct = mss()
+'''
+TODO:
+make json Config settings
+add multiprocessing / threading
+find a way to check if you are running osu or quiver at start up
+detect 4k or 7k
+global stop / start button
+user interface with TKinter
+executable for mac / windows
+'''
+
 def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
+    sct = mss()
     count = 0
     last_time = time.time()
+    
     ##########################################
     #                                       #       
     #                 Logging               #
@@ -47,9 +61,19 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     # add file handler to logger
     logger.addHandler(LoggingFile)
 
-    logger.info('Bot started')
+    logger.info('started')
     ###########################################
 
+    ##########################################
+    #                                       #       
+    #             JSON Settings             #
+    #                                       #
+    #########################################
+
+
+
+
+    # runs the important stuff
     while True:
         # captures screen
         Collum1Cap = sct.grab(Collum1)
@@ -90,10 +114,10 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         # S                   y   x
         (BGR) = Collum2Array[114,232]
         Collum2BGR = BGR
-        # K                   y   x
+        # # K                   y   x
         (BGR) = Collum3Array[114,232]
         Collum3BGR = BGR
-        # L                   y   x
+        # # L                   y   x
         (BGR) = Collum4Array[114,232]
         Collum4BGR = BGR
 
@@ -110,4 +134,7 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
             
 
 if __name__ == '__main__':
-    TestRun(ImShow=True, Debug=True, Logging=True)
+    # we are using threading until i can figuire out how to share memory between mutiple processes
+    t1 = threading.Thread(target=TestRun(Debug=True))
+    t1.start()
+    t1.join()

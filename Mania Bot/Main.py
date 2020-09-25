@@ -1,16 +1,17 @@
 import json
-import library
+import Bot
 import threading
 import logging
 import os.path
 from os import path
+import multiprocessing
 
 def Main():
     # Gets or creates a logger
     logger = logging.getLogger(__name__)
 
     # set log level  
-    logger.setLevel(logging.WARNING)
+    logger.setLevel(logging.DEBUG)
 
     # define file handler and set formatter
     LoggingFile = logging.FileHandler('app.log')
@@ -20,16 +21,17 @@ def Main():
     # add file handler to logger
     logger.addHandler(LoggingFile)
 
-    logger.info("Started")
     ###########################################
 
     # checks if config file exists
     if path.exists('Config.json') == False:
-        print('Config file is missing')
+        print('Config file is missing, creating now')
         logger.warning('Config file missing, creating now')
-        open("Config.json", "w+") 
+        open("Config.json", "w+")
        # writes defualt Config to file
-       
+
+        logger.info('defualt config writen to file') 
+
     else:
         logger.info('started')
 
