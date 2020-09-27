@@ -35,8 +35,15 @@ def Main():
     else:
         logger.info('started')
 
-    game = input()
+    game = input("Osu or Quaver")
+
+    if game in ("osu", "OSU", "Osu"):
+        if input('4K or 7k') in ("4k", "4K"):
+            Bot.Osu4kRun()
+        else:
+            Bot.Osu7kRun()
 
 
 if __name__ == "__main__":
     Main()
+
