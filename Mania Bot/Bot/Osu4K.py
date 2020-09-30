@@ -4,7 +4,6 @@ from mss import mss
 from PIL import Image
 import matplotlib.pyplot as plt
 import time
-import pyautogui
 import json
 
 bounding_box = {'top': 0, 'left': 0, 'width': 500, 'height': 500}

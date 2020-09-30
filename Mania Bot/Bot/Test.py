@@ -4,7 +4,7 @@ from mss import mss
 from PIL import Image
 import matplotlib.pyplot as plt
 import time
-import pyautogui
+import DirectInput
 import json
 import logging
 import os
@@ -72,24 +72,15 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     # runs the important stuff
     while True:
         # captures screen
-        Collum1Cap = sct.grab(Collum1)
-        # Collum2Cap = sct.grab(Collum2)
-        # Collum3Cap = sct.grab(Collum3)
-        # Collum4Cap = sct.grab(Collum4)
+        ScreenCap = sct.grab(Collum1)
 
         # turns Capture into Numpy array
-        Collum1Array = np.array(Collum1Cap)
-        # Collum2Array = np.array(Collum2Cap)
-        # Collum3Array = np.array(Collum3Cap)
-        # Collum4Array = np.array(Collum4Cap)
+        ScreenCapArray = np.array(ScreenCap)
 
         # checks if Imshow is called in run 
         if ImShow == True:
             # shows screen capture
-            cv2.imshow('collum1', Collum1Array)
-            # cv2.imshow('collum2', Collum2Array)
-            # cv2.imshow('collum3', Collum3Array)
-            # cv2.imshow('collum4', Collum4Array)
+            cv2.imshow('collum1', ScreenCapArray)
             
             if (cv2.waitKey(1) & 0xFF) == ord('q'):
                 logger.info('ImShow has been closed')
@@ -105,39 +96,39 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
 
         # gets the BGR colour from the Cords in the brackets
         # A                   y   x
-        (BGR) = Collum1Array[904,781]
+        (BGR) = ScreenCapArray[904,781]
         Collum1BGR = BGR
-        # # S                   y   x
-        # (BGR) = Collum2Array[114,232]
-        # Collum2BGR = BGR
-        # # # K                 y   x
-        # (BGR) = Collum3Array[114,232]
-        # Collum3BGR = BGR
-        # # # L                 y   x
-        # (BGR) = Collum4Array[114,232]
-        # Collum4BGR = BGR
+        # S                   y   x
+        (BGR) = ScreenCapArray[114,232]
+        Collum2BGR = BGR
+        # # K                 y   x
+        (BGR) = ScreenCapArray[114,232]
+        Collum3BGR = BGR
+        # # L                 y   x
+        (BGR) = ScreenCapArray[114,232]
+        Collum4BGR = BGR
 
         # converts RGB value into a string
         Collum1BGR = str(Collum1BGR)
-        # Collum2BGR = str(Collum2BGR)
-        # Collum3BGR = str(Collum3BGR)
-        # Collum4BGR = str(Collum4BGR)
+        Collum2BGR = str(Collum2BGR)
+        Collum3BGR = str(Collum3BGR)
+        Collum4BGR = str(Collum4BGR)
         ########################################
 
 
-        print(Collum1BGR)
+        # print(Collum1BGR)
 
         if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
-            print('block')
-            pyautogui.keyDown('a')
-            time.sleep(0.5)
-            pyautogui.keyUp('a')
+            # print('block')
+            DirectInput.keyDown('a')
+            DirectInput.keyUp('a')
+            
         # this needs to be at the bottom
         if Debug == True:
-            print('Loop took {} seconds'.format(time.time()-last_time))
+            print('FPS {}'.format(1 / (time.time()-last_time)))
             last_time = time.time()
             
 
 if __name__ == '__main__':
     # we are using threading until i can figuire out how to share memory between mutiple processes
-   TestRun(Debug=False, ImShow=False, Logging=True)
+   TestRun(Debug=True, ImShow=False, Logging=True)

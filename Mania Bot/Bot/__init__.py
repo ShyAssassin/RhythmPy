@@ -5,3 +5,4 @@ from .Quaver7K import Quaver7kRun
 from .Update import UpdateCheck
 from .Test import TestRun
 from .DirectInput import *
+from .Windowcapture import *
