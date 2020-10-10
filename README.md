@@ -22,7 +22,7 @@ i will review the pull request as soon as i can
 
 ## Roadmap
 - [ ] Json settings
-- [ ] Automaatic updates
+- [ ] Automatic updates
 - [ ] User interface 
 - [ ] Choosing game / gamemode without user input
 
