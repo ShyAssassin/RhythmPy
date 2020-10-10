@@ -1,6 +1,7 @@
 import numpy as np
 import win32gui, win32ui, win32con
 from threading import Thread, Lock
+from cv2 import cv2
 
 
 class WindowCapture:
@@ -125,3 +126,29 @@ class WindowCapture:
             self.lock.acquire()
             self.screenshot = screenshot
             self.lock.release()
+
+if __name__ == "__main__":
+    import time
+    Wincap = WindowCapture(None)
+    Wincap.start()
+    last_time = float(time.time())
+    while True:
+        if Wincap.screenshot is None:
+            continue
+        screen = Wincap.screenshot
+        cv2.imshow("Window", screen)
+        # Fps
+        time_taken = time.time() - last_time
+        fps = 1 / time_taken
+        print(fps)
+
+        last_time = float(time.time())
+        # last_time = float(time.time())
+        if cv2.waitKey(1) == ord('q'):
+            Wincap.stop()
+            cv2.destroyAllWindows()
+            exit()
+            break
+            
+        screenbgr = screen[904,781]
+        # print(screenbgr)

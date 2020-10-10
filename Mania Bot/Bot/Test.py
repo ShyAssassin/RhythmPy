@@ -1,6 +1,5 @@
 import numpy as np
 from cv2 import cv2
-from mss import mss
 from PIL import Image
 import matplotlib.pyplot as plt
 import time
@@ -9,6 +8,7 @@ import json
 import logging
 import os
 import threading
+from Windowcapture import WindowCapture
 
 # this test is used on quaver 
 
@@ -33,9 +33,7 @@ executable for mac / windows
 '''
 
 def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
-    sct = mss()
-    count = 0
-    last_time = time.time()
+    last_time = float(time.time())
     
     ##########################################
     #                                       #       
@@ -60,7 +58,7 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     # add file handler to logger
     logger.addHandler(LoggingFile)
 
-    logger.info('started')
+    logger.info('Started')
     ###########################################
 
     ##########################################
@@ -70,20 +68,23 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     #########################################
 
     # runs the important stuff
+    Wincap = WindowCapture('Quaver v0.25.0')
+    Wincap.start()
     while True:
+        # skips first frame to prevent stuff from breaking
+        if Wincap.screenshot is None:
+            continue
         # captures screen
-        ScreenCap = sct.grab(Collum1)
-
-        # turns Capture into Numpy array
-        ScreenCapArray = np.array(ScreenCap)
+        ScreenCap = Wincap.screenshot
 
         # checks if Imshow is called in run 
         if ImShow == True:
             # shows screen capture
-            cv2.imshow('collum1', ScreenCapArray)
+            cv2.imshow('screen', ScreenCap)
             
             if (cv2.waitKey(1) & 0xFF) == ord('q'):
                 logger.info('ImShow has been closed')
+                Wincap.stop()
                 cv2.destroyAllWindows()
                 exit()
                 
@@ -96,16 +97,16 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
 
         # gets the BGR colour from the Cords in the brackets
         # A                   y   x
-        (BGR) = ScreenCapArray[904,781]
+        (BGR) = ScreenCap[904,781]
         Collum1BGR = BGR
         # S                   y   x
-        (BGR) = ScreenCapArray[114,232]
+        (BGR) = ScreenCap[114,232]
         Collum2BGR = BGR
         # # K                 y   x
-        (BGR) = ScreenCapArray[114,232]
+        (BGR) = ScreenCap[114,232]
         Collum3BGR = BGR
         # # L                 y   x
-        (BGR) = ScreenCapArray[114,232]
+        (BGR) = ScreenCap[114,232]
         Collum4BGR = BGR
 
         # converts RGB value into a string
@@ -116,19 +117,27 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         ########################################
 
 
-        # print(Collum1BGR)
+        # print(Collum2BGR)
 
         if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
-            # print('block')
+            print('block')
             DirectInput.keyDown('a')
             DirectInput.keyUp('a')
             
         # this needs to be at the bottom
         if Debug == True:
-            print('FPS {}'.format(1 / (time.time()-last_time)))
-            last_time = time.time()
+            try:
+                time_taken = float(time.time()) - last_time
+                # raises an error if diveded by one sometimes...
+                fps = 1 / time_taken
+                print(round(fps))
+                last_time = float(time.time())
+            except:
+                logger.error('FPS does not like being devided by one')
+                Wincap.stop()
+                cv2.destroyAllWindows()
+                exit()
             
 
 if __name__ == '__main__':
-    # we are using threading until i can figuire out how to share memory between mutiple processes
-   TestRun(Debug=True, ImShow=False, Logging=True)
+   TestRun(Debug=True, ImShow=True, Logging=True)

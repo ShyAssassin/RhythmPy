@@ -1,10 +1,26 @@
 import json
 import Bot
-import threading
 import logging
 import os.path
 from os import path
-import multiprocessing
+
+Defualt_Config = {
+    "Version": "",
+    "Osu4K":{
+        "Window Name": "",
+        "Collum1Pos": "",
+        "Collum2Pos": "",
+        "Collum3Pos": "",
+        "Collum4Pos": ""
+    },
+    "Quaver4K":{
+        "Window Name": "", 
+        "Collum1Pos": "",
+        "Collum2Pos": "",
+        "Collum3Pos": "",
+        "Collum4Pos": ""
+    }
+}
 
 def Main():
     # Gets or creates a logger
@@ -27,9 +43,9 @@ def Main():
     if path.exists('Config.json') == False:
         print('Config file is missing, creating now')
         logger.warning('Config file missing, creating now')
-        open("Config.json", "w+")
-       # writes defualt Config to file
 
+        with open('Config.json', 'w+') as json_file:
+            json.dump(Defualt_Config, json_file, indent=4)
         logger.info('defualt config writen to file') 
 
     else:
@@ -39,9 +55,9 @@ def Main():
 
     if game in ("osu", "OSU", "Osu"):
         if input('4K or 7k') in ("4k", "4K"):
-            Bot.Osu4kRun()
+            pass
         else:
-            Bot.Osu7kRun()
+            pass
 
 
 if __name__ == "__main__":
