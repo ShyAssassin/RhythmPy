@@ -12,3 +12,5 @@ class GameInput:
     def run(self):
         while self.Input in self.Colours:
             keyDown(self.Key)
+            if self.Input not in self.Colours:
+                keyUp(self.Key)
