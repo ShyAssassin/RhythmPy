@@ -3,7 +3,6 @@ import win32gui, win32ui, win32con
 from threading import Thread, Lock
 from cv2 import cv2
 
-
 class WindowCapture:
 
     # threading properties
@@ -130,6 +129,7 @@ class WindowCapture:
 if __name__ == "__main__":
     import time
     Wincap = WindowCapture(None)
+    Wincap.run()
     Wincap.start()
     last_time = float(time.time())
     while True:

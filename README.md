@@ -5,9 +5,9 @@ A simple bot that plays mania for you
 **Mania Bot has been tested to work with python verisons 3.7 or lower.**  
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>
 
-1. Clone the Repo (`git clone https://github.com/assassinsorrow/Mania-Bot.git`)
+1. <a href="https://github.com/assassinsorrow/Mania-Bot/releases">Download the latest release</a> or Clone the Repo (`git clone https://github.com/assassinsorrow/Mania-Bot.git`)
 2. install needed dependencies (`pip install -r requirements.txt`) or run the Setup script
-3. <div> Run Main.py to start the program(`python Main.py`)</div>
+3. Run `Main.py` to start the program (`python Main.py`)
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -21,6 +21,7 @@ Contributions are what make the open source community such an amazing place to b
 i will review the pull request as soon as i can
 
 ## Roadmap
+- [ ] Multi-threading
 - [ ] Json settings
 - [ ] Automatic updates
 - [ ] User interface 

@@ -1,5 +1,5 @@
 import json
-import Bot
+import src
 import logging
 import os.path
 from os import path

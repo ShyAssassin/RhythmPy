@@ -11,7 +11,8 @@ def UpdateCheck():
     # Gets or creates a logger
     logger = logging.getLogger(__name__)
 
-    # set log level
+    # set log level+
+    
     logger.setLevel(logging.DEBUG)
 
     # define file handler and set formatter
@@ -37,7 +38,7 @@ def UpdateCheck():
         if input == 'yes' or 'y' or 'Y' or 'Yes':
             print('downloading update now')
         else:
-            pass
+            pass  
     else:
         pass
 
