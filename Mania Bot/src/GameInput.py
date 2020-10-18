@@ -1,5 +1,11 @@
+import os
+import sys
+
 # pylint throws a fit when i import DirectInput normally
-from .DirectInput import keyDown, keyUp
+PACKAGE_PARENT = '..'
+SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
+import DirectInput
 
 '''
 we need this so we can check rgb values in parallel to other tasks 
@@ -8,13 +14,13 @@ and the only reason i am using oo is because it makes setting keys and colours e
 '''
 
 class GameInput:
-    def __init__(self, Key, Input, Colours):
-        self.Key = Key
+    def __init__(self, key, Input, Colours):
+        self.Key = key
         self.Input = Input
         self.Colours = Colours
 
     def run(self):
         while self.Input in self.Colours:
-            keyDown(self.Key)
+            DirectInput.keyUp(self.Key)
             if self.Input not in self.Colours:
-                keyUp(self.Key)
+                DirectInput.keyDown(self.Key)

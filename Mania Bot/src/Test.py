@@ -6,7 +6,6 @@ import time
 
 from cv2 import cv2
 
-import DirectInput
 import GameInput
 from Windowcapture import WindowCapture
 
@@ -118,10 +117,10 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
 
         # print(Collum2BGR)
 
-        if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
-            print('block')
-            DirectInput.keyDown('a')
-            DirectInput.keyUp('a')
+        # if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
+        #     print('block')
+        #     DirectInput.keyDown('a')
+        #     DirectInput.keyUp('a')
             
         # this needs to be at the bottom
         if Debug == True:
