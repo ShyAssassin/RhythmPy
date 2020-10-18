@@ -1,7 +1,8 @@
 import logging
 import requests
+import json
 
-def UpdateCheck():
+def UpdateCheck(ConfigDir=r''):
     ##########################################
     #                                       #       
     #                 Logging               #
@@ -29,6 +30,14 @@ def UpdateCheck():
     # using a random repo for now NEEDS TO BE CHANGED BEFORE REALESE 
     response = requests.get("https://api.github.com/repos/v2ray/v2ray-core/releases/latest")
     print(response.json()["name"])
+
+    config = json.load(ConfigDir)
+
+    config = config['Version']
+    if response > config:
+        Update = True
+    else:
+        Update = False
 
     if Update is None:
         logger.error('Cant connect to github')

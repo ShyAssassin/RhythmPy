@@ -1,8 +1,12 @@
 # pylint throws a fit when i import DirectInput normally
 from .DirectInput import keyDown, keyUp
 
-# we need this so we can check rgb values in parallel to other tasks 
-# and im to scared to edit the DirectInput code to add this feature so we do it here
+'''
+we need this so we can check rgb values in parallel to other tasks 
+and im to scared to edit the DirectInput code to add this feature so we do it here
+and the only reason i am using oo is because it makes setting keys and colours easier and more efficient 
+'''
+
 class GameInput:
     def __init__(self, Key, Input, Colours):
         self.Key = Key

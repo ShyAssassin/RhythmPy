@@ -21,11 +21,11 @@ Contributions are what make the open source community such an amazing place to b
 i will review the pull request as soon as i can
 
 ## Roadmap
+- [x] Choosing game / gamemode without user input
 - [ ] Multi-threading
 - [ ] Json settings
 - [ ] Automatic updates
 - [ ] User interface 
-- [ ] Choosing game / gamemode without user input
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       

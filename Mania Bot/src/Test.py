@@ -1,12 +1,15 @@
-from cv2 import cv2
-import time
-import DirectInput
 import json
 import logging
 import os
 import threading
-from Windowcapture import WindowCapture
+import time
+
+from cv2 import cv2
+
+import DirectInput
 import GameInput
+from Windowcapture import WindowCapture
+
 # this test is used on quaver
 
 # A
@@ -112,7 +115,6 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         Collum3BGR = str(Collum3BGR)
         Collum4BGR = str(Collum4BGR)
         #######################################
-
 
         # print(Collum2BGR)
 
