@@ -4,6 +4,7 @@ import os.path
 from os import path
 import src
 from src import logger
+import logging
 
 Defualt_Config = {
     "Version": "",
@@ -26,6 +27,10 @@ Defualt_Config = {
 
 class Functions:
 
+    def __init__(self):
+        logger.info(msg='started')
+
+    # If Config File exists
     def ConfigExists(self):
         if path.exists('Config.json') == False:
             print('Config file is missing, creating now...')
@@ -37,26 +42,31 @@ class Functions:
         else:
             pass
 
+    # checks if process is running
     def Process(self):
-    # checks if game is running
-        if(src.ProcessCheck.ProcessRunning('')):
+        if(src.ProcessCheck.ProcessRunning('Osu')):
             Game = 'Osu'
-        elif(src.ProcessCheck.ProcessRunning('')):
+            return Game
+        elif(src.ProcessCheck.ProcessRunning('Quaver')):
             Game = 'Qauver'
+            return Game
         else:
-            print('cant find the running Process\n Please select it manualy\n Osu or Quaver')
-            if input == 'Osu':
+            print(' cant find the running Process\n Please select it manualy\n Osu or Quaver ')
+            GameInput = input()
+            if GameInput in ('Osu', 'OSU', 'osu'):
                 Game = 'Osu'
+                return Game
+            elif GameInput in ('Quaver', 'QUAVER' 'quaver'):
+                Game = 'Quaver'
+                return Game
             else:
-                Game == 'Quaver'
-        return Game
+                logger.critical('what the actual fuck')
 
 
 class ui:
 
-    def SettingsUI(self):
+    def GameSelect(self):
         pass
-
 
 class Main():
 
@@ -65,6 +75,5 @@ class Main():
 
     
 if __name__ == "__main__":
-    Main = Main()
-    Main.Run()
-
+    test = Functions().Process()
+    print(test)
