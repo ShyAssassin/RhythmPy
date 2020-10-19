@@ -1,1 +1,1 @@
-from .ui import *
+from .Settings import *

@@ -1,8 +1,9 @@
 import json
 import src
-import logging
 import os.path
 from os import path
+import src
+from src import logger
 
 Defualt_Config = {
     "Version": "",
@@ -22,44 +23,48 @@ Defualt_Config = {
     }
 }
 
-def Main():
-    # Gets or creates a logger
-    logger = logging.getLogger(__name__)
 
-    # set log level  
-    logger.setLevel(logging.DEBUG)
+class Functions:
 
-    # define file handler and set formatter
-    LoggingFile = logging.FileHandler('app.log')
-    formatter = logging.Formatter('%(name)s || %(asctime)s :: %(levelname)s :: %(message)s')
-    LoggingFile.setFormatter(formatter)
-
-    # add file handler to logger
-    logger.addHandler(LoggingFile)
-
-    ###########################################
-
-    # checks if config file exists
-    if path.exists('Config.json') == False:
-        print('Config file is missing, creating now')
-        logger.warning('Config file missing, creating now')
-
-        with open('Config.json', 'w+') as json_file:
-            json.dump(Defualt_Config, json_file, indent=4)
-        logger.info('defualt config writen to file') 
-
-    else:
-        logger.info('started')
-
-    game = input("Osu or Quaver")
-
-    if game in ("osu", "OSU", "Osu"):
-        if input('4K or 7k') in ("4k", "4K"):
-            pass
+    def ConfigExists(self):
+        if path.exists('Config.json') == False:
+            print('Config file is missing, creating now...')
+            logger.warning('Config file missing, creating now')
+            # writes config to file
+            with open('Config.json', 'w+') as json_file:
+                json.dump(Defualt_Config, json_file, indent=4)
+                logger.info('defualt config writen to file')
         else:
             pass
 
+    def Process(self):
+    # checks if game is running
+        if(src.ProcessCheck.ProcessRunning('')):
+            Game = 'Osu'
+        elif(src.ProcessCheck.ProcessRunning('')):
+            Game = 'Qauver'
+        else:
+            print('cant find the running Process\n Please select it manualy\n Osu or Quaver')
+            if input == 'Osu':
+                Game = 'Osu'
+            else:
+                Game == 'Quaver'
+        return Game
 
+
+class ui:
+
+    def SettingsUI(self):
+        pass
+
+
+class Main():
+
+    def Run(self):
+        pass
+
+    
 if __name__ == "__main__":
-    Main()
+    Main = Main()
+    Main.Run()
 

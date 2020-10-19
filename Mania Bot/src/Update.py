@@ -1,30 +1,9 @@
 import logging
 import requests
 import json
+from .Logger import logger
 
 def UpdateCheck(ConfigDir=r''):
-    ##########################################
-    #                                       #       
-    #                 Logging               #
-    #                                       #
-    #########################################
-
-    # Gets or creates a logger
-    logger = logging.getLogger(__name__)
-
-    # set log level+
-    
-    logger.setLevel(logging.DEBUG)
-
-    # define file handler and set formatter
-    LoggingFile = logging.FileHandler('app.log')
-    formatter = logging.Formatter('%(name)s || %(asctime)s :: %(levelname)s :: %(message)s')
-    LoggingFile.setFormatter(formatter)
-
-    # add file handler to logger
-    logger.addHandler(LoggingFile)
-
-    ###########################################
 
     # it will be jank but i am going to load version values from the config.json file
     # using a random repo for now NEEDS TO BE CHANGED BEFORE REALESE 
