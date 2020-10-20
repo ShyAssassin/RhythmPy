@@ -1,3 +1,1 @@
-from .ProcessCheck import ProcessRunning
-from .ui import *
-from .Logger import logger
+from .__main__ import Main

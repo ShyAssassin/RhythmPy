@@ -5,7 +5,7 @@ import time
 this will be used to check if the game is running
 '''
 
-def ProcessRunning(processName):
+def IsProcessRunning(processName):
     '''
     Check if there is any running process that contains the given name processName.
     '''
@@ -42,7 +42,7 @@ def main():
     print("*** Check if a process is running or not ***")
 
     # Check if any process are running or not.
-    if ProcessRunning('opera'):
+    if IsProcessRunning('opera'):
         print('Yes a this process was running')
     else:
         print('No chrome process was running')
