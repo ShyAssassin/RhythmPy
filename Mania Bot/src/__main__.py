@@ -1,8 +1,14 @@
 import json
 import os.path
 from os import path
-from .Logger import logger
-from .ProcessCheck import IsProcessRunning
+# IDK why the hell the import does not work sometimes 
+# this is a hippy solution
+try:
+    from .Logger import logger
+    from .ProcessCheck import IsProcessRunning
+except:
+    from Logger import logger
+    from ProcessCheck import IsProcessRunning
 
 Defualt_Config = {
     "Version": "",
