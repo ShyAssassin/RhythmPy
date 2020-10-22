@@ -5,7 +5,10 @@ import sys
 PACKAGE_PARENT = '..'
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
 sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
-import DirectInput
+try:
+    from DirectInput import keyDown, keyUp
+except:
+    from .DirectInput import keyDown, keyUp
 
 '''
 we need this so we can check rgb values in parallel to other tasks 
@@ -21,6 +24,6 @@ class GameInput:
 
     def run(self):
         while self.Input in self.Colours:
-            DirectInput.keyUp(self.Key)
+            keyUp(self.Key)
             if self.Input not in self.Colours:
-                DirectInput.keyDown(self.Key)
+                keyDown(self.Key)

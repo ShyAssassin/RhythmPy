@@ -66,18 +66,12 @@ class Functions:
             else:
                 logger.critical('what the actual fuck')
 
-
-class ui:
-
-    def GameSelect(self):
-        pass
-
 class Main():
 
     def Run(self):
-        pass
+        Functions().Process()
+        Functions().ConfigExists()
 
     
 if __name__ == "__main__":
-    test = Functions().Process()
-    print(test)
+    Main().Run()

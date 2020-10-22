@@ -6,8 +6,13 @@ import time
 
 from cv2 import cv2
 
-import GameInput
-from Windowcapture import WindowCapture
+# more retarded imports
+try:
+    from .Modules import GameInput
+    from .Modules import Windowcapture
+except:
+    from Modules import GameInput
+    from Modules import Windowcapture
 
 # this test is used on quaver
 
@@ -67,7 +72,7 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
     #########################################
 
     # runs the important stuff
-    Wincap = WindowCapture(None)
+    Wincap = Windowcapture.WindowCapture(None)
     Wincap.start()
     last_time = float(time.time())
     while True:
