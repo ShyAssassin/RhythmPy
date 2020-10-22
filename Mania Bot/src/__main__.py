@@ -2,13 +2,13 @@ import json
 import os.path
 from os import path
 # IDK why the hell the import does not work sometimes 
-# this is a hippy solution
+# RETARDED
 try:
-    from .Logger import logger
-    from .ProcessCheck import IsProcessRunning
+    from Modules import IsProcessRunning
+    from Modules import logger
 except:
-    from Logger import logger
-    from ProcessCheck import IsProcessRunning
+    from .Modules import IsProcessRunning
+    from .Modules import logger
 
 Defualt_Config = {
     "Version": "",
