@@ -75,12 +75,6 @@ class run:
         app = Application(master=root)
         app.mainloop()
 
-
-'''
-        tk.Button(self.master, text='%', font=BUTTON_FONT, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, bg='#444444', fg='#fffafa',
-                  padx=BUTTON_PADX, pady=BUTTON_PADY, relief=BUTTON_STYLE, command=lambda: self.input('%')).grid(row=1, column=0)
-'''
-
 if __name__ == "__main__":
     run()
 
