@@ -1,5 +1,6 @@
 import json
 
 class Config:
-    def test(self):
+
+    def __init__(self):
         pass
