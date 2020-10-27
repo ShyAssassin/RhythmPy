@@ -25,7 +25,7 @@ BUTTON_HEIGHT = 2
 BUTTON_STYLE = "flat" # flat, groove, raised, ridge, solid, sunken
 
 class Application(tk.Frame):
-    def __init__(self, master=None):
+    def run(self, master=None):
         super().__init__(master)
         self.master.geometry('500x650')
         self.master.title(u'Mania Bot')
@@ -38,12 +38,19 @@ class Application(tk.Frame):
             justify='right',
             relief="flat"
             )
-
-        self.menu_bar = tk.Menu(self.master)
-        self.master.config(menu=self.menu_bar)
-
-
         self.create_widgets()
+
+    # used for moving window when overidedirect() is active
+    def SaveLastClickPos(self, event):
+        global lastClickX, lastClickY
+        lastClickX = event.x
+        lastClickY = event.y
+
+
+    def Dragging(self, event):
+        x, y = event.x - lastClickX + self.master.winfo_x(), event.y - lastClickY + self.master.winfo_y()
+        self.master.geometry("+%s+%s" % (x , y))
+    #=======================================================================================
 
     '''
     Button Example:
@@ -55,10 +62,6 @@ class Application(tk.Frame):
         Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
     '''
     def create_widgets(self):
-        # menu_bar
-        self.menu_bar.add_cascade(label='Options')
-        #====================================================================================
-
         #Widgets
         self.Icon = ResizeImage(100, 100, "UI-Media\icon-gear.png")
         self.Icon = ImageTk.PhotoImage(self.Icon)
@@ -70,9 +73,12 @@ class run:
         root = tk.Tk()
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
-        root.attributes("-alpha",0.945)
+        root.attributes("-alpha",0.96)
         ttk.Style().configure("TP.TFrame", background="snow")
-        app = Application(master=root)
+        root.bind('<Button-1>', Application().SaveLastClickPos)
+        root.bind('<B1-Motion>', Application().Dragging)
+        app = Application()
+        app.run()
         app.mainloop()
 
 if __name__ == "__main__":
