@@ -1,9 +1,5 @@
-import tkinter
+try:
+    from tkinter import Entry
+except ImportError:
+    from Tkinter import Entry
 
-class ui:
-    
-    def __init__(self):
-        pass
-
-    def Settings_Run(self):
-        pass
