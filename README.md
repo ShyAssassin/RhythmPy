@@ -1,5 +1,6 @@
 # Mania Bot
 A simple bot that plays mania for you
+im still working on this btw :p
 
 ## Supported Games
 - [x] Quaver
