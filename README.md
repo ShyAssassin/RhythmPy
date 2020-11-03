@@ -1,5 +1,6 @@
 # Mania Bot
 A simple bot that plays mania for you
+im still working on this btw :p
 
 ## Installation
 **Mania Bot has been tested to work with python verisons 3.7 or lower.**  
