@@ -1,6 +1,10 @@
 # Mania Bot
 A simple bot that plays mania for you
 
+## Supported Games
+- [x] Quaver
+- [ ] Osu
+
 ## Installation
 **Mania Bot has been tested to work with python verisons 3.7 or lower.**  
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>

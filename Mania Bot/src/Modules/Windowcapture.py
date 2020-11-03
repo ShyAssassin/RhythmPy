@@ -148,7 +148,6 @@ if __name__ == "__main__":
             Wincap.stop()
             cv2.destroyAllWindows()
             exit()
-            break
-            
+            break       
         screenbgr = screen[904,781]
         # print(screenbgr)

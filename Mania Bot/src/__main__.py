@@ -7,13 +7,17 @@ except ImportError:
 
 from PIL import Image, ImageTk
 from os import path
+import os
+import sys
 import json
 
 # more retarded
 try:
     from .Modules import ResizeImage, logger, IsProcessRunning
+    from .Settings import Settings
 except ImportError:
     from Modules import ResizeImage, logger, IsProcessRunning
+    from Settings import Settings
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -45,9 +49,13 @@ Defualt_Config = {
     }
 }
 
+# stuff that is needed to run
 class Functions:
     def __init__(self):
         logger.info(msg='started')
+        PACKAGE_PARENT = '..'
+        SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
+        sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
     # If Config File exists
     def ConfigExists(self):
@@ -77,8 +85,11 @@ class Functions:
             else:
                 logger.critical('what the actual fuck')
 
+# ============================================================================================================
+
+# this creates the ui elements
 class Application(tk.Frame):
-    def run(self, master=None):
+    def Run(self, master=None):
         super().__init__(master)
         self.master.geometry('500x650')
         self.master.title(u'Mania Bot')
@@ -91,7 +102,7 @@ class Application(tk.Frame):
             justify='right',
             relief="flat"
             )
-        self.create_widgets()
+        self.Create_Widgets()
 
     # stop start command for the button :p
     def Start_Stop(self):
@@ -127,7 +138,7 @@ class Application(tk.Frame):
         self.Image = ImageTk.PhotoImage(self.Image)
         Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
     '''
-    def create_widgets(self):
+    def Create_Widgets(self):
         #Widgets
         # Settings Button
         self.SettingsIcon = ResizeImage(80, 80, "UI-Media\icon-gear.png")
@@ -141,7 +152,8 @@ class Application(tk.Frame):
             padx = BUTTON_PADX, 
             pady = BUTTON_PADY, 
             borderwidth = 0,
-            activebackground = '#363535'
+            activebackground = '#363535',
+            command=lambda: Settings()
         )
         self.SettingsBTN.place(x=418, y=568)
 
@@ -156,10 +168,10 @@ class Application(tk.Frame):
         relief = BUTTON_STYLE,
         command = self.Start_Stop
         )
-        self.Start_StopBTN.pack()
+        self.Start_StopBTN.place(x=200, y=250)
         #=====================================================================================
 
-class run:
+class Run:
     def __init__(self):
         root = tk.Tk()
         root.config(bg='#333333')
@@ -170,10 +182,10 @@ class run:
         root.bind('<B1-Motion>', Application().Dragging)
         # root.overrideredirect(1)
         app = Application()
-        app.run()
+        app.Run()
         app.mainloop()
 
 if __name__ == "__main__":
-    run()
+    Run()
 
 
