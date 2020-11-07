@@ -32,7 +32,7 @@ BUTTON_HEIGHT = 2
 BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 
 Defualt_Config = {
-    "Version": "",
+    "Version": "1",
     "Osu4K":{
         "Window Name": "",
         "Collum1Pos": "",
@@ -84,7 +84,6 @@ class Functions:
                 Game = 'Quaver'
             else:
                 logger.critical('what the actual fuck')
-
 # ============================================================================================================
 
 # this creates the ui elements
@@ -117,18 +116,16 @@ class Application(tk.Frame):
             # sets text once stopped
             self.Start_StopBTN.configure(text='START')
 
-    # used for moving window when overidedirect() is active
+    # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
         global lastClickX, lastClickY
         lastClickX = event.x
         lastClickY = event.y
 
-
     def Dragging(self, event):
         x, y = event.x - lastClickX + self.master.winfo_x(), event.y - lastClickY + self.master.winfo_y()
         self.master.geometry("+%s+%s" % (x , y))
-    #=======================================================================================
-    
+
     '''
     Button Example:
         Button(self.master, text='TEXT', font=BUTTON_FONT, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, bg='#444444', fg='#fffafa',
@@ -141,7 +138,7 @@ class Application(tk.Frame):
     def Create_Widgets(self):
         #Widgets
         # Settings Button
-        self.SettingsIcon = ResizeImage(80, 80, "UI-Media\icon-gear.png")
+        self.SettingsIcon = ResizeImage(80, 80, r"src\UI-Media\icon-gear.png")
         self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
         self.SettingsBTN = Button(
             self.master,
@@ -173,6 +170,7 @@ class Application(tk.Frame):
 
 class Run:
     def __init__(self):
+        Functions().ConfigExists()
         root = tk.Tk()
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
@@ -187,5 +185,3 @@ class Run:
 
 if __name__ == "__main__":
     Run()
-
-
