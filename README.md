@@ -11,7 +11,7 @@ im still working on this btw :p
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>
 
 1. <a href="https://github.com/assassinsorrow/Mania-Bot/releases">Download the latest release</a> or Clone the Repo (`git clone https://github.com/assassinsorrow/Mania-Bot.git`)
-2. install needed dependencies (`pip install -r requirements.txt`) or run the Setup script
+2. run the `Setup.py` script to install needed dependencies or install manually with (`pip install -r requirements.txt`)
 3. Run `Main.py` to start the program (`python Main.py`)
 
 ## Contributing
@@ -27,8 +27,8 @@ i will review the pull request as soon as i can
 
 ## Roadmap
 - [x] Choosing game / gamemode without user input
-- [ ] Multi-threading
-- [ ] Json settings
+- [x] Multi-threading
+- [x] Json settings
 - [ ] Automatic updates
 - [ ] User interface 
 
