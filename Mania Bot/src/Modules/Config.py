@@ -5,14 +5,20 @@ class ConfigRead:
     def __init__(self):
         global ConfigR
         try:
-            Configdir = 'Config.json'
-            ConfigOpen = open(Configdir, "r")
-            ConfigR = json.loads(ConfigOpen.read())
+            self.Configdir = 'Config.json'
+            self.ConfigOpen = open(self.Configdir, "r")
+            ConfigR = json.loads(self.ConfigOpen.read())
         except:
             print('you should probably cry')
 
+    def Debug(self):
+        Debug = ConfigR["Debug"]
+        return Debug
+
+
     def Version(self):
-        print(ConfigR["Version"])
+        Version = ConfigR["Version"]
+        return Version
 
     # Osu4K config
     class Osu4K:
@@ -76,12 +82,18 @@ class ConfigRead:
 class ConfigWrite:
     def __init__(self):
         global ConfigW
+        global Configdir
         try:
             Configdir = 'Config.json'
-            ConfigOpen = open(Configdir, "r")
-            ConfigW = json.loads(ConfigOpen.read())
+            self.ConfigOpen = open(Configdir, "r")
+            ConfigW = json.loads(self.ConfigOpen.read())
         except:
-            print('if this dont work something is very wrong')
+            print('cant find file')
+
+    def Debug(self, Value):
+        ConfigW["Debug"] = Value
+        with open(Configdir, "w") as file:
+            json.dump(ConfigW, file, indent=4)
 
     class Osu4K:
         def __init__(self):
@@ -90,7 +102,7 @@ class ConfigWrite:
     class Quaver4K:
         def __init__(self):
             self.Config = ConfigW["Quaver4K"]
+
 # =======================================================================
 
-
-print(ConfigRead().Osu4K().WindowName())
+ConfigWrite().Debug("kill me")

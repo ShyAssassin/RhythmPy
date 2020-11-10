@@ -1,9 +1,9 @@
 try:
     import tkinter as tk
-    from tkinter import ttk, Button, PhotoImage, Label
+    from tkinter import ttk, Button, PhotoImage, Label, messagebox
 except ImportError:
     import Tkinter as tk
-    from Tkinter import ttk, Button, PhotoImage, Label
+    from Tkinter import ttk, Button, PhotoImage, Label, messagebox
 
 from PIL import Image, ImageTk
 from os import path
@@ -33,6 +33,7 @@ BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 
 Defualt_Config = {
     "Version": "1",
+    "Debug": "True",
     "Osu4K":{
         "Window Name": "",
         "Collum1Pos": "",
@@ -67,6 +68,27 @@ class Functions:
                 json.dump(Defualt_Config, json_file, indent=4)
                 logger.info('defualt config writen to file')
 
+    # used to close application globally
+    def CloseGlobal(self, master):
+        self.root = master
+        if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            self.root.destroy()
+            print('Quiting!')
+            exit()
+
+    # used to set game during run time
+    def SetGame(self, game, master):
+        global Game
+        Game = game
+        # used for closing window if there is one
+        self.SetGameMaster = master
+        if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
+            pass
+        else:
+            # does not need to close gloabal for this one
+            # just the current window
+            self.SetGameMaster.destroy()
+        
     # checks if process is running
     def Process(self):
         # using global to stop me from having a mental break down dealing with retuns
@@ -76,15 +98,62 @@ class Functions:
         elif(IsProcessRunning('Quaver')):
             Game = 'Qauver'
         else:
-            print(' cant find the running Process\n Please select it manually\n Osu or Quaver ')
-            GameInput = input()
-            if GameInput in ('Osu', 'OSU', 'osu'):
-                Game = 'Osu'
-            elif GameInput in ('Quaver', 'QUAVER' 'quaver'):
-                Game = 'Quaver'
-            else:
-                logger.critical('what the actual fuck')
-# ============================================================================================================
+            print('cant find the running Process\nPlease select it manually')
+
+            # just adding a UI for selecting mode
+            self.masters = tk.Tk()
+            canvas = tk.Canvas(self.masters)
+            self.masters.geometry('400x550')
+            self.masters.title(u'Select Game!')
+
+            # creates widgets
+            Label(
+                self.masters,
+                font = BUTTON_FONT_BOLD,
+                bg = '#333333',
+                fg = '#fffafa',
+                text='Could not a find running game!').pack()
+
+            Label(
+                self.masters,
+                font = BUTTON_FONT_BOLD,
+                bg = '#333333',
+                fg = '#fffafa',
+                text='Please select a game manually!').place(x=63, y=185)
+
+            self.OsuBTN = Button(
+                self.masters, 
+                text = 'Osu', 
+                font = BUTTON_FONT_BOLD, 
+                width = BUTTON_WIDTH, 
+                height = BUTTON_HEIGHT, 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                relief = BUTTON_STYLE
+                )
+            self.OsuBTN.place(x=215, y=225)
+
+            self.QuaverBTN = Button(
+                self.masters, 
+                text = 'Quaver', 
+                font = BUTTON_FONT_BOLD, 
+                width = BUTTON_WIDTH, 
+                height = BUTTON_HEIGHT, 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                relief = BUTTON_STYLE
+                )
+            self.QuaverBTN.place(x=65, y=225)
+
+            self.masters.config(bg='#333333')
+            self.masters.resizable(width=False, height=False)
+            self.masters.attributes("-alpha",0.965)
+            # not sure what this does tbh
+            ttk.Style().configure("TP.TFrame", background="snow")
+            self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
+            # runs window
+            self.masters.mainloop()
+    # ============================================================================================================
 
 # this creates the ui elements
 class Application(tk.Frame):
@@ -92,7 +161,7 @@ class Application(tk.Frame):
         super().__init__(master)
         self.master.geometry('500x650')
         self.master.title(u'Mania Bot')
-
+        # IDK
         self.entry = tk.Entry(
             self.master,
             font=("Yu Gothic UI", 32, "bold"),
@@ -104,7 +173,7 @@ class Application(tk.Frame):
         self.Create_Widgets()
 
     # stop start command for the button :p
-    def Start_Stop(self):
+    def StartStop(self):
         if(self.Start_StopBTN["text"] == 'START'):
             # starts the program
             print('started')
@@ -115,6 +184,8 @@ class Application(tk.Frame):
             print('stopped')
             # sets text once stopped
             self.Start_StopBTN.configure(text='START')
+        else:
+            print('Bruh')
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
@@ -122,6 +193,7 @@ class Application(tk.Frame):
         lastClickX = event.x
         lastClickY = event.y
 
+    # used for moving window when overidedirect(1) is active
     def Dragging(self, event):
         x, y = event.x - lastClickX + self.master.winfo_x(), event.y - lastClickY + self.master.winfo_y()
         self.master.geometry("+%s+%s" % (x , y))
@@ -135,8 +207,9 @@ class Application(tk.Frame):
         self.Image = ImageTk.PhotoImage(self.Image)
         Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
     '''
+
+    #Widgets
     def Create_Widgets(self):
-        #Widgets
         # Settings Button
         self.SettingsIcon = ResizeImage(80, 80, r"src\UI-Media\icon-gear.png")
         self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
@@ -155,7 +228,8 @@ class Application(tk.Frame):
         self.SettingsBTN.place(x=418, y=568)
 
         # Start / Stop Button
-        self.Start_StopBTN = Button(self.master, 
+        self.Start_StopBTN = Button(
+        self.master, 
         text = 'START', 
         font = BUTTON_FONT_BOLD, 
         width = BUTTON_WIDTH, 
@@ -163,19 +237,27 @@ class Application(tk.Frame):
         bg = '#333333', 
         fg = '#fffafa', 
         relief = BUTTON_STYLE,
-        command = self.Start_Stop
+        command = self.StartStop
         )
-        self.Start_StopBTN.place(x=200, y=250)
+        self.Start_StopBTN.place(x=190, y=255)
         #=====================================================================================
 
 class Run:
     def __init__(self):
+        # Config thingy
         Functions().ConfigExists()
+
+        # checks for running Games
+        Functions().Process()
+
+        # Main Window Stuff
         root = tk.Tk()
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
         root.attributes("-alpha",0.965)
         ttk.Style().configure("TP.TFrame", background="snow")
+
+        # binds buttons for draging()
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
         # root.overrideredirect(1)

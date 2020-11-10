@@ -4,6 +4,11 @@ import subprocess
 import sys
 import os
 
+'''
+i honestly do not know how this even runs
+but it does so i am not gonna complain
+'''
+
 class SW(enum.IntEnum):
     HIDE = 0
     MAXIMIZE = 3
