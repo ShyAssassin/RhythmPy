@@ -15,7 +15,6 @@ class ConfigRead:
         Debug = ConfigR["Debug"]
         return Debug
 
-
     def Version(self):
         Version = ConfigR["Version"]
         return Version

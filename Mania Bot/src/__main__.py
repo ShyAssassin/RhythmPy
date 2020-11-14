@@ -10,6 +10,7 @@ from os import path
 import os
 import sys
 import json
+import time
 
 # more retarded
 try:
@@ -50,7 +51,7 @@ Defualt_Config = {
     }
 }
 
-# stuff that is needed to run
+# used for non UI related things
 class Functions:
     def __init__(self):
         logger.info(msg='started')
@@ -70,16 +71,24 @@ class Functions:
 
     # used to close application globally
     def CloseGlobal(self, master):
-        self.root = master
-        if messagebox.askokcancel("Quit", "Do you want to quit?"):
-            self.root.destroy()
-            print('Quiting!')
+        if master == None or master == '':
             exit()
+        else:
+            self.root = master
+            if messagebox.askokcancel("Quit", "Do you want to quit?"):
+                self.root.destroy()
+                print('Quiting!')
+                try:
+                    exit()
+                except:
+                    sys.exit()
 
     # used to set game during run time
-    def SetGame(self, game, master):
+    def SetGame(self, master, game):
         global Game
         Game = game
+        self.Game = game
+        print('changed game to ' + Game)
         # used for closing window if there is one
         self.SetGameMaster = master
         if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
@@ -100,7 +109,7 @@ class Functions:
         else:
             print('cant find the running Process\nPlease select it manually')
 
-            # just adding a UI for selecting mode
+            # just adding a UI for selecting game
             self.masters = tk.Tk()
             canvas = tk.Canvas(self.masters)
             self.masters.geometry('400x550')
@@ -112,14 +121,16 @@ class Functions:
                 font = BUTTON_FONT_BOLD,
                 bg = '#333333',
                 fg = '#fffafa',
-                text='Could not a find running game!').pack()
+                text='Could not a find running game!'
+                ).pack()
 
             Label(
                 self.masters,
                 font = BUTTON_FONT_BOLD,
                 bg = '#333333',
                 fg = '#fffafa',
-                text='Please select a game manually!').place(x=63, y=185)
+                text='Please select a game manually!'
+                ).place(x=63, y=185)
 
             self.OsuBTN = Button(
                 self.masters, 
@@ -129,7 +140,8 @@ class Functions:
                 height = BUTTON_HEIGHT, 
                 bg = '#333333', 
                 fg = '#fffafa', 
-                relief = BUTTON_STYLE
+                relief = BUTTON_STYLE,
+                command=lambda: self.SetGame(self.masters, 'Osu')
                 )
             self.OsuBTN.place(x=215, y=225)
 
@@ -141,7 +153,8 @@ class Functions:
                 height = BUTTON_HEIGHT, 
                 bg = '#333333', 
                 fg = '#fffafa', 
-                relief = BUTTON_STYLE
+                relief = BUTTON_STYLE,
+                command=lambda: self.SetGame(self.masters, 'Quaver')
                 )
             self.QuaverBTN.place(x=65, y=225)
 
@@ -155,9 +168,9 @@ class Functions:
             self.masters.mainloop()
     # ============================================================================================================
 
-# this creates the ui elements
+# used for all UI elements including button functions!
 class Application(tk.Frame):
-    def Run(self, master=None):
+    def __init__(self, master=None):
         super().__init__(master)
         self.master.geometry('500x650')
         self.master.title(u'Mania Bot')
@@ -170,6 +183,7 @@ class Application(tk.Frame):
             justify='right',
             relief="flat"
             )
+        # print(Game)
         self.Create_Widgets()
 
     # stop start command for the button :p
@@ -211,7 +225,10 @@ class Application(tk.Frame):
     #Widgets
     def Create_Widgets(self):
         # Settings Button
-        self.SettingsIcon = ResizeImage(80, 80, r"src\UI-Media\icon-gear.png")
+        try:
+            self.SettingsIcon = ResizeImage(80, 80, r"src\UI-Media\icon-gear.png")
+        except:
+            self.SettingsIcon = ResizeImage(80, 80, r"UI-Media\icon-gear.png")
         self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
         self.SettingsBTN = Button(
             self.master,
@@ -229,15 +246,15 @@ class Application(tk.Frame):
 
         # Start / Stop Button
         self.Start_StopBTN = Button(
-        self.master, 
-        text = 'START', 
-        font = BUTTON_FONT_BOLD, 
-        width = BUTTON_WIDTH, 
-        height = BUTTON_HEIGHT, 
-        bg = '#333333', 
-        fg = '#fffafa', 
-        relief = BUTTON_STYLE,
-        command = self.StartStop
+            self.master, 
+            text = 'START', 
+            font = BUTTON_FONT_BOLD, 
+            width = BUTTON_WIDTH, 
+            height = BUTTON_HEIGHT, 
+            bg = '#333333', 
+            fg = '#fffafa', 
+            relief = BUTTON_STYLE,
+            command = self.StartStop
         )
         self.Start_StopBTN.place(x=190, y=255)
         #=====================================================================================
@@ -247,11 +264,12 @@ class Run:
         # Config thingy
         Functions().ConfigExists()
 
-        # checks for running Games
+        # checks for running Games, needs to be run after config checking
         Functions().Process()
 
         # Main Window Stuff
-        root = tk.Tk()
+        root = tk.Tk()        
+
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
         root.attributes("-alpha",0.965)
@@ -260,9 +278,8 @@ class Run:
         # binds buttons for draging()
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
-        # root.overrideredirect(1)
-        app = Application()
-        app.Run()
+        # root.overrideredirect(1)        
+        app = Application()              
         app.mainloop()
 
 if __name__ == "__main__":

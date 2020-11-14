@@ -20,9 +20,5 @@ class Settings:
     def Create_Widgets(self):
         pass
 
-    def Run(self):
-        self.masters.mainloop()
-
-
 if __name__ == "__main__":
-    Settings().Run()
+    Settings()
