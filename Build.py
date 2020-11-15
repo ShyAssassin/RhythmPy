@@ -96,3 +96,7 @@ def Build():
         print('link to Visual C++ Redistributable download:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
         input()
         exit()
+
+
+if __name__ == "__main__":
+    Build()
