@@ -1,6 +1,7 @@
 import subprocess
 import os
 import sys
+import time
 '''
 used for compiling Mania Bot into a windows exe with pyinstaller
 will work on mac / linux later
@@ -35,7 +36,7 @@ def Build():
     print("Example: " + "Mania-Bot")
     environment = input()
     if environment == None or environment == '' or environment =='no' or environment == 'N' or environment == 'n' or environment == ' ':
-        print('installing to defualt python3')
+        print('using defualt python3')
     else:
         try:
             subprocess.run(['conda', 'activate', environment], check=True, shell=True)
@@ -85,15 +86,29 @@ def Build():
                 exit()
 
     try:
-        with cd('Mania Bot'):
-            subprocess.run(['pyinstaller', '--onedir', '--debug=all', 'main.spec', 'main.py'], shell=True)
-            print('done building')
-            print('if there is no dist folder or the exe does not work make SURE that you have pyinstaller and Visual C++ Redistributable installed')
-            print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
+        print('please give the path of the mania bot dir')
+        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\Mania-Bot\Mania Bot')
+        maniaDIR = input()
+        if environment != None or environment != '' or environment != ' ':
+            with cd(maniaDIR):
+                    subprocess.run(['conda', 'activate', environment, '&&', 'pyinstaller', '--onedir', '--debug=all', 'Main.spec', 'Main.py'], shell=True)
+                    print('done building')
+                    print('if there is no dist folder or the exe does not work make SURE that you have pyinstaller and Visual C++ Redistributable installed')
+                    print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
+                    input()
+                    exit()
+        else:
+            with cd(maniaDIR):
+                subprocess.run(['pyinstaller', '--onedir', '--debug=all', 'Main.spec', 'Main.py'], shell=True)
+                print('done building')
+                print('if there is no dist folder or the exe does not work make SURE that you have pyinstaller and Visual C++ Redistributable installed')
+                print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
+                input()
+                exit()
+                    
     except:
-        print('failed....')
         print('are you sure you have pyinstaller and Visual C++ Redistributable installed?')
-        print('link to Visual C++ Redistributable download:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
+        print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
         input()
         exit()
 

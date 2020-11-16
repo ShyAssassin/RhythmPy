@@ -136,8 +136,16 @@ def main():
 
     # installs the requirements
     try:
-        subprocess.run(["pip3", "install", "-r", "requirements.txt"], shell=True, check=True)
-        print('dependincies have been installed, moving on to pywin32')
+        try:
+            if environment != None or environment != '' or environment != ' ':
+                subprocess.run(['conda', 'activate', environment], check=True, shell=True)
+                subprocess.run(["pip3", "install", "-r", "requirements.txt"], shell=True, check=True)
+                print('dependincies have been installed, moving on to pywin32')
+            else:
+                subprocess.run(["pip3", "install", "-r", "requirements.txt"], shell=True, check=True)
+                print('dependincies have been installed, moving on to pywin32')
+        except subprocess.CalledProcessError:
+            print('something went wrong\n install manually with dependincies manually with\n`pip -r requirements.txt`')
     except subprocess.CalledProcessError:
         print('Could not locate requirements.txt please make sure you are running this script from within the requirements folder\npress ENTER to exit')
         input()
@@ -148,7 +156,7 @@ def main():
         with cd(path):
             subprocess.run(["dir"], shell=True, check=True)
             subprocess.run(["cls"], shell=True)
-            subprocess.run(["python3", "pywin32_postinstall"])
+            subprocess.run(["python3", "pywin32_postinstall"], shell=True)
             print('everything has been installed! you can now close the window')
             input()
             exit()
