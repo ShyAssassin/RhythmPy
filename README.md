@@ -49,9 +49,8 @@ you can use pyinstaller
 5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
 6. Open the executable found in `dist/Main` to run the program              
 
-**After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>
-if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`** 
-
+**After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
+if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
 **if you want to create a installer please use nsis**
 
 ## Disclaimer 
