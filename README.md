@@ -48,8 +48,8 @@ you can use pyinstaller
 4. Fill in needed information <a href="https://github.com/assassinsorrow/Mania-Bot/blob/master/Mania%20Bot/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
 5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
 - After pyinstaller is done there should be two folders `build` and `dist` if they do not appear please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>
-6. Open the exe found in `dist/Main` to run the program 
-*if you want to create a installer please use nsis*
+6. Open the exe found in `dist/Main` to run the program      
+**if you want to create a installer please use nsis**
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       
