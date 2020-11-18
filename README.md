@@ -3,8 +3,14 @@ A simple bot that plays mania for you
 im still working on this btw :p
 
 ## Supported Games
-- [x] Quaver
-- [ ] Osu
+- Quaver
+  - [x] 4K Mania
+  - [ ] 7K Mania
+- Osu
+  - [x] 4K Mania
+  - [ ] 7K Mania
+  - [ ] Osu!
+  
 
 ## Installation
 **Mania Bot has been tested to work with python verisons 3.7 or lower.**  
