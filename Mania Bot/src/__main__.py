@@ -11,13 +11,14 @@ import os
 import sys
 import json
 import time
+import logging
 
 # more retarded
 try:
-    from .Modules import ResizeImage, logger, IsProcessRunning
+    from .Modules import ResizeImage, IsProcessRunning
     from .Settings import Settings
 except ImportError:
-    from Modules import ResizeImage, logger, IsProcessRunning
+    from Modules import ResizeImage, IsProcessRunning
     from Settings import Settings
 
 BUTTON_PADX = 4
@@ -34,7 +35,7 @@ BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 
 Defualt_Config = {
     "Version": "1",
-    "Debug": "True",
+    "Debug": "False",
     "Osu4K":{
         "Window Name": "",
         "Collum1Pos": "",
@@ -50,11 +51,21 @@ Defualt_Config = {
         "Collum4Pos": ""
     }
 }
- 
+
 # used for non UI related things
 class Functions:
     def __init__(self):
-        logger.info(msg='started')
+        # gets logger
+        self.logger = logging.getLogger(__name__)
+        # sets logger level
+        self.logger.setLevel(logging.DEBUG)
+        # define file handler and set formatter
+        self.LoggingFile = logging.FileHandler('app.log')
+        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
+        self.LoggingFile.setFormatter(self.Formatter)
+        # add file handler to logger
+        self.logger.addHandler(self.LoggingFile)
+
         PACKAGE_PARENT = '..'
         SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
         sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
@@ -63,11 +74,11 @@ class Functions:
     def ConfigExists(self):
         if path.exists('Config.json') == False:
             print('Config file is missing, creating now...')
-            logger.warning('Config file missing, creating now')
+            self.logger.warning('Config file missing, creating now')
             # writes config to file
             with open('Config.json', 'w+') as json_file:
                 json.dump(Defualt_Config, json_file, indent=4)
-                logger.info('defualt config writen to file')
+                self.logger.info('defualt config writen to file')
 
     # used to close application globally
     def CloseGlobal(self, master):
@@ -172,6 +183,16 @@ class Functions:
 class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
+        
+        self.logger = logging.getLogger(__name__)
+        self.logger.setLevel(logging.DEBUG)
+        # define file handler and set formatter
+        self.LoggingFile = logging.FileHandler('app.log')
+        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
+        self.LoggingFile.setFormatter(self.Formatter)
+        # add file handler to logger
+        self.logger.addHandler(self.LoggingFile)
+
         self.master.geometry('500x650')
         self.master.title(u'Mania Bot')
         # IDK
@@ -275,9 +296,11 @@ class Run:
         root.attributes("-alpha",0.965)
         ttk.Style().configure("TP.TFrame", background="snow")
 
-        # binds buttons for draging()
+        # binds
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
+        root.protocol("WM_DELETE_WINDOW", lambda: Functions().CloseGlobal(root))
+
         # root.overrideredirect(1)        
         app = Application()              
         app.mainloop()
