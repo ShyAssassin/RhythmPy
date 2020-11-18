@@ -47,8 +47,10 @@ you can use pyinstaller
 3. Create a Main.spec file `pyi-makespec Main.py`
 4. Fill in needed information <a href="https://github.com/assassinsorrow/Mania-Bot/blob/master/Mania%20Bot/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
 5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
-- After pyinstaller is done there should be two folders `build` and `dist` if they do not appear please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>
-6. Open the exe found in `dist/Main` to run the program      
+6. Open the executable found in `dist/Main` to run the program                                                        
+After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>
+if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main` 
+
 **if you want to create a installer please use nsis**
 
 ## Disclaimer 
