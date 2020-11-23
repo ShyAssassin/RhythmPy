@@ -12,13 +12,14 @@ import sys
 import json
 import time
 import logging
+import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture
     from .Settings import Settings
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture
     from Settings import Settings
 
 BUTTON_PADX = 4
@@ -70,46 +71,11 @@ class Functions:
         SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
         sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
 
-    # If Config File exists
-    def ConfigExists(self):
-        if path.exists('Config.json') == False:
-            print('Config file is missing, creating now...')
-            self.logger.warning('Config file missing, creating now')
-            # writes config to file
-            with open('Config.json', 'w+') as json_file:
-                json.dump(Defualt_Config, json_file, indent=4)
-                self.logger.info('defualt config writen to file')
-
-    # used to close application globally
-    def CloseGlobal(self, master):
-        if master == None or master == '':
-            exit()
-        else:
-            self.root = master
-            if messagebox.askokcancel("Quit", "Do you want to quit?"):
-                self.root.destroy()
-                print('Quiting!')
-                try:
-                    exit()
-                except:
-                    sys.exit()
-
-    # used to set game during run time
-    def SetGame(self, master, game):
-        global Game
-        Game = game
-        self.Game = game
-        print('changed game to ' + Game)
-        # used for closing window if there is one
-        self.SetGameMaster = master
-        if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
-            pass
-        else:
-            # does not need to close gloabal for this one
-            # just the current window
-            self.SetGameMaster.destroy()
-        
-    # checks if process is running
+    '''
+    imma be honest 
+    you need to close the bellow functions so it dont look like shit
+    '''
+    # checks if process is running and selecting game with UI      
     def Process(self):
         # using global to stop me from having a mental break down dealing with retuns
         global Game
@@ -177,7 +143,126 @@ class Functions:
             self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
             # runs window
             self.masters.mainloop()
-    # ============================================================================================================
+        # ====================================================================================================================
+
+    # change game during runtime with UI            
+    def ChangeGame(self):
+            # just adding a UI for selecting game
+            self.masters = tk.Tk()
+            canvas = tk.Canvas(self.masters)
+            self.masters.geometry('400x550')
+            self.masters.title(u'Select Game!')
+
+            # creates widgets
+            Label(
+                self.masters,
+                font = BUTTON_FONT_BOLD,
+                bg = '#333333',
+                fg = '#fffafa',
+                text='Please select a game!'
+                ).place(x=63, y=185)
+
+            self.OsuBTN = Button(
+                self.masters, 
+                text = 'Osu', 
+                font = BUTTON_FONT_BOLD, 
+                width = BUTTON_WIDTH, 
+                height = BUTTON_HEIGHT, 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                relief = BUTTON_STYLE,
+                command=lambda: self.SetGame(self.masters, 'Osu')
+                )
+            self.OsuBTN.place(x=215, y=225)
+
+            self.QuaverBTN = Button(
+                self.masters, 
+                text = 'Quaver', 
+                font = BUTTON_FONT_BOLD, 
+                width = BUTTON_WIDTH, 
+                height = BUTTON_HEIGHT, 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                relief = BUTTON_STYLE,
+                command=lambda: self.SetGame(self.masters, 'Quaver')
+                )
+            self.QuaverBTN.place(x=65, y=225)
+
+            self.masters.config(bg='#333333')
+            self.masters.resizable(width=False, height=False)
+            self.masters.attributes("-alpha",0.965)
+            # not sure what this does tbh
+            ttk.Style().configure("TP.TFrame", background="snow")
+            self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
+            # runs window
+            self.masters.mainloop()
+        # ====================================================================================================================
+
+    # used to close application globally
+    def CloseGlobal(self, master):
+        if master == None or master == '':
+            exit()
+        else:
+            self.root = master
+            if messagebox.askokcancel("Quit", "Do you want to quit?"):
+                self.root.destroy()
+                print('Quiting!')
+                try:
+                    exit()
+                except:
+                    sys.exit()
+
+    # used to set game during run time
+    def SetGame(self, master, game):
+        global Game
+        Game = game
+        self.Game = game
+        print('changed game to ' + Game)
+        # used for closing window if there is one
+        self.SetGameMaster = master
+        if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
+            pass
+        else:
+            # does not need to close gloabal for this one
+            # just the current window
+            self.SetGameMaster.destroy()
+        
+
+    # If Config File exists
+    def ConfigExists(self):
+        if path.exists('Config.json') == False:
+            print('Config file is missing, creating now...')
+            self.logger.warning('Config file missing, creating now')
+            # writes config to file
+            with open('Config.json', 'w+') as json_file:
+                json.dump(Defualt_Config, json_file, indent=4)
+                self.logger.info('defualt config writen to file')
+# ============================================================================================================
+
+class Bot:
+    def __init__(self, Game, Running):
+        self.Running = Running
+        self.Game = Game
+
+    def ManiaStart(self):
+        if Game == 'Osu':
+            # loads Config file
+            pass
+        elif Game == 'Quaver':
+            # loads config file
+            pass
+        Wincap = WindowCapture(None)
+        Wincap.start()
+        while self.Running == True:
+            if Wincap.screenshot is None:
+                continue
+            # used for stopping the stuff
+            if Running == False:
+                Wincap.stop()
+                break
+
+            ScreenCap = Wincap.screenshot
+# ============================================================================================================
 
 # used for all UI elements including button functions!
 class Application(tk.Frame):
@@ -206,21 +291,47 @@ class Application(tk.Frame):
             )
         # print(Game)
         self.Create_Widgets()
+        # ===========================================================================================================
 
     # stop start command for the button :p
     def StartStop(self):
+        '''
+        i am using threads because if i dont it will break tkinter's main loop
+        and the UI and become unresponsive
+        '''
+        global Running
         if(self.Start_StopBTN["text"] == 'START'):
-            # starts the program
+            Running = True
+            # give current game and if it is running
+            bot = Bot(Game, Running)
+            # will be used when i decide to add a way to change gamemode
+            # also for osu base game support
+            if Game == 'Osu':
+                # runs Osu version            
+                self.t1 = threading.Thread(target=bot.ManiaStart)
+                self.t1.start()
+            elif Game == 'Quaver':
+                # runs the Quaver version           
+                self.t1 = threading.Thread(target=bot.ManiaStart)
+                self.t1.start()
+
             print('started')
             # sets text to once started
             self.Start_StopBTN.configure(text="STOP")
         elif(self.Start_StopBTN["text"] == 'STOP'):
             # stops program
+            Running = False
+            self.t1.join()
             print('stopped')
             # sets text once stopped
             self.Start_StopBTN.configure(text='START')
         else:
             print('Bruh')
+        # ===========================================================================================================
+
+    # will be used Gamemode
+    def GameMode(self):
+        pass
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
@@ -278,7 +389,8 @@ class Application(tk.Frame):
             command = self.StartStop
         )
         self.Start_StopBTN.place(x=190, y=255)
-        #=====================================================================================
+    # ========================================================================================================
+# ============================================================================================================
 
 class Run:
     def __init__(self):
@@ -290,20 +402,18 @@ class Run:
 
         # Main Window Stuff
         root = tk.Tk()        
-
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
         root.attributes("-alpha",0.965)
         ttk.Style().configure("TP.TFrame", background="snow")
-
         # binds
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
         root.protocol("WM_DELETE_WINDOW", lambda: Functions().CloseGlobal(root))
-
         # root.overrideredirect(1)        
         app = Application()              
         app.mainloop()
+# ============================================================================================================
 
 if __name__ == "__main__":
     Run()
