@@ -1,6 +1,7 @@
 # Mania Bot
 A simple bot that plays mania for you
-im still working on this btw :p
+im still working on this btw :p       
+<a href="https://trello.com/b/IkrtUXl8/mania-bot">Click here for the roadmap and planned features</a>
 
 ## Supported Games
 - Quaver
@@ -30,13 +31,6 @@ Contributions are what make the open source community such an amazing place to b
 5. Open a Pull Request
 
 i will review the pull request as soon as i can
-
-## Roadmap
-- [x] Choosing game / gamemode without user input
-- [x] Multi-threading
-- [x] Json settings
-- [ ] Automatic updates
-- [ ] User interface 
 
 ## Building from source
 if you want to compile this program yourself you can run the `Build.py` script **or**         
