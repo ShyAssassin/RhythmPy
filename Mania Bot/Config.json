@@ -1,6 +1,7 @@
 {
     "Version": "1",
     "Debug": "False",
+    "FirstRun": "False",
     "Osu4K": {
         "Window Name": "",
         "Collum1Pos": "",

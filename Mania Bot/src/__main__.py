@@ -18,9 +18,11 @@ import threading
 try:
     from .Modules import ResizeImage, IsProcessRunning, Windowcapture
     from .Settings import Settings
+    from .FirstRun import FirstRun
 except ImportError:
     from Modules import ResizeImage, IsProcessRunning, WindowCapture
     from Settings import Settings
+    from FirstRun import FirstRun
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -37,6 +39,7 @@ BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 Defualt_Config = {
     "Version": "1",
     "Debug": "False",
+    "FirstRun": "True",
     "Osu4K":{
         "Window Name": "",
         "Collum1Pos": "",
@@ -73,7 +76,7 @@ class Functions:
 
     '''
     imma be honest 
-    you need to close the bellow functions so it dont look like shit
+    you need to close the below functions so it dont look like shit
     '''
     # checks if process is running and selecting game with UI      
     def Process(self):
@@ -242,6 +245,7 @@ class Functions:
 class Bot:
     def __init__(self, Game, Running):
         self.Running = Running
+        # self.Gamemode = Gamemode
         self.Game = Game
 
     def ManiaStart(self):
@@ -253,6 +257,7 @@ class Bot:
             pass
         Wincap = WindowCapture(None)
         Wincap.start()
+        print('Window Capture started')
         while self.Running == True:
             if Wincap.screenshot is None:
                 continue
@@ -396,6 +401,9 @@ class Run:
     def __init__(self):
         # Config thingy
         Functions().ConfigExists()
+
+        # used for first run
+        FirstRun().Run()
 
         # checks for running Games, needs to be run after config checking
         Functions().Process()
