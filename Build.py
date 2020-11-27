@@ -3,7 +3,7 @@ import os
 import sys
 import time
 '''
-used for compiling Mania Bot into a windows exe with pyinstaller
+used for compiling PyRhythm into a windows exe with pyinstaller
 will work on mac / linux later
 '''
 class cd:
@@ -37,8 +37,8 @@ def Build():
     environment = input()
 
     try:
-        print('please give the path of the mania bot dir')
-        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\Mania-Bot\Mania Bot')
+        print('please give the path of the PyRhythm dir')
+        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\PyRhythm\PyRhythm')
         maniaDIR = input()
         if environment != None or environment != '' or environment != ' ':
             with cd(maniaDIR):
