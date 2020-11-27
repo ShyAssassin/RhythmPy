@@ -4,10 +4,10 @@
 block_cipher = None
 
 
-a = Analysis(['__main__.py'],
-             pathex=['C:\\Users\\Assassin\\Documents\\GitHub\\PyRhythm\\PyRhythm\\src', "C:\\Users\\Assassin\\Documents\\GitHub\\PyRhythm\\PyRhythm\\src\\Modules"],
+a = Analysis(['Main.py'],
+             pathex=[''C:\\Users\\Assassin\\Documents\\GitHub\\RhythmPy\\RhythmPy\\src', "C:\\Users\\Assassin\\Documents\\GitHub\\RhythmPy\\RhythmPy\\src\\Modules"],
              binaries=[],
-             datas=[(r'C:\Users\Assassin\Documents\GitHub\PyRhythm\PyRhythm\src\UI-Media\*.png', 'UI-Media')],
+             datas=[(r'C:\Users\Assassin\Documents\GitHub\RhythmPy\RhythmPy\src\UI-Media\*.png', 'UI-Media')],
              hiddenimports=['FixTk', 'tkinter', 'PIL', 'numpy', 'psutil', 'json', 'os', 'sys', 'time', 'cv2', 'threading', 'win32gui', 'win32ui', 'win32con', 'pywin32', 'win32', 'requests', 'inspect', 'functools', 'ctypes', 'logging', 'webbrowser'],
              hookspath=[],
              runtime_hooks=[],
@@ -22,12 +22,12 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='PyRhythm',
-          debug=True,
+          name='RhythmPy',
+          debug=False,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=True )
+          console=False )
 coll = COLLECT(exe,
                a.binaries,
                a.zipfiles,
@@ -35,4 +35,4 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='__main__')
+               name='Main')

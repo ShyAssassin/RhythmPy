@@ -1,7 +1,7 @@
-# PyRhythm
+# RhythmPy
 A simple bot that plays rhythm games for you
 im still working on this btw :p       
-<a href="https://trello.com/b/IkrtUXl8/pyrhythm">Click here for the roadmap and planned features</a>
+<a href="https://trello.com/b/IkrtUXl8/rhythmpy">Click here for the roadmap and planned features</a>
 
 ## Supported Games
 - Quaver
@@ -14,10 +14,10 @@ im still working on this btw :p
   
 
 ## Installation
-**PyRhythm has been tested to work with python verisons 3.7 or lower.**  
+**RhythmPy has been tested to work with python verisons 3.7 or lower.**  
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>
 
-1. <a href="https://github.com/assassinsorrow/PyRhythm/releases">Download the latest release</a> or Clone the Repo (`git clone https://github.com/assassinsorrow/PyRhythm.git`)
+1. <a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> or Clone the Repo (`git clone https://github.com/assassinsorrow/RhythmPy.git`)
 2. run the `Setup.py` script to install needed dependencies or install manually with (`pip install -r requirements.txt`)
 3. Run `Main.py` to start the program (`python Main.py`)
 
@@ -37,9 +37,9 @@ if you want to compile this program yourself you can run the `Build.py` script *
 you can use pyinstaller                  
 ***i recommend using a virtual environment for this***
 1. Download Pyinstaller `pip install pyinstaller`
-2. CD into working directory `cd PyRhythm`
+2. CD into working directory `cd RhythmPy`
 3. Create a Main.spec file `pyi-makespec Main.py`
-4. Fill in needed information <a href="https://github.com/assassinsorrow/PyRhythm/blob/master/PyRhythm/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
+4. Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
 5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
 6. Open the executable found in `dist/Main` to run the program              
 
@@ -49,5 +49,5 @@ if that does not work recompile with `--debug=all` as an option and then check t
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       
-<a href="https://github.com/assassinsorrow/PyRhythm/blob/master/DISCLAIMER.md"><sub><sup>Full Disclaimer</sup></sub></a>
+<a href="https://github.com/assassinsorrow/RhythmPy/blob/master/DISCLAIMER.md"><sub><sup>Full Disclaimer</sup></sub></a>
 

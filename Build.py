@@ -3,7 +3,7 @@ import os
 import sys
 import time
 '''
-used for compiling PyRhythm into a windows exe with pyinstaller
+used for compiling RhythmPy into a windows exe with pyinstaller
 will work on mac / linux later
 '''
 class cd:
@@ -33,12 +33,13 @@ def Build():
     print(path)
     print('if you are using ANACONDA or MiniConda please enter the environment name\nIf not, please press ENTER')
     print('I RECOMEND YOU USE A NEW AND DIFFERENT VIRTUAL ENVIROMENT WITH REQUIREMENTS INSTALLED TO BUILD!')
-    print("Example: " + "PyRhythm")
+    print("Example: " + "RhythmPy")
     environment = input()
 
     try:
         print('please give the path of the PyRhythm dir')
         print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\PyRhythm\PyRhythm')
+        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\RhythmPy\RhythmPy')
         maniaDIR = input()
         if environment != None or environment != '' or environment != ' ':
             with cd(maniaDIR):

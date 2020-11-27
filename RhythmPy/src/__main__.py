@@ -284,7 +284,7 @@ class Application(tk.Frame):
         self.logger.addHandler(self.LoggingFile)
 
         self.master.geometry('500x650')
-        self.master.title(u'PyRhythm')
+        self.master.title(u'RhythmPy')
         # IDK
         self.entry = tk.Entry(
             self.master,

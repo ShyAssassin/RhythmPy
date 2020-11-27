@@ -82,7 +82,7 @@ def main():
     path = get_path()
     print(path)
     print('if you are using ANACONDA or MiniConda please enter the environment name\nIf not, please press ENTER')
-    print("Example: " + "PyRhythm")
+    print("Example: " + "RhythmPy")
     environment = input()
     if environment == None or environment == '' or environment =='no' or environment == 'N' or environment == 'n' or environment == ' ':
         print('installing to defualt python3')
