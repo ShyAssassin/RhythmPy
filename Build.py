@@ -37,8 +37,7 @@ def Build():
     environment = input()
 
     try:
-        print('please give the path of the PyRhythm dir')
-        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\PyRhythm\PyRhythm')
+        print('please give the path of the RhythmPy dir')
         print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\RhythmPy\RhythmPy')
         maniaDIR = input()
         if environment != None or environment != '' or environment != ' ':
