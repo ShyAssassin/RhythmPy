@@ -1,5 +1,5 @@
 # PyRhythm
-A simple bot that plays mania for you
+A simple bot that plays rhythm games for you
 im still working on this btw :p       
 <a href="https://trello.com/b/IkrtUXl8/pyrhythm">Click here for the roadmap and planned features</a>
 
@@ -39,7 +39,7 @@ you can use pyinstaller
 1. Download Pyinstaller `pip install pyinstaller`
 2. CD into working directory `cd PyRhythm`
 3. Create a Main.spec file `pyi-makespec Main.py`
-4. Fill in needed information <a href="https://github.com/assassinsorrow/Mania-Bot/blob/master/Mania%20Bot/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
+4. Fill in needed information <a href="https://github.com/assassinsorrow/PyRhythm/blob/master/PyRhythm/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
 5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
 6. Open the executable found in `dist/Main` to run the program              
 

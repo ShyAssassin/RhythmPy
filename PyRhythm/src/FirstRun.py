@@ -58,7 +58,7 @@ class FirstRun:
                 with open(self.ConfigFile, "w") as file:
                     json.dump(self.Config, file, indent=4)
                 self.Notify()
-                webbrowser.open_new('https://github.com/assassinsorrow/Mania-Bot')
+                webbrowser.open_new('https://github.com/assassinsorrow/PyRhythm/blob/master/README.md')
             else:
                 print('has been run before carrying on')
         except:

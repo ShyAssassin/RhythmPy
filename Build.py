@@ -33,7 +33,7 @@ def Build():
     print(path)
     print('if you are using ANACONDA or MiniConda please enter the environment name\nIf not, please press ENTER')
     print('I RECOMEND YOU USE A NEW AND DIFFERENT VIRTUAL ENVIROMENT WITH REQUIREMENTS INSTALLED TO BUILD!')
-    print("Example: " + "Mania-Bot")
+    print("Example: " + "PyRhythm")
     environment = input()
 
     try:
