@@ -16,13 +16,11 @@ import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun
     from .Settings import Settings
-    from .FirstRun import FirstRun
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun
     from Settings import Settings
-    from FirstRun import FirstRun
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -36,24 +34,30 @@ BUTTON_WIDTH = 10
 BUTTON_HEIGHT = 2
 BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 
-Defualt_Config = {
+# needs to be updated when new key is used
+Defualt_Config_Osu4K = {
+    "Collums": "4",
+    "Window Name": "",
+    "Collum1Pos": "",
+    "Collum2Pos": "",
+    "Collum3Pos": "",
+    "Collum4Pos": ""
+}
+
+Defualt_Config_Quaver4K = {
+    "Collums": "4",
+    "Window Name": "",
+    "Collum1Pos": "",
+    "Collum2Pos": "",
+    "Collum3Pos": "",
+    "Collum4Pos": ""
+}
+
+Defualt_Settings = {
     "Version": "1",
     "Debug": "False",
     "FirstRun": "True",
-    "Osu4K":{
-        "Window Name": "",
-        "Collum1Pos": "",
-        "Collum2Pos": "",
-        "Collum3Pos": "",
-        "Collum4Pos": ""
-    },
-    "Quaver4K":{
-        "Window Name": "", 
-        "Collum1Pos": "",
-        "Collum2Pos": "",
-        "Collum3Pos": "",
-        "Collum4Pos": ""
-    }
+    "MultiConfig": "False",
 }
 
 # used for non UI related things
@@ -196,7 +200,6 @@ class Functions:
             self.masters.attributes("-alpha",0.965)
             # not sure what this does tbh
             ttk.Style().configure("TP.TFrame", background="snow")
-            self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
             # runs window
             self.masters.mainloop()
         # ====================================================================================================================
@@ -230,16 +233,52 @@ class Functions:
             # just the current window
             self.SetGameMaster.destroy()
         
-
-    # If Config File exists
-    def ConfigExists(self):
-        if path.exists('Config.json') == False:
-            print('Config file is missing, creating now...')
+    # If Config Folder exists
+    def ConfigFolderExists(self):
+        if path.exists('Config') == False:
+            print('Config folder is missing, creating now...')
             self.logger.warning('Config file missing, creating now')
-            # writes config to file
-            with open('Config.json', 'w+') as json_file:
-                json.dump(Defualt_Config, json_file, indent=4)
-                self.logger.info('defualt config writen to file')
+            try:
+                os.mkdir('Config')
+                print('Created config dir')
+                self.logger.info('Created config dir')
+            except:
+                print('could not create Config dir')
+                self.logger.critical('could not create Config dir')
+                exit()
+                sys.exit()
+            return False
+        else:
+            return True
+
+    # creates defualt config files
+    def CreateConfigFiles(self):
+        # writes settings
+        if path.exists(r"Config\Settings.json"):
+            pass
+        else:
+            with open(r"Config\Settings.json", "w+") as json_file:
+                json.dump(Defualt_Settings, json_file, indent=4)
+                print('created Settings.json')
+                self.logger.info('created Settings.json')
+
+        # writes Osu
+        if path.exists(r"Config\Osu4K.json"):
+            pass
+        else:
+            with open(r"Config\Osu4K.json", "w+") as json_file:
+                json.dump(Defualt_Config_Osu4K, json_file, indent=4)
+                print('created Osu4K.json')
+                self.logger.info('created Osu4K.json')
+
+        # writes quaver
+        if path.exists(r"Config\Quaver4K.json"):
+            pass
+        else:
+            with open(r"Config\Quaver4K.json", "w+") as json_file:
+                json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
+                print('created Quaver4K.json')
+                self.logger.info('created Quaver4K.json')
 # ============================================================================================================
 
 class Bot:
@@ -255,6 +294,7 @@ class Bot:
         elif Game == 'Quaver':
             # loads config file
             pass
+        # will need to be updated to reflect the name of window found in Config
         Wincap = WindowCapture(None)
         Wincap.start()
         print('Window Capture started')
@@ -363,9 +403,13 @@ class Application(tk.Frame):
     def Create_Widgets(self):
         # Settings Button
         try:
-            self.SettingsIcon = ResizeImage(80, 80, r"src\UI-Media\icon-gear.png")
+            try:
+                self.SettingsIcon = ResizeImage(82, 82, r"src\UI-Media\icon-gear.png")
+            except:
+                self.SettingsIcon = ResizeImage(82, 82, r"UI-Media\icon-gear.png")
         except:
-            self.SettingsIcon = ResizeImage(80, 80, r"UI-Media\icon-gear.png")
+            self.logger.critical('can not load or find needed icons')
+
         self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
         self.SettingsBTN = Button(
             self.master,
@@ -380,6 +424,32 @@ class Application(tk.Frame):
             command=lambda: Settings()
         )
         self.SettingsBTN.place(x=418, y=568)
+    # ===========================================================================================================
+        # used for changing currently loaded config
+        # has no use for now will be used for a later feature
+        try:
+            try:
+                self.ChangeConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
+            except:
+                self.ChangeConfigBTN = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+        except:
+            self.logger.critical('can not load or find needed icons')
+
+        self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
+        self.ChangeConfigBTN = Button(
+            self.master,
+            image = self.ChangeConfigIcon,
+            relief = 'flat', 
+            bg = '#333333', 
+            fg = '#fffafa', 
+            padx = BUTTON_PADX, 
+            pady = BUTTON_PADY, 
+            borderwidth = 0,
+            activebackground = '#363535',
+        )
+        # position this!
+        # self.ChangeConfigBTN.place()
+    # ===========================================================================================================
 
         # Start / Stop Button
         self.Start_StopBTN = Button(
@@ -394,13 +464,33 @@ class Application(tk.Frame):
             command = self.StartStop
         )
         self.Start_StopBTN.place(x=190, y=255)
+    # ===========================================================================================================
+
+        self.ChangeGameBTN = Button(
+            self.master,
+            text = 'Change Game',
+            font = BUTTON_FONT_BOLD,
+            width = BUTTON_WIDTH,
+            height = BUTTON_HEIGHT,
+            bg = '#333333', 
+            fg = '#fffafa', 
+            relief = BUTTON_STYLE,
+            command =lambda: Functions().ChangeGame()
+        )
+        # position this!
+        # self.ChangeGameBTN.place(x=100, y=200)
     # ========================================================================================================
 # ============================================================================================================
 
 class Run:
     def __init__(self):
-        # Config thingy
-        Functions().ConfigExists()
+        # checks if config exists
+        Functions().ConfigFolderExists()
+        Functions().CreateConfigFiles()
+
+        # used for checking if the json has all the needed keys
+        # not done yet needs to be fixed!
+        # UpdateConfig(Defualt_Config)
 
         # used for first run
         FirstRun().Run()

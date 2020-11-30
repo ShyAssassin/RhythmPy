@@ -23,7 +23,7 @@ class FirstRun:
         # add file handler to logger
         self.logger.addHandler(self.LoggingFile)
 
-        self.ConfigFile = "Config.json"
+        self.ConfigFile = r"Config\Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
         self.Config = json.loads(self.ConfigOpen.read())
 
