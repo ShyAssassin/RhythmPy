@@ -1,5 +1,5 @@
 # RhythmPy
-A simple bot that plays rhythm games for you
+A not so simple anymore bot that plays rhythm games for you
 im still working on this btw :p       
 <a href="https://trello.com/b/IkrtUXl8/rhythmpy">Click here for the roadmap and planned features</a>
 
@@ -45,7 +45,7 @@ you can use pyinstaller
 
 **After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
 if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
-**if you want to create a installer please use nsis**
+**if you want to create a installer please use nsis not going to cover how to do it here due to it being rather simple**
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       
