@@ -53,7 +53,7 @@ class FirstRun:
             if self.ReadValue():
                 self.logger.info('First time running')
                 print('Firstime Running!')
-                # runs short UI saying to read the docs
+                # changes the values so it can later be dumped into file
                 self.Config["FirstRun"] = "False"
                 with open(self.ConfigFile, "w") as file:
                     json.dump(self.Config, file, indent=4)

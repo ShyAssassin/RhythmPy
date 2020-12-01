@@ -15,7 +15,7 @@ class Settings:
         self.masters.resizable(width=False, height=False)
         self.masters.attributes("-alpha",0.965)
         # not sure what this does tbh
-        ttk.Style().configure("TP.TFrame", background="snow")
+        ttk.Style().configure("TP.TFrame", background="snow") 
         self.masters.mainloop()
 
     def Create_Widgets(self):

@@ -60,7 +60,7 @@ Defualt_Settings = {
     "MultiConfig": "False",
 }
 
-# used for non UI related things
+# used for non main UI related things
 class Functions:
     def __init__(self):
         # gets logger
@@ -207,6 +207,7 @@ class Functions:
     # used to close application globally
     def CloseGlobal(self, master):
         if master == None or master == '':
+            sys.exit()
             exit()
         else:
             self.root = master
@@ -215,8 +216,10 @@ class Functions:
                 print('Quiting!')
                 try:
                     exit()
+                    sys.exit()
                 except:
                     sys.exit()
+                    exit()
 
     # used to set game during run time
     def SetGame(self, master, game):
@@ -279,6 +282,13 @@ class Functions:
                 json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
                 print('created Quaver4K.json')
                 self.logger.info('created Quaver4K.json')
+
+    def LoadSettings(self):
+        self.ConfigFile = r"Config\Settings.json"
+        self.ConfigOpen = open(self.ConfigFile, "r")
+        self.Config = json.loads(self.ConfigOpen.read())
+        return self.Config
+            
 # ============================================================================================================
 
 class Bot:
@@ -335,6 +345,7 @@ class Application(tk.Frame):
             relief="flat"
             )
         # print(Game)
+        global Running
         self.Create_Widgets()
         # ===========================================================================================================
 
@@ -423,32 +434,53 @@ class Application(tk.Frame):
             activebackground = '#363535',
             command=lambda: Settings()
         )
-        self.SettingsBTN.place(x=418, y=568)
+        self.SettingsBTN.place(x=410, y=560)
     # ===========================================================================================================
         # used for changing currently loaded config
         # has no use for now will be used for a later feature
+        Config = Functions().LoadSettings()
+        MultiConfig = Config["MultiConfig"]
         try:
             try:
                 self.ChangeConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
             except:
-                self.ChangeConfigBTN = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+                self.ChangeConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
         except:
             self.logger.critical('can not load or find needed icons')
 
-        self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
-        self.ChangeConfigBTN = Button(
-            self.master,
-            image = self.ChangeConfigIcon,
-            relief = 'flat', 
-            bg = '#333333', 
-            fg = '#fffafa', 
-            padx = BUTTON_PADX, 
-            pady = BUTTON_PADY, 
-            borderwidth = 0,
-            activebackground = '#363535',
-        )
-        # position this!
-        # self.ChangeConfigBTN.place()
+        # used for changing icon based on multi config setting
+        if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
+            # used for changing configs when Multi config is true
+            self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
+            self.ChangeConfigBTN = Button(
+                self.master,
+                image = self.ChangeConfigIcon,
+                relief = 'flat', 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                padx = BUTTON_PADX, 
+                pady = BUTTON_PADY, 
+                borderwidth = 0,
+                activebackground = '#363535',
+            )
+            self.ChangeConfigBTN.place(x=0, y=568)
+        else:
+            # used for changing games when Multi config is false
+            self.ChangeGameIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
+            self.ChangeGameBTN = Button(
+                self.master,
+                image = self.ChangeGameIcon,
+                relief = 'flat', 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                padx = BUTTON_PADX, 
+                pady = BUTTON_PADY, 
+                borderwidth = 0,
+                activebackground = '#363535',
+                command = lambda: Functions().ChangeGame()
+            )
+            # position this!
+            self.ChangeGameBTN.place(x=0, y=568)
     # ===========================================================================================================
 
         # Start / Stop Button
@@ -465,21 +497,6 @@ class Application(tk.Frame):
         )
         self.Start_StopBTN.place(x=190, y=255)
     # ===========================================================================================================
-
-        self.ChangeGameBTN = Button(
-            self.master,
-            text = 'Change Game',
-            font = BUTTON_FONT_BOLD,
-            width = BUTTON_WIDTH,
-            height = BUTTON_HEIGHT,
-            bg = '#333333', 
-            fg = '#fffafa', 
-            relief = BUTTON_STYLE,
-            command =lambda: Functions().ChangeGame()
-        )
-        # position this!
-        # self.ChangeGameBTN.place(x=100, y=200)
-    # ========================================================================================================
 # ============================================================================================================
 
 class Run:
