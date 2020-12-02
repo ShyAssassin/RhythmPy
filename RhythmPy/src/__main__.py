@@ -415,9 +415,9 @@ class Application(tk.Frame):
         # Settings Button
         try:
             try:
-                self.SettingsIcon = ResizeImage(82, 82, r"src\UI-Media\icon-gear.png")
+                self.SettingsIcon = ResizeImage(78, 78, r"src\UI-Media\icon-gear.png")
             except:
-                self.SettingsIcon = ResizeImage(82, 82, r"UI-Media\icon-gear.png")
+                self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
         except:
             self.logger.critical('can not load or find needed icons')
 
@@ -434,7 +434,7 @@ class Application(tk.Frame):
             activebackground = '#363535',
             command=lambda: Settings()
         )
-        self.SettingsBTN.place(x=410, y=560)
+        self.SettingsBTN.place(x=415, y=563)
     # ===========================================================================================================
         # used for changing currently loaded config
         # has no use for now will be used for a later feature
