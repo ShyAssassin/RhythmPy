@@ -304,17 +304,20 @@ class Bot:
         elif Game == 'Quaver':
             # loads config file
             pass
+        else:
+            # loads custom config
+            pass
         # will need to be updated to reflect the name of window found in Config
         Wincap = WindowCapture(None)
         Wincap.start()
         print('Window Capture started')
         while self.Running == True:
+            # stops program from crashing when starting the wincap
             if Wincap.screenshot is None:
                 continue
             # used for stopping the stuff
             if Running == False:
-                Wincap.stop()
-                break
+                Wincap.stop() 
 
             ScreenCap = Wincap.screenshot
 # ============================================================================================================
@@ -420,7 +423,6 @@ class Application(tk.Frame):
                 self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
         except:
             self.logger.critical('can not load or find needed icons')
-
         self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
         self.SettingsBTN = Button(
             self.master,
