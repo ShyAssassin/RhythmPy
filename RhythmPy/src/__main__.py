@@ -317,7 +317,8 @@ class Bot:
                 continue
             # used for stopping the stuff
             if Running == False:
-                Wincap.stop() 
+                Wincap.stop()
+                break 
 
             ScreenCap = Wincap.screenshot
 # ============================================================================================================
@@ -365,12 +366,7 @@ class Application(tk.Frame):
             bot = Bot(Game, Running)
             # will be used when i decide to add a way to change gamemode
             # also for osu base game support
-            if Game == 'Osu':
-                # runs Osu version            
-                self.t1 = threading.Thread(target=bot.ManiaStart)
-                self.t1.start()
-            elif Game == 'Quaver':
-                # runs the Quaver version           
+            if Game == 'Osu' or Game == 'Quaver':    
                 self.t1 = threading.Thread(target=bot.ManiaStart)
                 self.t1.start()
 
