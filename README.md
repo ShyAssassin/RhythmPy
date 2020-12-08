@@ -1,5 +1,5 @@
 # RhythmPy
-A not so simple anymore bot that plays rhythm games for you
+A not so simple bot that plays rhythm games for you
 im still working on this btw :p       
 <a href="https://trello.com/b/IkrtUXl8/rhythmpy">Click here for the roadmap and planned features</a>
 
