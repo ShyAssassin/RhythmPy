@@ -16,10 +16,10 @@ import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin
     from .Settings import Settings
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin
     from Settings import Settings
 
 BUTTON_PADX = 4
@@ -148,6 +148,7 @@ class Functions:
             # not sure what this does tbh
             ttk.Style().configure("TP.TFrame", background="snow")
             self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
+            CenterWin(self.masters)
             # runs window
             self.masters.mainloop()
         # ====================================================================================================================
@@ -200,6 +201,7 @@ class Functions:
             self.masters.attributes("-alpha",0.965)
             # not sure what this does tbh
             ttk.Style().configure("TP.TFrame", background="snow")
+            CenterWin(self.masters)
             # runs window
             self.masters.mainloop()
         # ====================================================================================================================
@@ -523,8 +525,9 @@ class Run:
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
         root.protocol("WM_DELETE_WINDOW", lambda: Functions().CloseGlobal(root))
-        # root.overrideredirect(1)        
-        app = Application()              
+        # root.overrideredirect(1)
+        CenterWin(root)          
+        app = Application()  
         app.mainloop()
 # ============================================================================================================
 
