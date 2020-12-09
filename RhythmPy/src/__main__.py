@@ -60,6 +60,7 @@ Defualt_Settings = {
     "MultiConfig": "False",
 }
 
+
 # used for non main UI related things
 class Functions:
     def __init__(self):
@@ -153,6 +154,7 @@ class Functions:
             self.masters.mainloop()
         # ====================================================================================================================
 
+
     # change game during runtime with UI            
     def ChangeGame(self):
             # just adding a UI for selecting game
@@ -206,6 +208,7 @@ class Functions:
             self.masters.mainloop()
         # ====================================================================================================================
 
+
     # used to close application globally
     def CloseGlobal(self, master):
         if master == None or master == '':
@@ -223,6 +226,7 @@ class Functions:
                     sys.exit()
                     exit()
 
+
     # used to set game during run time
     def SetGame(self, master, game):
         global Game
@@ -237,7 +241,8 @@ class Functions:
             # does not need to close gloabal for this one
             # just the current window
             self.SetGameMaster.destroy()
-        
+
+
     # If Config Folder exists
     def ConfigFolderExists(self):
         if path.exists('Config') == False:
@@ -256,6 +261,7 @@ class Functions:
         else:
             return True
 
+
     # creates defualt config files
     def CreateConfigFiles(self):
         # writes settings
@@ -267,7 +273,7 @@ class Functions:
                 print('created Settings.json')
                 self.logger.info('created Settings.json')
 
-        # writes Osu
+        # writes defualt Osu config
         if path.exists(r"Config\Osu4K.json"):
             pass
         else:
@@ -276,7 +282,7 @@ class Functions:
                 print('created Osu4K.json')
                 self.logger.info('created Osu4K.json')
 
-        # writes quaver
+        # writes defualt quaver config
         if path.exists(r"Config\Quaver4K.json"):
             pass
         else:
@@ -285,18 +291,18 @@ class Functions:
                 print('created Quaver4K.json')
                 self.logger.info('created Quaver4K.json')
 
+
+    # used for loading Config\Settings.json
     def LoadSettings(self):
         self.ConfigFile = r"Config\Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
         self.Config = json.loads(self.ConfigOpen.read())
         return self.Config
             
-# ============================================================================================================
 
 class Bot:
     def __init__(self, Game, Running):
         self.Running = Running
-        # self.Gamemode = Gamemode
         self.Game = Game
 
     def ManiaStart(self):
@@ -317,13 +323,13 @@ class Bot:
             # stops program from crashing when starting the wincap
             if Wincap.screenshot is None:
                 continue
-            # used for stopping the stuff
+            # used for stopping the bot and stopping the loop so the thread can be killed
             if Running == False:
                 Wincap.stop()
                 break 
 
             ScreenCap = Wincap.screenshot
-# ============================================================================================================
+
 
 # used for all UI elements including button functions!
 class Application(tk.Frame):
@@ -353,7 +359,7 @@ class Application(tk.Frame):
         # print(Game)
         global Running
         self.Create_Widgets()
-        # ===========================================================================================================
+        
 
     # stop start command for the button :p
     def StartStop(self):
@@ -384,7 +390,7 @@ class Application(tk.Frame):
             self.Start_StopBTN.configure(text='START')
         else:
             print('Bruh')
-        # ===========================================================================================================
+
 
     # will be used Gamemode
     def GameMode(self):
@@ -415,89 +421,104 @@ class Application(tk.Frame):
     def Create_Widgets(self):
         # Settings Button
         try:
+            # loads icon
             try:
-                self.SettingsIcon = ResizeImage(78, 78, r"src\UI-Media\icon-gear.png")
+                try:
+                    self.SettingsIcon = ResizeImage(78, 78, r"src\UI-Media\icon-gear.png")
+                except:
+                    self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except:
-                self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
+                self.logger.critical('can not load or find needed icons for Settings Button')
+
+            self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
+            self.SettingsBTN = Button(
+                self.master,
+                image = self.SettingsIcon, 
+                relief = 'flat', 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                padx = BUTTON_PADX, 
+                pady = BUTTON_PADY, 
+                borderwidth = 0,
+                activebackground = '#363535',
+                command=lambda: Settings()
+            )
+            self.SettingsBTN.place(x=415, y=563)
         except:
-            self.logger.critical('can not load or find needed icons')
-        self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
-        self.SettingsBTN = Button(
-            self.master,
-            image = self.SettingsIcon, 
-            relief = 'flat', 
-            bg = '#333333', 
-            fg = '#fffafa', 
-            padx = BUTTON_PADX, 
-            pady = BUTTON_PADY, 
-            borderwidth = 0,
-            activebackground = '#363535',
-            command=lambda: Settings()
-        )
-        self.SettingsBTN.place(x=415, y=563)
-    # ===========================================================================================================
+            self.logger.critical('something went very wrong while creating Settings Button')
+            exit()
+
+
         # used for changing currently loaded config
         # has no use for now will be used for a later feature
-        Config = Functions().LoadSettings()
-        MultiConfig = Config["MultiConfig"]
         try:
+            # loads config
+            Config = Functions().LoadSettings()
+            MultiConfig = Config["MultiConfig"]
+            # loads icon
             try:
-                self.ChangeConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
+                try:
+                    self.ChangeConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
+                except:
+                    self.ChangeConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except:
-                self.ChangeConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
-        except:
-            self.logger.critical('can not load or find needed icons')
+                self.logger.critical('can not load or find needed icons')
 
-        # used for changing icon based on multi config setting
-        if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
-            # used for changing configs when Multi config is true
-            self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
-            self.ChangeConfigBTN = Button(
-                self.master,
-                image = self.ChangeConfigIcon,
-                relief = 'flat', 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                padx = BUTTON_PADX, 
-                pady = BUTTON_PADY, 
-                borderwidth = 0,
-                activebackground = '#363535',
-            )
-            self.ChangeConfigBTN.place(x=0, y=568)
-        else:
-            # used for changing games when Multi config is false
-            self.ChangeGameIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
-            self.ChangeGameBTN = Button(
-                self.master,
-                image = self.ChangeGameIcon,
-                relief = 'flat', 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                padx = BUTTON_PADX, 
-                pady = BUTTON_PADY, 
-                borderwidth = 0,
-                activebackground = '#363535',
-                command = lambda: Functions().ChangeGame()
-            )
-            # position this!
-            self.ChangeGameBTN.place(x=0, y=568)
-    # ===========================================================================================================
+            # used for changing icon based on multi config setting
+            if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
+                # used for changing configs when Multi config is true
+                self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
+                self.ChangeConfigBTN = Button(
+                    self.master,
+                    image = self.ChangeConfigIcon,
+                    relief = 'flat', 
+                    bg = '#333333', 
+                    fg = '#fffafa', 
+                    padx = BUTTON_PADX, 
+                    pady = BUTTON_PADY, 
+                    borderwidth = 0,
+                    activebackground = '#363535',
+                )
+                self.ChangeConfigBTN.place(x=0, y=568)
+            else:
+                # used for changing games when Multi config is false
+                self.ChangeGameIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
+                self.ChangeGameBTN = Button(
+                    self.master,
+                    image = self.ChangeGameIcon,
+                    relief = 'flat', 
+                    bg = '#333333', 
+                    fg = '#fffafa', 
+                    padx = BUTTON_PADX, 
+                    pady = BUTTON_PADY, 
+                    borderwidth = 0,
+                    activebackground = '#363535',
+                    command = lambda: Functions().ChangeGame()
+                )
+                self.ChangeGameBTN.place(x=0, y=568)
+        except:
+            self.logger.critical('something went very wrong while creating Config Button')
+            exit()
+
 
         # Start / Stop Button
-        self.Start_StopBTN = Button(
-            self.master, 
-            text = 'START', 
-            font = BUTTON_FONT_BOLD, 
-            width = BUTTON_WIDTH, 
-            height = BUTTON_HEIGHT, 
-            bg = '#333333', 
-            fg = '#fffafa', 
-            relief = BUTTON_STYLE,
-            command = self.StartStop
-        )
-        self.Start_StopBTN.place(x=190, y=255)
-    # ===========================================================================================================
-# ============================================================================================================
+        try:
+            self.Start_StopBTN = Button(
+                self.master, 
+                text = 'START', 
+                font = BUTTON_FONT_BOLD, 
+                width = BUTTON_WIDTH, 
+                height = BUTTON_HEIGHT, 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                relief = BUTTON_STYLE,
+                command = self.StartStop
+            )
+            self.Start_StopBTN.place(x=190, y=255)
+        except:
+            self.logger.critical('something went very wrong while creating Start Stop Button')
+            exit()
+
 
 class Run:
     def __init__(self):
@@ -529,7 +550,7 @@ class Run:
         CenterWin(root)          
         app = Application()  
         app.mainloop()
-# ============================================================================================================
+
 
 if __name__ == "__main__":
     Run()
