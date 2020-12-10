@@ -2,5 +2,5 @@
     "Version": "1",
     "Debug": "True",
     "FirstRun": "False",
-    "MultiConfig": "False"
+    "MultiConfig": "True"
 }

@@ -1,9 +1,9 @@
 try:
     import tkinter as tk
-    from tkinter import ttk, Button, PhotoImage, Label, messagebox
+    from tkinter import ttk, Button, PhotoImage, Label, messagebox, filedialog
 except ImportError:
     import Tkinter as tk
-    from Tkinter import ttk, Button, PhotoImage, Label, messagebox
+    from Tkinter import ttk, Button, PhotoImage, Label, messagebox, filedialog
 
 from PIL import Image, ImageTk
 from os import path
@@ -18,9 +18,11 @@ import threading
 try:
     from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin
     from .Settings import Settings
+    from .SplashScreen import SplashScreen
 except ImportError:
     from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin
     from Settings import Settings
+    from SplashScreen import SplashScreen
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -294,10 +296,10 @@ class Functions:
 
     # used for loading Config\Settings.json
     def LoadSettings(self):
-        self.ConfigFile = r"Config\Settings.json"
-        self.ConfigOpen = open(self.ConfigFile, "r")
-        self.Config = json.loads(self.ConfigOpen.read())
-        return self.Config
+        self.SettingsFile = r"Config\Settings.json"
+        self.SettingsOpen = open(self.SettingsFile, "r")
+        self.Settings = json.loads(self.SettingsOpen.read())
+        return self.Settings
             
 
 class Bot:
@@ -417,6 +419,20 @@ class Application(tk.Frame):
         Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
     '''
 
+    def ConfigSelect(self):
+        global Config
+        Config = Functions().LoadSettings()
+        MultiConfig = Config["MultiConfig"]
+        if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
+            Path = os.path.dirname(os.path.realpath(__file__))
+            ConfigPath = Path.replace("\src", "")
+            ConfigPath = "".join("Config")
+            print(ConfigPath)
+            Config =  filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
+            print(Config)
+        else:
+            Functions().ChangeGame()
+
     #Widgets
     def Create_Widgets(self):
         # Settings Button
@@ -458,44 +474,27 @@ class Application(tk.Frame):
             # loads icon
             try:
                 try:
-                    self.ChangeConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
+                    self.ConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
                 except:
-                    self.ChangeConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+                    self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except:
                 self.logger.critical('can not load or find needed icons')
 
-            # used for changing icon based on multi config setting
-            if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
-                # used for changing configs when Multi config is true
-                self.ChangeConfigIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
-                self.ChangeConfigBTN = Button(
-                    self.master,
-                    image = self.ChangeConfigIcon,
-                    relief = 'flat', 
-                    bg = '#333333', 
-                    fg = '#fffafa', 
-                    padx = BUTTON_PADX, 
-                    pady = BUTTON_PADY, 
-                    borderwidth = 0,
-                    activebackground = '#363535',
-                )
-                self.ChangeConfigBTN.place(x=0, y=568)
-            else:
-                # used for changing games when Multi config is false
-                self.ChangeGameIcon = ImageTk.PhotoImage(self.ChangeConfigIcon)
-                self.ChangeGameBTN = Button(
-                    self.master,
-                    image = self.ChangeGameIcon,
-                    relief = 'flat', 
-                    bg = '#333333', 
-                    fg = '#fffafa', 
-                    padx = BUTTON_PADX, 
-                    pady = BUTTON_PADY, 
-                    borderwidth = 0,
-                    activebackground = '#363535',
-                    command = lambda: Functions().ChangeGame()
-                )
-                self.ChangeGameBTN.place(x=0, y=568)
+            # used for changing games when Multi config is false
+            self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
+            self.ConfigBTN = Button(
+                self.master,
+                image = self.ConfigIcon,
+                relief = 'flat', 
+                bg = '#333333', 
+                fg = '#fffafa', 
+                padx = BUTTON_PADX, 
+                pady = BUTTON_PADY, 
+                borderwidth = 0,
+                activebackground = '#363535',
+                command = lambda: self.ConfigSelect()
+            )
+            self.ConfigBTN.place(x=0, y=568)
         except:
             self.logger.critical('something went very wrong while creating Config Button')
             exit()
@@ -522,6 +521,7 @@ class Application(tk.Frame):
 
 class Run:
     def __init__(self):
+        # SplashScreen().Start()
         # checks if config exists
         Functions().ConfigFolderExists()
         Functions().CreateConfigFiles()
