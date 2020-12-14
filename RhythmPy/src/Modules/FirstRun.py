@@ -3,6 +3,12 @@ import logging
 import json
 import webbrowser
 import sys
+
+try:
+    from .Logger import Logger
+except ImportError:
+    from Logger import Logger
+
 try:
     import tkinter as tk
     from tkinter import messagebox
@@ -12,16 +18,8 @@ except ImportError:
 
 class FirstRun:
     def __init__(self):
-        # gets logger
-        self.logger = logging.getLogger(__name__)
-        # sets logger level
-        self.logger.setLevel(logging.DEBUG)
-        # define file handler and set formatter
-        self.LoggingFile = logging.FileHandler('app.log')
-        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
-        self.LoggingFile.setFormatter(self.Formatter)
-        # add file handler to logger
-        self.logger.addHandler(self.LoggingFile)
+        logger = Logger()
+        self.logger = logger.StartLogger(name=__name__)
 
         self.ConfigFile = r"Config\Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
@@ -51,8 +49,7 @@ class FirstRun:
     def Run(self):
         try:
             if self.ReadValue():
-                self.logger.info('First time running')
-                print('Firstime Running!')
+                self.logger.info('First time running!')
                 # changes the values so it can later be dumped into file
                 self.Config["FirstRun"] = "False"
                 with open(self.ConfigFile, "w") as file:
@@ -62,7 +59,6 @@ class FirstRun:
             else:
                 print('has been run before carrying on')
         except:
-            print('FirstRun is missing from config user may be using a old config')
             self.logger.warning('FirstRun is missing from config user may be using a old config')
             self.Warn()
 

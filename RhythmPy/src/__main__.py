@@ -16,11 +16,11 @@ import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger
     from .Settings import Settings
     from .SplashScreen import SplashScreen
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger
     from Settings import Settings
     from SplashScreen import SplashScreen
 
@@ -62,20 +62,13 @@ Defualt_Settings = {
     "MultiConfig": "False",
 }
 
-
 # used for non main UI related things
 class Functions:
     def __init__(self):
-        # gets logger
-        self.logger = logging.getLogger(__name__)
-        # sets logger level
-        self.logger.setLevel(logging.DEBUG)
-        # define file handler and set formatter
-        self.LoggingFile = logging.FileHandler('app.log')
-        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
-        self.LoggingFile.setFormatter(self.Formatter)
-        # add file handler to logger
-        self.logger.addHandler(self.LoggingFile)
+
+        # sets logger
+        logger = Logger()
+        self.logger = logger.StartLogger(name=__name__)
 
         PACKAGE_PARENT = '..'
         SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
@@ -248,14 +241,11 @@ class Functions:
     # If Config Folder exists
     def ConfigFolderExists(self):
         if path.exists('Config') == False:
-            print('Config folder is missing, creating now...')
             self.logger.warning('Config file missing, creating now')
             try:
                 os.mkdir('Config')
-                print('Created config dir')
                 self.logger.info('Created config dir')
             except:
-                print('could not create Config dir')
                 self.logger.critical('could not create Config dir')
                 exit()
                 sys.exit()
@@ -272,7 +262,6 @@ class Functions:
         else:
             with open(r"Config\Settings.json", "w+") as json_file:
                 json.dump(Defualt_Settings, json_file, indent=4)
-                print('created Settings.json')
                 self.logger.info('created Settings.json')
 
         # writes defualt Osu config
@@ -281,7 +270,6 @@ class Functions:
         else:
             with open(r"Config\Osu4K.json", "w+") as json_file:
                 json.dump(Defualt_Config_Osu4K, json_file, indent=4)
-                print('created Osu4K.json')
                 self.logger.info('created Osu4K.json')
 
         # writes defualt quaver config
@@ -290,7 +278,6 @@ class Functions:
         else:
             with open(r"Config\Quaver4K.json", "w+") as json_file:
                 json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
-                print('created Quaver4K.json')
                 self.logger.info('created Quaver4K.json')
 
 
@@ -336,16 +323,12 @@ class Bot:
 # used for all UI elements including button functions!
 class Application(tk.Frame):
     def __init__(self, master=None):
-        super().__init__(master)
-        
-        self.logger = logging.getLogger(__name__)
-        self.logger.setLevel(logging.DEBUG)
-        # define file handler and set formatter
-        self.LoggingFile = logging.FileHandler('app.log')
-        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
-        self.LoggingFile.setFormatter(self.Formatter)
-        # add file handler to logger
-        self.logger.addHandler(self.LoggingFile)
+        super().__init__(master)   
+        self.functions = Functions()
+
+        # sets logger
+        logger = Logger()
+        self.logger = logger.StartLogger(name=__name__)
 
         self.master.geometry('500x650')
         self.master.title(u'RhythmPy')
@@ -358,10 +341,8 @@ class Application(tk.Frame):
             justify='right',
             relief="flat"
             )
-        # print(Game)
         global Running
         self.Create_Widgets()
-        
 
     # stop start command for the button :p
     def StartStop(self):
@@ -421,17 +402,19 @@ class Application(tk.Frame):
 
     def ConfigSelect(self):
         global Config
-        Config = Functions().LoadSettings()
+        # loads config
+        Config = self.functions.LoadSettings()
         MultiConfig = Config["MultiConfig"]
         if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
+            # starts prompt to ask to load a config file
             Path = os.path.dirname(os.path.realpath(__file__))
             ConfigPath = Path.replace("\src", "")
             ConfigPath = "".join("Config")
-            print(ConfigPath)
             Config =  filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
             print(Config)
         else:
-            Functions().ChangeGame()
+            # runs change game if multi config is False
+            self.functions.ChangeGame()
 
     #Widgets
     def Create_Widgets(self):
@@ -445,6 +428,7 @@ class Application(tk.Frame):
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except:
                 self.logger.critical('can not load or find needed icons for Settings Button')
+                self.functions.CloseGlobal(master=None)
 
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
             self.SettingsBTN = Button(
@@ -462,15 +446,12 @@ class Application(tk.Frame):
             self.SettingsBTN.place(x=415, y=563)
         except:
             self.logger.critical('something went very wrong while creating Settings Button')
-            exit()
+            self.functions.CloseGlobal(master=None)
 
 
         # used for changing currently loaded config
         # has no use for now will be used for a later feature
         try:
-            # loads config
-            Config = Functions().LoadSettings()
-            MultiConfig = Config["MultiConfig"]
             # loads icon
             try:
                 try:
@@ -479,6 +460,7 @@ class Application(tk.Frame):
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except:
                 self.logger.critical('can not load or find needed icons')
+                self.functions.CloseGlobal(master=None)
 
             # used for changing games when Multi config is false
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
@@ -497,8 +479,7 @@ class Application(tk.Frame):
             self.ConfigBTN.place(x=0, y=568)
         except:
             self.logger.critical('something went very wrong while creating Config Button')
-            exit()
-
+            self.functions.CloseGlobal(master=None)
 
         # Start / Stop Button
         try:
@@ -516,15 +497,16 @@ class Application(tk.Frame):
             self.Start_StopBTN.place(x=190, y=255)
         except:
             self.logger.critical('something went very wrong while creating Start Stop Button')
-            exit()
+            self.functions.CloseGlobal(master=None)
 
 
 class Run:
     def __init__(self):
+        functions = Functions()
         # SplashScreen().Start()
         # checks if config exists
-        Functions().ConfigFolderExists()
-        Functions().CreateConfigFiles()
+        functions.ConfigFolderExists()
+        functions.CreateConfigFiles()
 
         # used for checking if the json has all the needed keys
         # not done yet needs to be fixed!
@@ -534,7 +516,7 @@ class Run:
         FirstRun().Run()
 
         # checks for running Games, needs to be run after config checking
-        Functions().Process()
+        functions.Process()
 
         # Main Window Stuff
         root = tk.Tk()        
@@ -545,7 +527,7 @@ class Run:
         # binds
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
-        root.protocol("WM_DELETE_WINDOW", lambda: Functions().CloseGlobal(root))
+        root.protocol("WM_DELETE_WINDOW", lambda: functions.CloseGlobal(root))
         # root.overrideredirect(1)
         CenterWin(root)          
         app = Application()  
