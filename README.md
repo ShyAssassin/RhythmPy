@@ -36,12 +36,13 @@ i will review the pull request as soon as i can
 if you want to compile this program yourself you can run the `Build.py` script **or**         
 you can use pyinstaller                  
 ***i recommend using a virtual environment for this***
-1. Download Pyinstaller `pip install pyinstaller`
-2. CD into working directory `cd RhythmPy`
-3. Create a Main.spec file `pyi-makespec Main.py`
-4. Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
-5. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
-6. Open the executable found in `dist/Main` to run the program              
+1. Download needed dependencies `pip install -r requirements`
+2. Download Pyinstaller `pip install pyinstaller`
+3. CD into working directory `cd RhythmPy`
+4. Create a Main.spec file `pyi-makespec Main.py`
+5. Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
+6. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
+7. Open the executable found in `dist/Main` to run the program              
 
 **After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
 if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
