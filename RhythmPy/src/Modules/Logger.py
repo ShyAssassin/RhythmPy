@@ -12,6 +12,8 @@ class Logger:
         # add file handler to logger
         self.consoleHandler = logging.StreamHandler(sys.stdout)
         self.consoleHandler.setFormatter(self.LoggingFile)
+        # i have sat here for the last hour trying to figure out what this does
+        # i have not a single god damn clue but without it the logger wont output to sdout
         self.logger.addHandler(self.consoleHandler)
         self.logger.addHandler(self.LoggingFile)
         return self.logger

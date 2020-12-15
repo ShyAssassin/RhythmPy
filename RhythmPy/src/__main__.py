@@ -6,21 +6,18 @@ except ImportError:
     from Tkinter import ttk, Button, PhotoImage, Label, messagebox, filedialog
 
 from PIL import Image, ImageTk
-from os import path
 import os
 import sys
-import json
 import time
-import logging
 import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config
     from .Settings import Settings
     from .SplashScreen import SplashScreen
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config
     from Settings import Settings
     from SplashScreen import SplashScreen
 
@@ -35,32 +32,6 @@ BUTTON_FONT_ITALIC = ("Yu Gothic UI", 13, "italic")
 BUTTON_WIDTH = 10
 BUTTON_HEIGHT = 2
 BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
-
-# needs to be updated when new key is used
-Defualt_Config_Osu4K = {
-    "Collums": "4",
-    "Window Name": "",
-    "Collum1Pos": "",
-    "Collum2Pos": "",
-    "Collum3Pos": "",
-    "Collum4Pos": ""
-}
-
-Defualt_Config_Quaver4K = {
-    "Collums": "4",
-    "Window Name": "",
-    "Collum1Pos": "",
-    "Collum2Pos": "",
-    "Collum3Pos": "",
-    "Collum4Pos": ""
-}
-
-Defualt_Settings = {
-    "Version": "1",
-    "Debug": "False",
-    "FirstRun": "True",
-    "MultiConfig": "False",
-}
 
 # used for non main UI related things
 class Functions:
@@ -80,73 +51,79 @@ class Functions:
     '''
     # checks if process is running and selecting game with UI      
     def Process(self):
-        # using global to stop me from having a mental break down dealing with retuns
-        global Game
-        if(IsProcessRunning('Osu')):
-            Game = 'Osu'
-        elif(IsProcessRunning('Quaver')):
-            Game = 'Qauver'
+        config = Config().LoadSettings()
+        FindRunningProcess = config["FindRunningProcess"]
+        if FindRunningProcess == True or FindRunningProcess == 'True' or FindRunningProcess == 'true':
+            # using global to stop me from having a mental break down dealing with retuns
+            global Game
+            if(IsProcessRunning('Osu')):
+                Game = 'Osu'
+            elif(IsProcessRunning('Quaver')):
+                Game = 'Qauver'
+            else:
+                print('cant find the running Process\nPlease select it manually')
+
+                # just adding a UI for selecting game
+                self.masters = tk.Tk()
+                canvas = tk.Canvas(self.masters)
+                self.masters.geometry('400x550')
+                self.masters.title(u'Select Game!')
+
+                # creates widgets
+                Label(
+                    self.masters,
+                    font = BUTTON_FONT_BOLD,
+                    bg = '#333333',
+                    fg = '#fffafa',
+                    text='Could not a find running game!'
+                    ).pack()
+
+                Label(
+                    self.masters,
+                    font = BUTTON_FONT_BOLD,
+                    bg = '#333333',
+                    fg = '#fffafa',
+                    text='Please select a game manually!'
+                    ).place(x=63, y=185)
+
+                self.OsuBTN = Button(
+                    self.masters, 
+                    text = 'Osu', 
+                    font = BUTTON_FONT_BOLD, 
+                    width = BUTTON_WIDTH, 
+                    height = BUTTON_HEIGHT, 
+                    bg = '#333333', 
+                    fg = '#fffafa', 
+                    relief = BUTTON_STYLE,
+                    command=lambda: self.SetGame(self.masters, 'Osu')
+                    )
+                self.OsuBTN.place(x=215, y=225)
+
+                self.QuaverBTN = Button(
+                    self.masters, 
+                    text = 'Quaver', 
+                    font = BUTTON_FONT_BOLD, 
+                    width = BUTTON_WIDTH, 
+                    height = BUTTON_HEIGHT, 
+                    bg = '#333333', 
+                    fg = '#fffafa', 
+                    relief = BUTTON_STYLE,
+                    command=lambda: self.SetGame(self.masters, 'Quaver')
+                    )
+                self.QuaverBTN.place(x=65, y=225)
+
+                self.masters.config(bg='#333333')
+                self.masters.resizable(width=False, height=False)
+                self.masters.attributes("-alpha",0.965)
+                # not sure what this does tbh
+                ttk.Style().configure("TP.TFrame", background="snow")
+                self.masters.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(self.masters))
+                CenterWin(self.masters)
+                # runs window
+                self.masters.mainloop()
         else:
-            print('cant find the running Process\nPlease select it manually')
-
-            # just adding a UI for selecting game
-            self.masters = tk.Tk()
-            canvas = tk.Canvas(self.masters)
-            self.masters.geometry('400x550')
-            self.masters.title(u'Select Game!')
-
-            # creates widgets
-            Label(
-                self.masters,
-                font = BUTTON_FONT_BOLD,
-                bg = '#333333',
-                fg = '#fffafa',
-                text='Could not a find running game!'
-                ).pack()
-
-            Label(
-                self.masters,
-                font = BUTTON_FONT_BOLD,
-                bg = '#333333',
-                fg = '#fffafa',
-                text='Please select a game manually!'
-                ).place(x=63, y=185)
-
-            self.OsuBTN = Button(
-                self.masters, 
-                text = 'Osu', 
-                font = BUTTON_FONT_BOLD, 
-                width = BUTTON_WIDTH, 
-                height = BUTTON_HEIGHT, 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                relief = BUTTON_STYLE,
-                command=lambda: self.SetGame(self.masters, 'Osu')
-                )
-            self.OsuBTN.place(x=215, y=225)
-
-            self.QuaverBTN = Button(
-                self.masters, 
-                text = 'Quaver', 
-                font = BUTTON_FONT_BOLD, 
-                width = BUTTON_WIDTH, 
-                height = BUTTON_HEIGHT, 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                relief = BUTTON_STYLE,
-                command=lambda: self.SetGame(self.masters, 'Quaver')
-                )
-            self.QuaverBTN.place(x=65, y=225)
-
-            self.masters.config(bg='#333333')
-            self.masters.resizable(width=False, height=False)
-            self.masters.attributes("-alpha",0.965)
-            # not sure what this does tbh
-            ttk.Style().configure("TP.TFrame", background="snow")
-            self.masters.protocol("WM_DELETE_WINDOW", lambda: self.CloseGlobal(self.masters))
-            CenterWin(self.masters)
-            # runs window
-            self.masters.mainloop()
+            Game = 'Other'
+            self.logger.info('FindRunningProcess is set to False skipping Process Scan')
         # ====================================================================================================================
 
 
@@ -204,24 +181,6 @@ class Functions:
         # ====================================================================================================================
 
 
-    # used to close application globally
-    def CloseGlobal(self, master):
-        if master == None or master == '':
-            sys.exit()
-            exit()
-        else:
-            self.root = master
-            if messagebox.askokcancel("Quit", "Do you want to quit?"):
-                self.root.destroy()
-                print('Quiting!')
-                try:
-                    exit()
-                    sys.exit()
-                except:
-                    sys.exit()
-                    exit()
-
-
     # used to set game during run time
     def SetGame(self, master, game):
         global Game
@@ -237,57 +196,6 @@ class Functions:
             # just the current window
             self.SetGameMaster.destroy()
 
-
-    # If Config Folder exists
-    def ConfigFolderExists(self):
-        if path.exists('Config') == False:
-            self.logger.warning('Config file missing, creating now')
-            try:
-                os.mkdir('Config')
-                self.logger.info('Created config dir')
-            except:
-                self.logger.critical('could not create Config dir')
-                exit()
-                sys.exit()
-            return False
-        else:
-            return True
-
-
-    # creates defualt config files
-    def CreateConfigFiles(self):
-        # writes settings
-        if path.exists(r"Config\Settings.json"):
-            pass
-        else:
-            with open(r"Config\Settings.json", "w+") as json_file:
-                json.dump(Defualt_Settings, json_file, indent=4)
-                self.logger.info('created Settings.json')
-
-        # writes defualt Osu config
-        if path.exists(r"Config\Osu4K.json"):
-            pass
-        else:
-            with open(r"Config\Osu4K.json", "w+") as json_file:
-                json.dump(Defualt_Config_Osu4K, json_file, indent=4)
-                self.logger.info('created Osu4K.json')
-
-        # writes defualt quaver config
-        if path.exists(r"Config\Quaver4K.json"):
-            pass
-        else:
-            with open(r"Config\Quaver4K.json", "w+") as json_file:
-                json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
-                self.logger.info('created Quaver4K.json')
-
-
-    # used for loading Config\Settings.json
-    def LoadSettings(self):
-        self.SettingsFile = r"Config\Settings.json"
-        self.SettingsOpen = open(self.SettingsFile, "r")
-        self.Settings = json.loads(self.SettingsOpen.read())
-        return self.Settings
-            
 
 class Bot:
     def __init__(self, Game, Running):
@@ -326,6 +234,9 @@ class Application(tk.Frame):
         super().__init__(master)   
         self.functions = Functions()
 
+        # sets for Config
+        self.config = Config()
+
         # sets logger
         logger = Logger()
         self.logger = logger.StartLogger(name=__name__)
@@ -358,6 +269,9 @@ class Application(tk.Frame):
             # will be used when i decide to add a way to change gamemode
             # also for osu base game support
             if Game == 'Osu' or Game == 'Quaver':    
+                self.t1 = threading.Thread(target=bot.ManiaStart)
+                self.t1.start()
+            else:
                 self.t1 = threading.Thread(target=bot.ManiaStart)
                 self.t1.start()
 
@@ -403,7 +317,7 @@ class Application(tk.Frame):
     def ConfigSelect(self):
         global Config
         # loads config
-        Config = self.functions.LoadSettings()
+        Config = self.config.LoadSettings()
         MultiConfig = Config["MultiConfig"]
         if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
             # starts prompt to ask to load a config file
@@ -428,7 +342,7 @@ class Application(tk.Frame):
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except:
                 self.logger.critical('can not load or find needed icons for Settings Button')
-                self.functions.CloseGlobal(master=None)
+                CloseGlobal(master=None)
 
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
             self.SettingsBTN = Button(
@@ -446,11 +360,8 @@ class Application(tk.Frame):
             self.SettingsBTN.place(x=415, y=563)
         except:
             self.logger.critical('something went very wrong while creating Settings Button')
-            self.functions.CloseGlobal(master=None)
+            CloseGlobal(master=None)
 
-
-        # used for changing currently loaded config
-        # has no use for now will be used for a later feature
         try:
             # loads icon
             try:
@@ -460,7 +371,7 @@ class Application(tk.Frame):
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except:
                 self.logger.critical('can not load or find needed icons')
-                self.functions.CloseGlobal(master=None)
+                CloseGlobal(master=None)
 
             # used for changing games when Multi config is false
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
@@ -479,7 +390,7 @@ class Application(tk.Frame):
             self.ConfigBTN.place(x=0, y=568)
         except:
             self.logger.critical('something went very wrong while creating Config Button')
-            self.functions.CloseGlobal(master=None)
+            CloseGlobal(master=None)
 
         # Start / Stop Button
         try:
@@ -497,16 +408,17 @@ class Application(tk.Frame):
             self.Start_StopBTN.place(x=190, y=255)
         except:
             self.logger.critical('something went very wrong while creating Start Stop Button')
-            self.functions.CloseGlobal(master=None)
+            CloseGlobal(master=None)
 
 
 class Run:
     def __init__(self):
         functions = Functions()
+        config = Config()
         # SplashScreen().Start()
         # checks if config exists
-        functions.ConfigFolderExists()
-        functions.CreateConfigFiles()
+        config.CreateConfigFolder()
+        config.CreateConfigFiles()
 
         # used for checking if the json has all the needed keys
         # not done yet needs to be fixed!
@@ -527,7 +439,7 @@ class Run:
         # binds
         root.bind('<Button-1>', Application().SaveLastClickPos)
         root.bind('<B1-Motion>', Application().Dragging)
-        root.protocol("WM_DELETE_WINDOW", lambda: functions.CloseGlobal(root))
+        root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root))
         # root.overrideredirect(1)
         CenterWin(root)          
         app = Application()  

@@ -5,3 +5,5 @@ from .UpdateConfig import UpdateConfig
 from .FirstRun import FirstRun
 from .CenterWindow import CenterWin
 from .Logger import Logger
+from .CloseGlobal import CloseGlobal
+from .Config import Config
