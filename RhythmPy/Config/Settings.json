@@ -3,5 +3,6 @@
     "Debug": "True",
     "FirstRun": "False",
     "MultiConfig": "True",
-    "FindRunningProcess": "False"
+    "FindRunningProcess": "False",
+    "WindowDrag": "True"
 }

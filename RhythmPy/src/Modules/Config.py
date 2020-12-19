@@ -37,7 +37,8 @@ Defualt_Settings = {
     "Debug": "False",
     "FirstRun": "True",
     "MultiConfig": "False",
-    "FindRunningProcess": "True"
+    "FindRunningProcess": "True",
+    "WindowDrag": "True"
 }
 
 # creates defualt config files
@@ -90,3 +91,9 @@ class Config:
         self.SettingsOpen = open(self.SettingsFile, "r")
         self.Settings = json.loads(self.SettingsOpen.read())
         return self.Settings
+
+    def LoadConfig(self, File):
+        ConfigFile = File
+        ConfigOpen = open(ConfigFile, "r")
+        Config = json.loads(ConfigOpen.read())
+        return Config

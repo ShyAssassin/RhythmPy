@@ -319,7 +319,7 @@ class Application(tk.Frame):
         # loads config
         Config = self.config.LoadSettings()
         MultiConfig = Config["MultiConfig"]
-        if MultiConfig == True or MultiConfig == "True" or MultiConfig == "true":
+        if MultiConfig in [True, "True", "true"]:
             # starts prompt to ask to load a config file
             Path = os.path.dirname(os.path.realpath(__file__))
             ConfigPath = Path.replace("\src", "")
@@ -415,6 +415,8 @@ class Run:
     def __init__(self):
         functions = Functions()
         config = Config()
+        ConfigFile = config.LoadSettings()
+
         # SplashScreen().Start()
         # checks if config exists
         config.CreateConfigFolder()
@@ -437,12 +439,14 @@ class Run:
         root.attributes("-alpha",0.965)
         ttk.Style().configure("TP.TFrame", background="snow")
         # binds
-        root.bind('<Button-1>', Application().SaveLastClickPos)
-        root.bind('<B1-Motion>', Application().Dragging)
+        if ConfigFile["WindowDrag"] in [True, "True", "true"]:
+            root.bind('<Button-1>', Application().SaveLastClickPos)
+            root.bind('<B1-Motion>', Application().Dragging)
+
         root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root))
         # root.overrideredirect(1)
-        CenterWin(root)          
-        app = Application()  
+        app = Application()
+        CenterWin(root)   
         app.mainloop()
 
 
