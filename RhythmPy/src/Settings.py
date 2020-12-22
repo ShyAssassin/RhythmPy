@@ -1,6 +1,11 @@
 import tkinter as tk
 from tkinter import ttk, Entry
 
+try:
+    from .Modules import CenterWin
+except ImportError:
+    from Modules import CenterWin
+
 # this isnt in modules because it is related to ui and not "back end"
 class Settings:
     def __init__(self):
@@ -16,6 +21,7 @@ class Settings:
         self.masters.attributes("-alpha",0.965)
         # not sure what this does tbh
         ttk.Style().configure("TP.TFrame", background="snow") 
+        CenterWin(self.masters)
         self.masters.mainloop()
 
     def Create_Widgets(self):
