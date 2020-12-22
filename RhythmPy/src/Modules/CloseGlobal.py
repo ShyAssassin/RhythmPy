@@ -3,6 +3,11 @@ try:
 except ImportError:
     from Tkinter import messagebox
 
+try:
+    from .Logger import Logger
+except ImportError:
+    from Logger import Logger
+
 import sys
 
 # used to close application globally
@@ -13,7 +18,9 @@ def CloseGlobal(master):
     else:
         root = master
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
+            loggerinit = Logger()
+            logger = loggerinit.StartLogger(name=__name__)
             root.destroy()
-            print('Quiting!')
+            logger.info('Quiting!')
             sys.exit()
             exit()

@@ -16,6 +16,11 @@ except ImportError:
     import Tkinter as tk
     from Tkinter import messagebox
 
+try:
+    from .Logger import Logger
+except ImportError:
+    from Logger import Logger
+
 class FirstRun:
     def __init__(self):
         logger = Logger()
@@ -57,7 +62,7 @@ class FirstRun:
                 self.Notify()
                 webbrowser.open_new('https://github.com/assassinsorrow/RhythmPy/blob/master/README.md')
             else:
-                print('has been run before carrying on')
+                self.logger.info('has been run before carrying on')
         except:
             self.logger.warning('FirstRun is missing from config user may be using a old config')
             self.Warn()

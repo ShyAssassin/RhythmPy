@@ -37,10 +37,6 @@ BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 class Functions:
     def __init__(self):
 
-        # sets logger
-        logger = Logger()
-        self.logger = logger.StartLogger(name=__name__)
-
         PACKAGE_PARENT = '..'
         SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
         sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
@@ -61,7 +57,7 @@ class Functions:
             elif(IsProcessRunning('Quaver')):
                 Game = 'Qauver'
             else:
-                print('cant find the running Process\nPlease select it manually')
+                logger.info('cant find the running Process\nPlease select it manually')
 
                 # just adding a UI for selecting game
                 self.masters = tk.Tk()
@@ -123,7 +119,7 @@ class Functions:
                 self.masters.mainloop()
         else:
             Game = 'Other'
-            self.logger.info('FindRunningProcess is set to False skipping Process Scan')
+            logger.info('FindRunningProcess is set to False skipping Process Scan')
         # ====================================================================================================================
 
 
@@ -186,7 +182,7 @@ class Functions:
         global Game
         Game = game
         self.Game = game
-        print('changed game to ' + Game)
+        logger.info('changed game to ' + Game)
         # used for closing window if there is one
         self.SetGameMaster = master
         if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
@@ -212,17 +208,26 @@ class Bot:
         else:
             # loads custom config
             pass
+
         # will need to be updated to reflect the name of window found in Config
-        Wincap = WindowCapture(None)
-        Wincap.start()
-        print('Window Capture started')
+        try:
+            Wincap = WindowCapture(None)
+            Wincap.start()
+            logger.info('Window Capture started')
+        except Exception:
+            logger.error('Something went wrong while starting window capture')
+            # sets button text if wincap fails to start
+            Start_StopBTN.configure(text="START")
+            self.Running = False
+
         while self.Running == True:
-            # stops program from crashing when starting the wincap
+            # stops program from crashing when starting wincap
             if Wincap.screenshot is None:
                 continue
             # used for stopping the bot and stopping the loop so the thread can be killed
             if Running == False:
                 Wincap.stop()
+                logger.info('Window Capture and Bot Stopped')
                 break 
 
             ScreenCap = Wincap.screenshot
@@ -236,10 +241,6 @@ class Application(tk.Frame):
 
         # sets for Config
         self.config = Config()
-
-        # sets logger
-        logger = Logger()
-        self.logger = logger.StartLogger(name=__name__)
 
         self.master.geometry('500x650')
         self.master.title(u'RhythmPy')
@@ -262,36 +263,25 @@ class Application(tk.Frame):
         and the UI and become unresponsive
         '''
         global Running
-        if(self.Start_StopBTN["text"] == 'START'):
+        if(Start_StopBTN["text"] == 'START'):
             Running = True
             # give current game and if it is running
             bot = Bot(Game, Running)
-            # will be used when i decide to add a way to change gamemode
-            # also for osu base game support
-            if Game == 'Osu' or Game == 'Quaver':    
-                self.t1 = threading.Thread(target=bot.ManiaStart)
-                self.t1.start()
-            else:
-                self.t1 = threading.Thread(target=bot.ManiaStart)
-                self.t1.start()
-
-            print('started')
+  
+            logger.info('Started THread for Bot')
+            self.t1 = threading.Thread(target=bot.ManiaStart)
+            self.t1.start()
             # sets text to once started
-            self.Start_StopBTN.configure(text="STOP")
-        elif(self.Start_StopBTN["text"] == 'STOP'):
+            Start_StopBTN.configure(text="STOP")
+        elif(Start_StopBTN["text"] == 'STOP'):
             # stops program
             Running = False
             self.t1.join()
-            print('stopped')
+            logger.info('Closed thread for Bot')
             # sets text once stopped
-            self.Start_StopBTN.configure(text='START')
+            Start_StopBTN.configure(text='START')
         else:
-            print('Bruh')
-
-
-    # will be used Gamemode
-    def GameMode(self):
-        pass
+            logger.info('I dont even know man')
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
@@ -324,7 +314,7 @@ class Application(tk.Frame):
             Path = os.path.dirname(os.path.realpath(__file__))
             ConfigPath = Path.replace("\src", "")
             ConfigPath = "".join("Config")
-            Config =  filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
+            Config = filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
             print(Config)
         else:
             # runs change game if multi config is False
@@ -341,7 +331,7 @@ class Application(tk.Frame):
                 except:
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except:
-                self.logger.critical('can not load or find needed icons for Settings Button')
+                logger.critical('can not load or find needed icons for Settings Button')
                 CloseGlobal(master=None)
 
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
@@ -359,7 +349,7 @@ class Application(tk.Frame):
             )
             self.SettingsBTN.place(x=415, y=563)
         except:
-            self.logger.critical('something went very wrong while creating Settings Button')
+            logger.critical('something went very wrong while creating Settings Button')
             CloseGlobal(master=None)
 
         try:
@@ -370,7 +360,7 @@ class Application(tk.Frame):
                 except:
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except:
-                self.logger.critical('can not load or find needed icons')
+                logger.critical('can not load or find needed icons')
                 CloseGlobal(master=None)
 
             # used for changing games when Multi config is false
@@ -389,12 +379,13 @@ class Application(tk.Frame):
             )
             self.ConfigBTN.place(x=0, y=568)
         except:
-            self.logger.critical('something went very wrong while creating Config Button')
+            logger.critical('something went very wrong while creating Config Button')
             CloseGlobal(master=None)
 
         # Start / Stop Button
         try:
-            self.Start_StopBTN = Button(
+            global Start_StopBTN
+            Start_StopBTN = Button(
                 self.master, 
                 text = 'START', 
                 font = BUTTON_FONT_BOLD, 
@@ -405,22 +396,32 @@ class Application(tk.Frame):
                 relief = BUTTON_STYLE,
                 command = self.StartStop
             )
-            self.Start_StopBTN.place(x=190, y=255)
+            Start_StopBTN.place(x=190, y=255)
         except:
-            self.logger.critical('something went very wrong while creating Start Stop Button')
+            logger.critical('something went very wrong while creating Start Stop Button')
             CloseGlobal(master=None)
 
 
 class Run:
     def __init__(self):
+        global logger
+        loggerinit = Logger()
+        logger = loggerinit.StartLogger(name=__name__)
+
+        # defines
         functions = Functions()
         config = Config()
-        ConfigFile = config.LoadSettings()
+        
 
-        # SplashScreen().Start()
-        # checks if config exists
+        '''
+        Config Things
+        '''
+        # checks if Config Files exist
         config.CreateConfigFolder()
         config.CreateConfigFiles()
+        # loads settings for later use
+        ConfigFile = config.LoadSettings()
+
 
         # used for checking if the json has all the needed keys
         # not done yet needs to be fixed!
@@ -429,7 +430,7 @@ class Run:
         # used for first run
         FirstRun().Run()
 
-        # checks for running Games, needs to be run after config checking
+        # checks for running Games, needs to be run after config checking and first run check
         functions.Process()
 
         # Main Window Stuff
