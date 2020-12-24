@@ -253,7 +253,6 @@ class Application(tk.Frame):
             justify='right',
             relief="flat"
             )
-        global Running
         self.Create_Widgets()
 
     # stop start command for the button :p
@@ -268,20 +267,27 @@ class Application(tk.Frame):
             # give current game and if it is running
             bot = Bot(Game, Running)
   
-            logger.info('Started THread for Bot')
-            self.t1 = threading.Thread(target=bot.ManiaStart)
-            self.t1.start()
-            # sets text to once started
-            Start_StopBTN.configure(text="STOP")
+            try:
+                self.t1 = threading.Thread(target=bot.ManiaStart)
+                self.t1.start()
+                logger.info('Started Thread for Bot')
+                Start_StopBTN.configure(text="STOP")
+            except Exception:
+                logger.critical('Failed to start Thread for Bot')
+                # sets button text if thread cant start
+                Start_StopBTN.configure(text="START")
         elif(Start_StopBTN["text"] == 'STOP'):
-            # stops program
-            Running = False
-            self.t1.join()
-            logger.info('Closed thread for Bot')
-            # sets text once stopped
-            Start_StopBTN.configure(text='START')
+            try:
+                # stops program
+                Running = False
+                self.t1.join()
+                logger.info('Closed thread for Bot')
+                Start_StopBTN.configure(text='START')
+            except Exception:
+                logger.critical('Failed to close the Bot thread')
+                Start_StopBTN.configure(text='STOP')
         else:
-            logger.info('I dont even know man')
+            logger.warn('I dont even know man')
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
@@ -363,7 +369,7 @@ class Application(tk.Frame):
                 logger.critical('can not load or find needed icons')
                 CloseGlobal(master=None)
 
-            # used for changing games when Multi config is false
+            # used for changing games / configs
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
             self.ConfigBTN = Button(
                 self.master,
@@ -434,21 +440,24 @@ class Run:
         functions.Process()
 
         # Main Window Stuff
-        root = tk.Tk()        
-        root.config(bg='#333333')
-        root.resizable(width=False, height=False)
-        root.attributes("-alpha",0.965)
-        ttk.Style().configure("TP.TFrame", background="snow")
-        # binds
-        if ConfigFile["WindowDrag"] in [True, "True", "true"]:
-            root.bind('<Button-1>', Application().SaveLastClickPos)
-            root.bind('<B1-Motion>', Application().Dragging)
+        try:
+            root = tk.Tk()        
+            root.config(bg='#333333')
+            root.resizable(width=False, height=False)
+            root.attributes("-alpha",0.965)
+            ttk.Style().configure("TP.TFrame", background="snow")
+            # binds
+            if ConfigFile["WindowDrag"] in [True, "True", "true"]:
+                root.bind('<Button-1>', Application().SaveLastClickPos)
+                root.bind('<B1-Motion>', Application().Dragging)
 
-        root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root))
-        # root.overrideredirect(1)
-        app = Application()
-        CenterWin(root)   
-        app.mainloop()
+            root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root))
+            # root.overrideredirect(1)
+            app = Application()
+            CenterWin(root)   
+            app.mainloop()
+        except Exception:
+            logger.critical('something went very wrong while creating main tkinter window')
 
 
 if __name__ == "__main__":
