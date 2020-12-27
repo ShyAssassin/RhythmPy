@@ -1,12 +1,23 @@
 import logging
 import sys
+import os
+from os import path
+from datetime import date
 
 class Logger:
+    def CreateLogFolder(self):
+        if path.exists('Logs') == False:
+            os.mkdir('Logs')
+
     def StartLogger(self, name):
+        # gets current date
+        self.CurrentDate = str(date.today())
+        self.LogFile = str("Logs/" + self.CurrentDate + '.log')
+        
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
         # define file handler and set formatter
-        self.LoggingFile = logging.FileHandler('app.log')
+        self.LoggingFile = logging.FileHandler(self.LogFile)
         self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
         self.LoggingFile.setFormatter(self.Formatter)
         # add file handler to logger

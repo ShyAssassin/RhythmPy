@@ -57,7 +57,7 @@ class Functions:
             elif(IsProcessRunning('Quaver')):
                 Game = 'Qauver'
             else:
-                logger.info('cant find the running Process\nPlease select it manually')
+                logger.info('cant find the running Process')
 
                 # just adding a UI for selecting game
                 self.masters = tk.Tk()
@@ -412,6 +412,7 @@ class Run:
     def __init__(self):
         global logger
         loggerinit = Logger()
+        loggerinit.CreateLogFolder()
         logger = loggerinit.StartLogger(name=__name__)
 
         # defines

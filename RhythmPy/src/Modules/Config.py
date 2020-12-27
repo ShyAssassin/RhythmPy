@@ -51,7 +51,7 @@ class Config:
     # Creates Config Folder
     def CreateConfigFolder(self):
         if path.exists('Config') == False:
-            self.logger.warning('Config file missing, creating now')
+            self.logger.warning('Config Folder missing, creating now')
             try:
                 os.mkdir('Config')
                 self.logger.info('Created config dir')
