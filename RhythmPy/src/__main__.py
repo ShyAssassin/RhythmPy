@@ -13,11 +13,11 @@ import threading
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config, CreateAppdataDir
     from .Settings import Settings
     from .SplashScreen import SplashScreen
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config, CreateAppdataDir
     from Settings import Settings
     from SplashScreen import SplashScreen
 
@@ -113,7 +113,7 @@ class Functions:
                 self.masters.attributes("-alpha",0.965)
                 # not sure what this does tbh
                 ttk.Style().configure("TP.TFrame", background="snow")
-                self.masters.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(self.masters))
+                self.masters.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(self.masters, running=Running))
                 CenterWin(self.masters)
                 # runs window
                 self.masters.mainloop()
@@ -311,20 +311,23 @@ class Application(tk.Frame):
     '''
 
     def ConfigSelect(self):
-        global Config
-        # loads config
-        Config = self.config.LoadSettings()
-        MultiConfig = Config["MultiConfig"]
-        if MultiConfig in [True, "True", "true"]:
-            # starts prompt to ask to load a config file
-            Path = os.path.dirname(os.path.realpath(__file__))
-            ConfigPath = Path.replace("\src", "")
-            ConfigPath = "".join("Config")
-            Config = filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
-            print(Config)
+        if Running in [False, None]:
+            # loads config
+            Config = self.config.LoadSettings()
+            MultiConfig = Config["MultiConfig"]
+            if MultiConfig in [True, "True", "true"]:
+                # starts prompt to ask to load a config file
+                Path = os.path.dirname(os.path.realpath(__file__))
+                ConfigPath = Path.replace("\src", "")
+                ConfigPath = "".join("Config")
+                Config = filedialog.askopenfilename(initialdir = ConfigPath ,title = "Select Config",filetypes = (("Config Files","*.json"),("all files","*.*")))
+                print(Config)
+            else:
+                # runs change game if multi config is False
+                self.functions.ChangeGame()
         else:
-            # runs change game if multi config is False
-            self.functions.ChangeGame()
+            messagebox.showwarning('Bot is running', "The Bot is running please stop Bot before changing game or config")
+        
 
     #Widgets
     def Create_Widgets(self):
@@ -351,7 +354,7 @@ class Application(tk.Frame):
                 pady = BUTTON_PADY, 
                 borderwidth = 0,
                 activebackground = '#363535',
-                command=lambda: Settings()
+                command=lambda: Settings(running = Running)
             )
             self.SettingsBTN.place(x=415, y=563)
         except:
@@ -411,6 +414,10 @@ class Application(tk.Frame):
 class Run:
     def __init__(self):
         global logger
+        global Running
+
+        CreateAppdataDir()
+        Running = None
         loggerinit = Logger()
         loggerinit.CreateLogFolder()
         logger = loggerinit.StartLogger(name=__name__)
@@ -452,7 +459,7 @@ class Run:
                 root.bind('<Button-1>', Application().SaveLastClickPos)
                 root.bind('<B1-Motion>', Application().Dragging)
 
-            root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root))
+            root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running))
             # root.overrideredirect(1)
             app = Application()
             CenterWin(root)   

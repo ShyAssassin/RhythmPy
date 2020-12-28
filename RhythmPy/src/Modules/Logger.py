@@ -6,13 +6,15 @@ from datetime import date
 
 class Logger:
     def CreateLogFolder(self):
-        if path.exists('Logs') == False:
-            os.mkdir('Logs')
+        if path.exists(os.path.expandvars("%appdata%//RhythmPy//Logs")) == False:
+            os.mkdir(os.path.expandvars("%appdata%//RhythmPy//Logs"))
 
     def StartLogger(self, name):
+        self.appdatapath = os.path.expandvars("%appdata%//RhythmPy//Logs//")
+
         # gets current date
         self.CurrentDate = str(date.today())
-        self.LogFile = str("Logs/" + self.CurrentDate + '.log')
+        self.LogFile = str(self.appdatapath + self.CurrentDate + '.log')
         
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)

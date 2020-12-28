@@ -3,6 +3,7 @@ import logging
 import json
 import webbrowser
 import sys
+import os
 
 try:
     from .Logger import Logger
@@ -26,7 +27,10 @@ class FirstRun:
         logger = Logger()
         self.logger = logger.StartLogger(name=__name__)
 
-        self.ConfigFile = r"Config\Settings.json"
+        self.appdata = str(os.path.expandvars("%appdata%//RhythmPy//"))
+        self.appdataConfig = str(os.path.expandvars("%appdata%//RhythmPy//Config//"))
+
+        self.ConfigFile = self.appdataConfig + "Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
         self.Config = json.loads(self.ConfigOpen.read())
 
