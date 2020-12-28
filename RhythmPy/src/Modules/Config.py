@@ -2,6 +2,7 @@ from os import path
 import json
 import sys
 import os
+import traceback
 
 try:
     from .Logger import Logger
@@ -57,29 +58,41 @@ class Config:
             try:
                 os.mkdir(self.appdata + 'Config')
                 self.logger.info('Created config dir')
-            except:
-                self.logger.critical('could not create Config dir')
+            except Exception as e:
+                self.logger.critical('could not create Config dir\n' + str(e))
                 CloseGlobal(master=None, running=None)
 
     # Creates Config Files
     def CreateConfigFiles(self):
         # writes settings
         if path.exists(self.appdataConfig + "Settings.json") == False:
-            with open(self.appdataConfig + "Settings.json", "w+") as json_file:
-                json.dump(Defualt_Settings, json_file, indent=4)
-                self.logger.info('created Settings.json')
+            try:
+                with open(self.appdataConfig + "Settings.json", "w+") as json_file:
+                    json.dump(Defualt_Settings, json_file, indent=4)
+                    self.logger.info('created Settings.json')
+            except Exception as e:
+                self.logger.critical('Failed to create Settings.json\n' + str(e))
+                CloseGlobal(master=None, running=None)
 
         # writes defualt Osu config
         if path.exists(self.appdataConfig + "Osu4K.json") == False:
-            with open(self.appdataConfig + "Osu4K.json", "w+") as json_file:
-                json.dump(Defualt_Config_Osu4K, json_file, indent=4)
-                self.logger.info('created Osu4K.json')
+            try:
+                with open(self.appdataConfig + "Osu4K.json", "w+") as json_file:
+                    json.dump(Defualt_Config_Osu4K, json_file, indent=4)
+                    self.logger.info('created Osu4K.json')
+            except Exception as e:
+                self.logger.critical('Failded to create Osu4K.jso\n' + str(e))
+                CloseGlobal(master=None, running=None)
 
         # writes defualt quaver config
         if path.exists(self.appdataConfig + "Quaver4K.json") == False:
-            with open(self.appdataConfig + "Quaver4K.json", "w+") as json_file:
-                json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
-                self.logger.info('created Quaver4K.json')
+            try:
+                with open(self.appdataConfig + "Quaver4K.json", "w+") as json_file:
+                    json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
+                    self.logger.info('created Quaver4K.json')
+            except Exception as e:
+                self.logger.critical('Failed to create Quaver4K.json' + str(e))
+                CloseGlobal(master=None, running=None)
 
     # used for loading Config\Settings.json
     def LoadSettings(self):

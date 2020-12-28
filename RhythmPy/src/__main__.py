@@ -10,6 +10,7 @@ import os
 import sys
 import time
 import threading
+import traceback
 
 # more retarded
 try:
@@ -36,7 +37,6 @@ BUTTON_STYLE = "solid" # flat, groove, raised, ridge, solid, sunken
 # used for non main UI related things
 class Functions:
     def __init__(self):
-
         PACKAGE_PARENT = '..'
         SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
         sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
@@ -214,8 +214,8 @@ class Bot:
             Wincap = WindowCapture(None)
             Wincap.start()
             logger.info('Window Capture started')
-        except Exception:
-            logger.error('Something went wrong while starting window capture')
+        except Exception as e:
+            logger.error('Something went wrong while starting window capture\n' + str(e))
             # sets button text if wincap fails to start
             Start_StopBTN.configure(text="START")
             self.Running = False
@@ -272,8 +272,8 @@ class Application(tk.Frame):
                 self.t1.start()
                 logger.info('Started Thread for Bot')
                 Start_StopBTN.configure(text="STOP")
-            except Exception:
-                logger.critical('Failed to start Thread for Bot')
+            except Exception as e:
+                logger.critical('Failed to start Thread for Bot\n' + str(e))
                 # sets button text if thread cant start
                 Start_StopBTN.configure(text="START")
         elif(Start_StopBTN["text"] == 'STOP'):
@@ -283,8 +283,8 @@ class Application(tk.Frame):
                 self.t1.join()
                 logger.info('Closed thread for Bot')
                 Start_StopBTN.configure(text='START')
-            except Exception:
-                logger.critical('Failed to close the Bot thread')
+            except Exception as e:
+                logger.critical('Failed to close the Bot thread\n' + str(e))
                 Start_StopBTN.configure(text='STOP')
         else:
             logger.warn('I dont even know man')
@@ -339,9 +339,9 @@ class Application(tk.Frame):
                     self.SettingsIcon = ResizeImage(78, 78, r"src\UI-Media\icon-gear.png")
                 except:
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
-            except:
-                logger.critical('can not load or find needed icons for Settings Button')
-                CloseGlobal(master=None)
+            except Exception as e:
+                logger.critical('can not load or find needed icons for Settings Button\n' + str(e))
+
 
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
             self.SettingsBTN = Button(
@@ -358,8 +358,7 @@ class Application(tk.Frame):
             )
             self.SettingsBTN.place(x=415, y=563)
         except:
-            logger.critical('something went very wrong while creating Settings Button')
-            CloseGlobal(master=None)
+            CloseGlobal(master=None, running=Running)
 
         try:
             # loads icon
@@ -368,9 +367,8 @@ class Application(tk.Frame):
                     self.ConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
                 except:
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
-            except:
-                logger.critical('can not load or find needed icons')
-                CloseGlobal(master=None)
+            except Exception as e:
+                logger.critical('can not load or find needed icons\n' + str(e))
 
             # used for changing games / configs
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
@@ -388,8 +386,7 @@ class Application(tk.Frame):
             )
             self.ConfigBTN.place(x=0, y=568)
         except:
-            logger.critical('something went very wrong while creating Config Button')
-            CloseGlobal(master=None)
+            CloseGlobal(master=None, running=Running)
 
         # Start / Stop Button
         try:
@@ -406,9 +403,9 @@ class Application(tk.Frame):
                 command = self.StartStop
             )
             Start_StopBTN.place(x=190, y=255)
-        except:
-            logger.critical('something went very wrong while creating Start Stop Button')
-            CloseGlobal(master=None)
+        except Exception as e:
+            logger.critical('something went very wrong while creating Start Stop Button\n' + str(e))
+            CloseGlobal(master=None, running=Running)
 
 
 class Run:
@@ -448,25 +445,21 @@ class Run:
         functions.Process()
 
         # Main Window Stuff
-        try:
-            root = tk.Tk()        
-            root.config(bg='#333333')
-            root.resizable(width=False, height=False)
-            root.attributes("-alpha",0.965)
-            ttk.Style().configure("TP.TFrame", background="snow")
-            # binds
-            if ConfigFile["WindowDrag"] in [True, "True", "true"]:
-                root.bind('<Button-1>', Application().SaveLastClickPos)
-                root.bind('<B1-Motion>', Application().Dragging)
+        root = tk.Tk()        
+        root.config(bg='#333333')
+        root.resizable(width=False, height=False)
+        root.attributes("-alpha",0.965)
+        ttk.Style().configure("TP.TFrame", background="snow")
+        # binds
+        if ConfigFile["WindowDrag"] in [True, "True", "true"]:
+            root.bind('<Button-1>', Application().SaveLastClickPos)
+            root.bind('<B1-Motion>', Application().Dragging)
 
-            root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running))
-            # root.overrideredirect(1)
-            app = Application()
-            CenterWin(root)   
-            app.mainloop()
-        except Exception:
-            logger.critical('something went very wrong while creating main tkinter window')
-
+        root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running))
+        # root.overrideredirect(1)
+        app = Application()
+        CenterWin(root)   
+        app.mainloop()
 
 if __name__ == "__main__":
     Run()

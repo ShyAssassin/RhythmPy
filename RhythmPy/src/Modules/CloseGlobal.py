@@ -9,23 +9,25 @@ except ImportError:
     from Logger import Logger
 
 import sys
+import time
 
 # used to close application globally
 def CloseGlobal(master, running):
-    loggerinit = Logger()
-    logger = loggerinit.StartLogger(name=__name__)
     if running in [False, None]:
+        loggerinit = Logger()
+        logger = loggerinit.StartLogger(name=__name__)
         if master == None or master == '':
-            logger.info('Quiting!')
+            logger.info('Quiting!\n')
             sys.exit()
             exit()
+            sys.exit()
+            time.sleep("10")
         else:
             root = master
             if messagebox.askokcancel("Quit", "Do you want to quit?"):
                 root.destroy()
-                logger.info('Quiting!')
+                logger.info('Quiting!\n')
                 sys.exit()
                 exit()
-    else:
-        messagebox.showwarning("Bot is Running", "The Bot is running please close it before exiting")
-        logger.warning('user tried to quit app while Bot is Running')
+                sys.exit()
+                time.sleep("10")
