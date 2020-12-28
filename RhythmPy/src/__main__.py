@@ -214,8 +214,8 @@ class Bot:
             Wincap = WindowCapture(None)
             Wincap.start()
             logger.info('Window Capture started')
-        except Exception as e:
-            logger.error('Something went wrong while starting window capture\n' + str(e))
+        except Exception:
+            logger.exception('Something went wrong while starting window capture\n')
             # sets button text if wincap fails to start
             Start_StopBTN.configure(text="START")
             self.Running = False
@@ -272,8 +272,8 @@ class Application(tk.Frame):
                 self.t1.start()
                 logger.info('Started Thread for Bot')
                 Start_StopBTN.configure(text="STOP")
-            except Exception as e:
-                logger.critical('Failed to start Thread for Bot\n' + str(e))
+            except Exception:
+                logger.exception('Failed to start Thread for Bot\n')
                 # sets button text if thread cant start
                 Start_StopBTN.configure(text="START")
         elif(Start_StopBTN["text"] == 'STOP'):
@@ -283,8 +283,8 @@ class Application(tk.Frame):
                 self.t1.join()
                 logger.info('Closed thread for Bot')
                 Start_StopBTN.configure(text='START')
-            except Exception as e:
-                logger.critical('Failed to close the Bot thread\n' + str(e))
+            except Exception:
+                logger.exception('Failed to close the Bot thread\n')
                 Start_StopBTN.configure(text='STOP')
         else:
             logger.warn('I dont even know man')
@@ -339,8 +339,8 @@ class Application(tk.Frame):
                     self.SettingsIcon = ResizeImage(78, 78, r"src\UI-Media\icon-gear.png")
                 except:
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
-            except Exception as e:
-                logger.critical('can not load or find needed icons for Settings Button\n' + str(e))
+            except Exception:
+                logger.exception('can not load or find needed icons for Settings Button\n')
 
 
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
@@ -367,8 +367,8 @@ class Application(tk.Frame):
                     self.ConfigIcon = ResizeImage(82, 82, r"src\UI-Media\Config-icon.png")
                 except:
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
-            except Exception as e:
-                logger.critical('can not load or find needed icons\n' + str(e))
+            except Exception:
+                logger.exception('can not load or find needed icons\n')
 
             # used for changing games / configs
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
@@ -403,8 +403,8 @@ class Application(tk.Frame):
                 command = self.StartStop
             )
             Start_StopBTN.place(x=190, y=255)
-        except Exception as e:
-            logger.critical('something went very wrong while creating Start Stop Button\n' + str(e))
+        except Exception:
+            logger.exception('something went very wrong while creating Start Stop Button\n')
             CloseGlobal(master=None, running=Running)
 
 

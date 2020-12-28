@@ -58,8 +58,8 @@ class Config:
             try:
                 os.mkdir(self.appdata + 'Config')
                 self.logger.info('Created config dir')
-            except Exception as e:
-                self.logger.critical('could not create Config dir\n' + str(e))
+            except Exception:
+                self.logger.exception('could not create Config dir\n')
                 CloseGlobal(master=None, running=None)
 
     # Creates Config Files
@@ -70,8 +70,8 @@ class Config:
                 with open(self.appdataConfig + "Settings.json", "w+") as json_file:
                     json.dump(Defualt_Settings, json_file, indent=4)
                     self.logger.info('created Settings.json')
-            except Exception as e:
-                self.logger.critical('Failed to create Settings.json\n' + str(e))
+            except Exception:
+                self.logger.exception('Failed to create Settings.json\n')
                 CloseGlobal(master=None, running=None)
 
         # writes defualt Osu config
@@ -80,8 +80,8 @@ class Config:
                 with open(self.appdataConfig + "Osu4K.json", "w+") as json_file:
                     json.dump(Defualt_Config_Osu4K, json_file, indent=4)
                     self.logger.info('created Osu4K.json')
-            except Exception as e:
-                self.logger.critical('Failded to create Osu4K.jso\n' + str(e))
+            except Exception:
+                self.logger.exception('Failded to create Osu4K.jso\n')
                 CloseGlobal(master=None, running=None)
 
         # writes defualt quaver config
@@ -90,8 +90,8 @@ class Config:
                 with open(self.appdataConfig + "Quaver4K.json", "w+") as json_file:
                     json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
                     self.logger.info('created Quaver4K.json')
-            except Exception as e:
-                self.logger.critical('Failed to create Quaver4K.json' + str(e))
+            except Exception:
+                self.logger.exception('Failed to create Quaver4K.json')
                 CloseGlobal(master=None, running=None)
 
     # used for loading Config\Settings.json
