@@ -2,10 +2,7 @@ import subprocess
 import os
 import sys
 import time
-'''
-used for compiling RhythmPy into a windows exe with pyinstaller
-will work on mac / linux later
-'''
+
 class cd:
     """Context manager for changing the current working directory"""
     def __init__(self, newPath):
@@ -18,51 +15,64 @@ class cd:
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
 
-def get_path():
-    try:
-        path = sys.executable
-        path = path.replace('\python.exe', '')
-        path = str(path)
-        return path
-    except:
-        print('failed to cd into dir')
 
-def Build():
-    global ScriptDir
-    path = get_path()
-    print(path)
-    print('if you are using ANACONDA or MiniConda please enter the environment name\nIf not, please press ENTER')
-    print('I RECOMEND YOU USE A NEW AND DIFFERENT VIRTUAL ENVIROMENT WITH REQUIREMENTS INSTALLED TO BUILD!')
-    print("Example: " + "RhythmPy")
-    environment = input()
+class Build:
+    def __init__(self):
+        self.Type = None
 
-    try:
-        print('please give the path of the RhythmPy dir')
-        print('Example: ' + r'C:\Users\Assassin\Documents\GitHub\RhythmPy\RhythmPy')
-        maniaDIR = input()
-        if environment != None or environment != '' or environment != ' ':
-            with cd(maniaDIR):
-                    subprocess.run(['conda', 'activate', environment, '&&', 'pyinstaller', '--onedir', '--debug=all', 'Main.spec', 'Main.py'], shell=True, check=True)
-                    print('done building')
-                    print('if there is no dist folder or the exe does not work make SURE that you have pyinstaller and Visual C++ Redistributable installed')
-                    print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
-                    input()
-                    exit()
+    # asks for Build type
+    def askBuild(self):
+        while self.Type not in ["Dev", "dev", "Normal", "normal"]:
+            if self.Type in ["Quit", "quit"]:
+                sys.exit()
+
+            if self.Type in ["Help", "help"]:
+                print("the Dev build includes a console on runtime with --debug modes enabled while pyinstaller is Building the exe. The dev build is for well developers")
+                print("Normal build does not include a console on runtime and only consists of the GUI. Normal mode is for just creating a exe that will work\n")
+
+            self.Type = input("Normal or Dev Build?\nType Help for more info or quit to quit\n")
+
+    def Build(self):
+        print("you have selected %s build is this right?\nY/N" % (self.Type))
+        # asks if the current mode is correct
+        if input() in ["Y", "y", "Yes", "yes"]:
+            print("Starting Build...")
+            # checks if pyinstaller is installed
+            try:
+                subprocess.run(["pyinstaller", "-h"], check=True)
+                subprocess.run('clear')
+            except subprocess.CalledProcessError:
+                print('Pyinstaller is not installed please')
+                print('install it with: pip install pyinsaller')
+                sys.exit()
+
+            if self.Type in ["Dev", "dev"]:
+                with cd(r"RhythmPy\src"):
+                    try:
+                        subprocess.run(["pyinstaller", "--onedir", "__main__.spec", "__main__.py"], check=True)
+                    except subprocess.CalledProcessError:
+                        print('failed to create exe refer to /build log file')
+                        sys.exit()
+                print('.exe has been created renaming folder...')
+                os.rename('RhythmPy\src\dist\__main__', 'RhythmPy\src\dist\RhythmPy')
+                print('Folder has been renamed')
+            elif self.Type in ["Normal", "normal"]:
+                with cd(r"RhythmPy"):
+                    try:
+                        subprocess.run(['pyinstaller', '--onedir', 'Main.spec', 'Main.py'], check=True)
+                    except subprocess.CalledProcessError:
+                        print('failed to create exe refer to /build log file')
+                        sys.exit()
+                print('.exe has been created renaming folder...')
+                os.rename('RhythmPy\dist\Main', 'RhythmPy\dist\RhythmPy')
+                print('Folder has been renamed')
         else:
-            with cd(maniaDIR):
-                subprocess.run(['pyinstaller', '--onedir', '--debug=all', 'Main.spec', 'Main.py'], shell=True, check=True)
-                print('done building')
-                print('if there is no dist folder or the exe does not work make SURE that you have pyinstaller and Visual C++ Redistributable installed')
-                print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
-                input()
-                exit()
-                    
-    except:
-        print('are you sure you have pyinstaller and Visual C++ Redistributable installed?')
-        print('link to Visual C++ Redistributable download if needed:\nhttps://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads')
-        input()
-        exit()
+            self.Type = None
+            self.askBuild()
+
 
 
 if __name__ == "__main__":
-    Build()
+    build = Build()
+    build.askBuild()
+    build.Build()
