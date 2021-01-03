@@ -47,25 +47,19 @@ class Build:
                 sys.exit()
 
             if self.Type in ["Dev", "dev"]:
-                with cd(r"RhythmPy\src"):
+                with cd(r"RhythmPy"):
                     try:
-                        subprocess.run(["pyinstaller", "--onedir", "__main__.spec", "__main__.py"], check=True)
+                        subprocess.run(["pyinstaller", "--onedir", "__main__Dev.spec", "__main__.py"], check=True)
                     except subprocess.CalledProcessError:
                         print('failed to create exe refer to /build log file')
                         sys.exit()
-                print('.exe has been created renaming folder...')
-                os.rename('RhythmPy\src\dist\__main__', 'RhythmPy\src\dist\RhythmPy')
-                print('Folder has been renamed')
             elif self.Type in ["Normal", "normal"]:
                 with cd(r"RhythmPy"):
                     try:
-                        subprocess.run(['pyinstaller', '--onedir', 'Main.spec', 'Main.py'], check=True)
+                        subprocess.run(['pyinstaller', '--onedir', '__main__.spec', '__main__.py'], check=True)
                     except subprocess.CalledProcessError:
                         print('failed to create exe refer to /build log file')
                         sys.exit()
-                print('.exe has been created renaming folder...')
-                os.rename('RhythmPy\dist\Main', 'RhythmPy\dist\RhythmPy')
-                print('Folder has been renamed')
         else:
             self.Type = None
             self.askBuild()
