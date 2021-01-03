@@ -14,15 +14,18 @@ im still working on this btw :p
   
 
 ## Installation
-**RhythmPy has been tested to work with python verisons 3.7 or lower.**  
-<sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>
+**RhythmPy has been tested to work with python versions 3.7 or lower.**  
+<sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>         
+***Method 1:***           
+<li><a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable</li>                        
 
-1. <a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> or Clone the Repo (`git clone https://github.com/assassinsorrow/RhythmPy.git`)
+***Method 2:***        
+1. Clone the Repo (`git clone https://github.com/assassinsorrow/RhythmPy.git`)
 2. run the `Setup.py` script to install needed dependencies or install manually with (`pip install -r requirements.txt`)
-3. Run `Main.py` to start the program (`python Main.py`)
+3. Run `__main__.py` to start the program (`python __main__.py`)
 
 ## Contributing
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
@@ -39,14 +42,15 @@ you can use pyinstaller
 1. Download needed dependencies `pip install -r requirements`
 2. Download Pyinstaller `pip install pyinstaller`
 3. CD into working directory `cd RhythmPy`
-4. Create a Main.spec file `pyi-makespec Main.py`
-5. Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a> **you will need to define where the ui elements can be found**
-6. Once done with the spec file run `pyinstaller --onedir Main.spec Main.py` and wait for it to complete
-7. Open the executable found in `dist/Main` to run the program              
+4. ***OPTIONAL*** Create your own .spec file `pyi-makespec __main__.py` and Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a>.                  
+**you will need to define where the ui elements can be found**
+5. Run `pyinstaller --onedir __main__.spec __main__.py` to create the .exe    
+*it does take some time to complete*
+6. Open the executable found in `dist/RhythmPy` to run the program              
 
 **After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
 if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
-**if you want to create a installer please use nsis not going to cover how to do it here due to it being rather simple**
+**if you want to create a installer please use nsis i am not going to cover how to do it here due to it being rather simple**
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       
