@@ -352,7 +352,7 @@ class Application(tk.Frame):
         Button(self.master, text='TEXT', font=BUTTON_FONT, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, bg='#444444', fg='#fffafa',
                   padx=BUTTON_PADX, pady=BUTTON_PADY, relief=BUTTON_STYLE)
     Image Button Example:
-        self.Image = ResizeImage(100, 100, "UI-Media\icon-gear.png")
+        self.Image = ResizeImage(100, 100, r"UI-Media\icon-gear.png")
         self.Image = ImageTk.PhotoImage(self.Image)
         Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
     """
@@ -406,7 +406,7 @@ class Application(tk.Frame):
                     self.SettingsIcon = ResizeImage(
                         78, 78, r"RhythmPy\UI-Media\icon-gear.png"
                     )
-                except:
+                except Exception:
                     self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except Exception:
                 logger.exception(
@@ -427,7 +427,7 @@ class Application(tk.Frame):
                 command=lambda: Settings(running=Running),
             )
             self.SettingsBTN.place(x=415, y=563)
-        except:
+        except Exception:
             CloseGlobal(master=None, running=Running)
 
         try:
@@ -437,7 +437,7 @@ class Application(tk.Frame):
                     self.ConfigIcon = ResizeImage(
                         82, 82, r"src\UI-Media\Config-icon.png"
                     )
-                except:
+                except Exception:
                     self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except Exception:
                 logger.exception("can not load or find needed icons\n")
@@ -457,7 +457,7 @@ class Application(tk.Frame):
                 command=lambda: self.ConfigSelect(),
             )
             self.ConfigBTN.place(x=0, y=568)
-        except:
+        except Exception:
             CloseGlobal(master=None, running=Running)
 
         # Start / Stop Button

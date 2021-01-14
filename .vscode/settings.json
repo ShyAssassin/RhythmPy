@@ -14,14 +14,14 @@
     "python.testing.pytestEnabled": false,
     "python.testing.nosetestsEnabled": false,
     "python.testing.unittestEnabled": false,
-    "python.linting.pylintEnabled": true,
     "python.linting.enabled": true,
-    "python.testing.promptToConfigure": false,
-    "python.linting.pylintArgs": [
-        "--extension-pkg-whitelist=PyQt5",
-        "--disable=C0103",
-        "--errors-only"
-    ],
+    "python.testing.promptToConfigure": false,    
+    // "python.linting.pylintEnabled": false,
+    // "python.linting.pylintArgs": [
+    //     "--extension-pkg-whitelist=PyQt5",
+    //     "--disable=C0103",
+    //     "--errors-only"
+    // ],
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -32,4 +32,9 @@
     },
     "explorerExclude.backup": null,
     "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=150",
+        "--ignore=E402,F841,F401,E302,E305,E711,E712,W503,W605",
+    ],
 }
