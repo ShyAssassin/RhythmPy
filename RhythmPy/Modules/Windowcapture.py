@@ -3,6 +3,7 @@ import win32gui, win32ui, win32con
 from threading import Thread, Lock
 from cv2 import cv2
 
+
 class WindowCapture:
 
     # threading properties
@@ -30,7 +31,7 @@ class WindowCapture:
         else:
             self.hwnd = win32gui.FindWindow(None, window_name)
             if not self.hwnd:
-                raise Exception('Window not found: {}'.format(window_name))
+                raise Exception("Window not found: {}".format(window_name))
 
         # get the window size
         window_rect = win32gui.GetWindowRect(self.hwnd)
@@ -59,12 +60,18 @@ class WindowCapture:
         dataBitMap = win32ui.CreateBitmap()
         dataBitMap.CreateCompatibleBitmap(dcObj, self.w, self.h)
         cDC.SelectObject(dataBitMap)
-        cDC.BitBlt((0, 0), (self.w, self.h), dcObj, (self.cropped_x, self.cropped_y), win32con.SRCCOPY)
+        cDC.BitBlt(
+            (0, 0),
+            (self.w, self.h),
+            dcObj,
+            (self.cropped_x, self.cropped_y),
+            win32con.SRCCOPY,
+        )
 
         # convert the raw data into a format opencv can read
-        #dataBitMap.SaveBitmapFile(cDC, 'debug.bmp')
+        # dataBitMap.SaveBitmapFile(cDC, 'debug.bmp')
         signedIntsArray = dataBitMap.GetBitmapBits(True)
-        img = np.fromstring(signedIntsArray, dtype='uint8')
+        img = np.fromstring(signedIntsArray, dtype="uint8")
         img.shape = (self.h, self.w, 4)
 
         # free resources
@@ -74,7 +81,7 @@ class WindowCapture:
         win32gui.DeleteObject(dataBitMap.GetHandle())
 
         # drop the alpha channel, or cv.matchTemplate() will throw an error like:
-        #   error: (-215:Assertion failed) (depth == CV_8U || depth == CV_32F) && type == _templ.type() 
+        #   error: (-215:Assertion failed) (depth == CV_8U || depth == CV_32F) && type == _templ.type()
         #   && _img.dims() <= 2 in function 'cv::matchTemplate'
         # we dont need this for now.....
         # img = img[...,:3]
@@ -96,6 +103,7 @@ class WindowCapture:
         def winEnumHandler(hwnd, ctx):
             if win32gui.IsWindowVisible(hwnd):
                 print(hex(hwnd), win32gui.GetWindowText(hwnd))
+
         win32gui.EnumWindows(winEnumHandler, None)
 
     # translate a pixel position on a screenshot image to a pixel position on the screen.
@@ -126,8 +134,10 @@ class WindowCapture:
             self.screenshot = screenshot
             self.lock.release()
 
+
 if __name__ == "__main__":
     import time
+
     Wincap = WindowCapture(None)
     Wincap.run()
     Wincap.start()
@@ -144,10 +154,10 @@ if __name__ == "__main__":
 
         last_time = float(time.time())
         # last_time = float(time.time())
-        if cv2.waitKey(1) == ord('q'):
+        if cv2.waitKey(1) == ord("q"):
             Wincap.stop()
             cv2.destroyAllWindows()
             exit()
-            break       
-        screenbgr = screen[904,781]
+            break
+        screenbgr = screen[904, 781]
         # print(screenbgr)

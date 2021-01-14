@@ -47,166 +47,176 @@ MAPVK_VSC_TO_VK_EX = 3
 
 # Keyboard Scan Code Mappings
 KEYBOARD_MAPPING = {
-    'escape': 0x01,
-    'esc': 0x01,
-    'f1': 0x3B,
-    'f2': 0x3C,
-    'f3': 0x3D,
-    'f4': 0x3E,
-    'f5': 0x3F,
-    'f6': 0x40,
-    'f7': 0x41,
-    'f8': 0x42,
-    'f9': 0x43,
-    'f10': 0x44,
-    'f11': 0x57,
-    'f12': 0x58,
-    'printscreen': 0xB7,
-    'prntscrn': 0xB7,
-    'prtsc': 0xB7,
-    'prtscr': 0xB7,
-    'scrolllock': 0x46,
-    'pause': 0xC5,
-    '`': 0x29,
-    '1': 0x02,
-    '2': 0x03,
-    '3': 0x04,
-    '4': 0x05,
-    '5': 0x06,
-    '6': 0x07,
-    '7': 0x08,
-    '8': 0x09,
-    '9': 0x0A,
-    '0': 0x0B,
-    '-': 0x0C,
-    '=': 0x0D,
-    'backspace': 0x0E,
-    'insert': 0xD2 + 1024,
-    'home': 0xC7 + 1024,
-    'pageup': 0xC9 + 1024,
-    'pagedown': 0xD1 + 1024,
+    "escape": 0x01,
+    "esc": 0x01,
+    "f1": 0x3B,
+    "f2": 0x3C,
+    "f3": 0x3D,
+    "f4": 0x3E,
+    "f5": 0x3F,
+    "f6": 0x40,
+    "f7": 0x41,
+    "f8": 0x42,
+    "f9": 0x43,
+    "f10": 0x44,
+    "f11": 0x57,
+    "f12": 0x58,
+    "printscreen": 0xB7,
+    "prntscrn": 0xB7,
+    "prtsc": 0xB7,
+    "prtscr": 0xB7,
+    "scrolllock": 0x46,
+    "pause": 0xC5,
+    "`": 0x29,
+    "1": 0x02,
+    "2": 0x03,
+    "3": 0x04,
+    "4": 0x05,
+    "5": 0x06,
+    "6": 0x07,
+    "7": 0x08,
+    "8": 0x09,
+    "9": 0x0A,
+    "0": 0x0B,
+    "-": 0x0C,
+    "=": 0x0D,
+    "backspace": 0x0E,
+    "insert": 0xD2 + 1024,
+    "home": 0xC7 + 1024,
+    "pageup": 0xC9 + 1024,
+    "pagedown": 0xD1 + 1024,
     # numpad
-    'numlock': 0x45,
-    'divide': 0xB5 + 1024,
-    'multiply': 0x37,
-    'subtract': 0x4A,
-    'add': 0x4E,
-    'decimal': 0x53,
-    #KEY_NUMPAD_ENTER: 0x9C + 1024,
-    #KEY_NUMPAD_1: 0x4F,
-    #KEY_NUMPAD_2: 0x50,
-    #KEY_NUMPAD_3: 0x51,
-    #KEY_NUMPAD_4: 0x4B,
-    #KEY_NUMPAD_5: 0x4C,
-    #KEY_NUMPAD_6: 0x4D,
-    #KEY_NUMPAD_7: 0x47,
-    #KEY_NUMPAD_8: 0x48,
-    #KEY_NUMPAD_9: 0x49,
-    #KEY_NUMPAD_0: 0x52,
+    "numlock": 0x45,
+    "divide": 0xB5 + 1024,
+    "multiply": 0x37,
+    "subtract": 0x4A,
+    "add": 0x4E,
+    "decimal": 0x53,
+    # KEY_NUMPAD_ENTER: 0x9C + 1024,
+    # KEY_NUMPAD_1: 0x4F,
+    # KEY_NUMPAD_2: 0x50,
+    # KEY_NUMPAD_3: 0x51,
+    # KEY_NUMPAD_4: 0x4B,
+    # KEY_NUMPAD_5: 0x4C,
+    # KEY_NUMPAD_6: 0x4D,
+    # KEY_NUMPAD_7: 0x47,
+    # KEY_NUMPAD_8: 0x48,
+    # KEY_NUMPAD_9: 0x49,
+    # KEY_NUMPAD_0: 0x52,
     # end numpad
-    'tab': 0x0F,
-    'q': 0x10,
-    'w': 0x11,
-    'e': 0x12,
-    'r': 0x13,
-    't': 0x14,
-    'y': 0x15,
-    'u': 0x16,
-    'i': 0x17,
-    'o': 0x18,
-    'p': 0x19,
-    '[': 0x1A,
-    ']': 0x1B,
-    '\\': 0x2B,
-    'del': 0xD3 + 1024,
-    'delete': 0xD3 + 1024,
-    'end': 0xCF + 1024,
-    'capslock': 0x3A,
-    'a': 0x1E,
-    's': 0x1F,
-    'd': 0x20,
-    'f': 0x21,
-    'g': 0x22,
-    'h': 0x23,
-    'j': 0x24,
-    'k': 0x25,
-    'l': 0x26,
-    ';': 0x27,
+    "tab": 0x0F,
+    "q": 0x10,
+    "w": 0x11,
+    "e": 0x12,
+    "r": 0x13,
+    "t": 0x14,
+    "y": 0x15,
+    "u": 0x16,
+    "i": 0x17,
+    "o": 0x18,
+    "p": 0x19,
+    "[": 0x1A,
+    "]": 0x1B,
+    "\\": 0x2B,
+    "del": 0xD3 + 1024,
+    "delete": 0xD3 + 1024,
+    "end": 0xCF + 1024,
+    "capslock": 0x3A,
+    "a": 0x1E,
+    "s": 0x1F,
+    "d": 0x20,
+    "f": 0x21,
+    "g": 0x22,
+    "h": 0x23,
+    "j": 0x24,
+    "k": 0x25,
+    "l": 0x26,
+    ";": 0x27,
     "'": 0x28,
-    'enter': 0x1C,
-    'return': 0x1C,
-    'shift': 0x2A,
-    'shiftleft': 0x2A,
-    'z': 0x2C,
-    'x': 0x2D,
-    'c': 0x2E,
-    'v': 0x2F,
-    'b': 0x30,
-    'n': 0x31,
-    'm': 0x32,
-    ',': 0x33,
-    '.': 0x34,
-    '/': 0x35,
-    'shiftright': 0x36,
-    'ctrl': 0x1D,
-    'ctrlleft': 0x1D,
-    'win': 0xDB + 1024,
-    'winleft': 0xDB + 1024,
-    'alt': 0x38,
-    'altleft': 0x38,
-    ' ': 0x39,
-    'space': 0x39,
-    'altright': 0xB8 + 1024,
-    'winright': 0xDC + 1024,
-    'apps': 0xDD + 1024,
-    'ctrlright': 0x9D + 1024,
+    "enter": 0x1C,
+    "return": 0x1C,
+    "shift": 0x2A,
+    "shiftleft": 0x2A,
+    "z": 0x2C,
+    "x": 0x2D,
+    "c": 0x2E,
+    "v": 0x2F,
+    "b": 0x30,
+    "n": 0x31,
+    "m": 0x32,
+    ",": 0x33,
+    ".": 0x34,
+    "/": 0x35,
+    "shiftright": 0x36,
+    "ctrl": 0x1D,
+    "ctrlleft": 0x1D,
+    "win": 0xDB + 1024,
+    "winleft": 0xDB + 1024,
+    "alt": 0x38,
+    "altleft": 0x38,
+    " ": 0x39,
+    "space": 0x39,
+    "altright": 0xB8 + 1024,
+    "winright": 0xDC + 1024,
+    "apps": 0xDD + 1024,
+    "ctrlright": 0x9D + 1024,
     # arrow key scancodes can be different depending on the hardware,
     # so I think the best solution is to look it up based on the virtual key
     # https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-mapvirtualkeya?redirectedfrom=MSDN
-    'up': MapVirtualKey(0x26, MAPVK_VK_TO_VSC),
-    'left': MapVirtualKey(0x25, MAPVK_VK_TO_VSC),
-    'down': MapVirtualKey(0x28, MAPVK_VK_TO_VSC),
-    'right': MapVirtualKey(0x27, MAPVK_VK_TO_VSC),
+    "up": MapVirtualKey(0x26, MAPVK_VK_TO_VSC),
+    "left": MapVirtualKey(0x25, MAPVK_VK_TO_VSC),
+    "down": MapVirtualKey(0x28, MAPVK_VK_TO_VSC),
+    "right": MapVirtualKey(0x27, MAPVK_VK_TO_VSC),
 }
 
 # C struct redefinitions
 
 PUL = ctypes.POINTER(ctypes.c_ulong)
+
+
 class KeyBdInput(ctypes.Structure):
-    _fields_ = [("wVk", ctypes.c_ushort),
-                ("wScan", ctypes.c_ushort),
-                ("dwFlags", ctypes.c_ulong),
-                ("time", ctypes.c_ulong),
-                ("dwExtraInfo", PUL)]
+    _fields_ = [
+        ("wVk", ctypes.c_ushort),
+        ("wScan", ctypes.c_ushort),
+        ("dwFlags", ctypes.c_ulong),
+        ("time", ctypes.c_ulong),
+        ("dwExtraInfo", PUL),
+    ]
+
 
 class HardwareInput(ctypes.Structure):
-    _fields_ = [("uMsg", ctypes.c_ulong),
-                ("wParamL", ctypes.c_short),
-                ("wParamH", ctypes.c_ushort)]
+    _fields_ = [
+        ("uMsg", ctypes.c_ulong),
+        ("wParamL", ctypes.c_short),
+        ("wParamH", ctypes.c_ushort),
+    ]
+
 
 class MouseInput(ctypes.Structure):
-    _fields_ = [("dx", ctypes.c_long),
-                ("dy", ctypes.c_long),
-                ("mouseData", ctypes.c_ulong),
-                ("dwFlags", ctypes.c_ulong),
-                ("time",ctypes.c_ulong),
-                ("dwExtraInfo", PUL)]
+    _fields_ = [
+        ("dx", ctypes.c_long),
+        ("dy", ctypes.c_long),
+        ("mouseData", ctypes.c_ulong),
+        ("dwFlags", ctypes.c_ulong),
+        ("time", ctypes.c_ulong),
+        ("dwExtraInfo", PUL),
+    ]
+
 
 class POINT(ctypes.Structure):
-    _fields_ = [("x", ctypes.c_long),
-                ("y", ctypes.c_long)]
+    _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
+
 
 class Input_I(ctypes.Union):
-    _fields_ = [("ki", KeyBdInput),
-                 ("mi", MouseInput),
-                 ("hi", HardwareInput)]
+    _fields_ = [("ki", KeyBdInput), ("mi", MouseInput), ("hi", HardwareInput)]
+
 
 class Input(ctypes.Structure):
-    _fields_ = [("type", ctypes.c_ulong),
-                ("ii", Input_I)]
+    _fields_ = [("type", ctypes.c_ulong), ("ii", Input_I)]
 
 
 # Fail Safe and Pause implementation
+
 
 class FailSafeException(Exception):
     pass
@@ -215,8 +225,8 @@ class FailSafeException(Exception):
 def failSafeCheck():
     if FAILSAFE and tuple(position()) in FAILSAFE_POINTS:
         raise FailSafeException(
-            "PyDirectInput fail-safe triggered from mouse moving to a corner of the screen. To disable this " \
-                "fail-safe, set pydirectinput.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED."
+            "PyDirectInput fail-safe triggered from mouse moving to a corner of the screen. To disable this "
+            "fail-safe, set pydirectinput.FAILSAFE to False. DISABLING FAIL-SAFE IS NOT RECOMMENDED."
         )
 
 
@@ -228,7 +238,6 @@ def _handlePause(_pause):
 
 # direct copy of _genericPyAutoGUIChecks()
 def _genericPyDirectInputChecks(wrappedFunction):
-
     @functools.wraps(wrappedFunction)
     def wrapper(*args, **kwargs):
         funcArgs = inspect.getcallargs(wrappedFunction, *args, **kwargs)
@@ -242,6 +251,7 @@ def _genericPyDirectInputChecks(wrappedFunction):
 
 
 # Helper Functions
+
 
 def _to_windows_coordinates(x=0, y=0):
     display_width, display_height = size()
@@ -261,17 +271,28 @@ def position(x=None, y=None):
     return (x if x else cursor.x, y if y else cursor.y)
 
 
-# size() works exactly the same as PyAutoGUI. I've duplicated it here so that _to_windows_coordinates() can use it 
+# size() works exactly the same as PyAutoGUI. I've duplicated it here so that _to_windows_coordinates() can use it
 # to calculate the window size.
 def size():
-    return (ctypes.windll.user32.GetSystemMetrics(0), ctypes.windll.user32.GetSystemMetrics(1))
+    return (
+        ctypes.windll.user32.GetSystemMetrics(0),
+        ctypes.windll.user32.GetSystemMetrics(1),
+    )
 
 
 # Main Mouse Functions
 
 # Ignored parameters: duration, tween, logScreenshot
 @_genericPyDirectInputChecks
-def mouseDown(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScreenshot=None, _pause=True):
+def mouseDown(
+    x=None,
+    y=None,
+    button=PRIMARY,
+    duration=None,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
 
     if not x is None or not y is None:
         moveTo(x, y)
@@ -285,7 +306,10 @@ def mouseDown(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScre
         ev = MOUSEEVENTF_RIGHTDOWN
 
     if not ev:
-        raise ValueError('button arg to _click() must be one of "left", "middle", or "right", not %s' % button)
+        raise ValueError(
+            'button arg to _click() must be one of "left", "middle", or "right", not %s'
+            % button
+        )
 
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
@@ -296,8 +320,16 @@ def mouseDown(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScre
 
 # Ignored parameters: duration, tween, logScreenshot
 @_genericPyDirectInputChecks
-def mouseUp(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScreenshot=None, _pause=True):
-    
+def mouseUp(
+    x=None,
+    y=None,
+    button=PRIMARY,
+    duration=None,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
+
     if not x is None or not y is None:
         moveTo(x, y)
 
@@ -310,7 +342,10 @@ def mouseUp(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScreen
         ev = MOUSEEVENTF_RIGHTUP
 
     if not ev:
-        raise ValueError('button arg to _click() must be one of "left", "middle", or "right", not %s' % button)
+        raise ValueError(
+            'button arg to _click() must be one of "left", "middle", or "right", not %s'
+            % button
+        )
 
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
@@ -321,8 +356,18 @@ def mouseUp(x=None, y=None, button=PRIMARY, duration=None, tween=None, logScreen
 
 # Ignored parameters: duration, tween, logScreenshot
 @_genericPyDirectInputChecks
-def click(x=None, y=None, clicks=1, interval=0.0, button=PRIMARY, duration=None, tween=None, logScreenshot=None, _pause=True):
-    
+def click(
+    x=None,
+    y=None,
+    clicks=1,
+    interval=0.0,
+    button=PRIMARY,
+    duration=None,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
+
     if not x is None or not y is None:
         moveTo(x, y)
 
@@ -335,11 +380,14 @@ def click(x=None, y=None, clicks=1, interval=0.0, button=PRIMARY, duration=None,
         ev = MOUSEEVENTF_RIGHTCLICK
 
     if not ev:
-        raise ValueError('button arg to _click() must be one of "left", "middle", or "right", not %s' % button)
+        raise ValueError(
+            'button arg to _click() must be one of "left", "middle", or "right", not %s'
+            % button
+        )
 
     for i in range(clicks):
         failSafeCheck()
-        
+
         extra = ctypes.c_ulong(0)
         ii_ = Input_I()
         ii_.mi = MouseInput(0, 0, 0, ev, 0, ctypes.pointer(extra))
@@ -349,23 +397,65 @@ def click(x=None, y=None, clicks=1, interval=0.0, button=PRIMARY, duration=None,
         time.sleep(interval)
 
 
-def leftClick(x=None, y=None, interval=0.0, duration=0.0, tween=None, logScreenshot=None, _pause=True):
+def leftClick(
+    x=None,
+    y=None,
+    interval=0.0,
+    duration=0.0,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
     click(x, y, 1, interval, LEFT, duration, tween, logScreenshot, _pause)
 
 
-def rightClick(x=None, y=None, interval=0.0, duration=0.0, tween=None, logScreenshot=None, _pause=True):
+def rightClick(
+    x=None,
+    y=None,
+    interval=0.0,
+    duration=0.0,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
     click(x, y, 1, interval, RIGHT, duration, tween, logScreenshot, _pause)
 
 
-def middleClick(x=None, y=None, interval=0.0, duration=0.0, tween=None, logScreenshot=None, _pause=True):
+def middleClick(
+    x=None,
+    y=None,
+    interval=0.0,
+    duration=0.0,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
     click(x, y, 1, interval, MIDDLE, duration, tween, logScreenshot, _pause)
 
 
-def doubleClick(x=None, y=None, interval=0.0, button=LEFT, duration=0.0, tween=None, logScreenshot=None, _pause=True):
+def doubleClick(
+    x=None,
+    y=None,
+    interval=0.0,
+    button=LEFT,
+    duration=0.0,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
     click(x, y, 2, interval, button, duration, tween, logScreenshot, _pause)
 
 
-def tripleClick(x=None, y=None, interval=0.0, button=LEFT, duration=0.0, tween=None, logScreenshot=None, _pause=True):
+def tripleClick(
+    x=None,
+    y=None,
+    interval=0.0,
+    button=LEFT,
+    duration=0.0,
+    tween=None,
+    logScreenshot=None,
+    _pause=True,
+):
     click(x, y, 3, interval, button, duration, tween, logScreenshot, _pause)
 
 
@@ -373,15 +463,19 @@ def tripleClick(x=None, y=None, interval=0.0, button=LEFT, duration=0.0, tween=N
 
 
 # Ignored parameters: duration, tween, logScreenshot
-# PyAutoGUI uses ctypes.windll.user32.SetCursorPos(x, y) for this, which might still work fine in DirectInput 
+# PyAutoGUI uses ctypes.windll.user32.SetCursorPos(x, y) for this, which might still work fine in DirectInput
 # environments.
 @_genericPyDirectInputChecks
 def moveTo(x=None, y=None, duration=None, tween=None, logScreenshot=False, _pause=True):
-    x, y = position(x, y)  # if only x or y is provided, will keep the current position for the other axis
+    x, y = position(
+        x, y
+    )  # if only x or y is provided, will keep the current position for the other axis
     x, y = _to_windows_coordinates(x, y)
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
-    ii_.mi = MouseInput(x, y, 0, (MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE), 0, ctypes.pointer(extra))
+    ii_.mi = MouseInput(
+        x, y, 0, (MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE), 0, ctypes.pointer(extra)
+    )
     command = Input(ctypes.c_ulong(0), ii_)
     SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
 
@@ -389,7 +483,14 @@ def moveTo(x=None, y=None, duration=None, tween=None, logScreenshot=False, _paus
 # Ignored parameters: duration, tween, logScreenshot
 # move() and moveRel() are equivalent
 @_genericPyDirectInputChecks
-def moveRel(xOffset=None, yOffset=None, duration=None, tween=None, logScreenshot=False, _pause=True):
+def moveRel(
+    xOffset=None,
+    yOffset=None,
+    duration=None,
+    tween=None,
+    logScreenshot=False,
+    _pause=True,
+):
     x, y = position()
     if xOffset is None:
         xOffset = 0
@@ -397,9 +498,9 @@ def moveRel(xOffset=None, yOffset=None, duration=None, tween=None, logScreenshot
         yOffset = 0
     moveTo(x + xOffset, y + yOffset)
     # We cannot simply use MOUSEEVENTF_MOVE for relative movement, as the results are inconsistent.
-    # "Relative mouse motion is subject to the effects of the mouse speed and the two-mouse threshold values. A user 
-    # sets these three values with the Pointer Speed slider of the Control Panel's Mouse Properties sheet. You can 
-    # obtain and set these values using the SystemParametersInfo function." 
+    # "Relative mouse motion is subject to the effects of the mouse speed and the two-mouse threshold values. A user
+    # sets these three values with the Pointer Speed slider of the Control Panel's Mouse Properties sheet. You can
+    # obtain and set these values using the SystemParametersInfo function."
     # https://docs.microsoft.com/en-us/windows/win32/api/winuser/ns-winuser-mouseinput
     # https://stackoverflow.com/questions/50601200/pyhon-directinput-mouse-relative-moving-act-not-as-expected
     # extra = ctypes.c_ulong(0)
@@ -407,6 +508,8 @@ def moveRel(xOffset=None, yOffset=None, duration=None, tween=None, logScreenshot
     # ii_.mi = MouseInput(xOffset, yOffset, 0, MOUSEEVENTF_MOVE, 0, ctypes.pointer(extra))
     # command = Input(ctypes.c_ulong(0), ii_)
     # SendInput(1, ctypes.pointer(command), ctypes.sizeof(command))
+
+
 move = moveRel
 
 
@@ -421,12 +524,12 @@ move = moveRel
 @_genericPyDirectInputChecks
 def keyDown(key, logScreenshot=None, _pause=True):
     if not key in KEYBOARD_MAPPING or KEYBOARD_MAPPING[key] is None:
-        return 
+        return
 
     keybdFlags = KEYEVENTF_SCANCODE
 
     # arrow keys need the extended key flag
-    if key in ['up', 'left', 'down', 'right']:
+    if key in ["up", "left", "down", "right"]:
         keybdFlags |= KEYEVENTF_EXTENDEDKEY
         # if numlock is on and an arrow key is being pressed, we need to send an additional scancode
         # https://stackoverflow.com/questions/14026496/sendinput-sends-num8-when-i-want-to-send-vk-up-how-come
@@ -435,15 +538,17 @@ def keyDown(key, logScreenshot=None, _pause=True):
             hexKeyCode = 0xE0
             extra = ctypes.c_ulong(0)
             ii_ = Input_I()
-            ii_.ki = KeyBdInput(0, hexKeyCode, KEYEVENTF_SCANCODE, 0, ctypes.pointer(extra))
-            x = Input( ctypes.c_ulong(1), ii_)
+            ii_.ki = KeyBdInput(
+                0, hexKeyCode, KEYEVENTF_SCANCODE, 0, ctypes.pointer(extra)
+            )
+            x = Input(ctypes.c_ulong(1), ii_)
             SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
     hexKeyCode = KEYBOARD_MAPPING[key]
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     ii_.ki = KeyBdInput(0, hexKeyCode, keybdFlags, 0, ctypes.pointer(extra))
-    x = Input( ctypes.c_ulong(1), ii_)
+    x = Input(ctypes.c_ulong(1), ii_)
     SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
 
@@ -452,31 +557,40 @@ def keyDown(key, logScreenshot=None, _pause=True):
 @_genericPyDirectInputChecks
 def keyUp(key, logScreenshot=None, _pause=True):
     if not key in KEYBOARD_MAPPING or KEYBOARD_MAPPING[key] is None:
-        return 
+        return
 
     keybdFlags = KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP
 
     # arrow keys need the extended key flag
-    if key in ['up', 'left', 'down', 'right']:
+    if key in ["up", "left", "down", "right"]:
         keybdFlags |= KEYEVENTF_EXTENDEDKEY
 
     hexKeyCode = KEYBOARD_MAPPING[key]
     extra = ctypes.c_ulong(0)
     ii_ = Input_I()
     ii_.ki = KeyBdInput(0, hexKeyCode, keybdFlags, 0, ctypes.pointer(extra))
-    x = Input( ctypes.c_ulong(1), ii_)
+    x = Input(ctypes.c_ulong(1), ii_)
     SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
 
     # if numlock is on and an arrow key is being pressed, we need to send an additional scancode
     # https://stackoverflow.com/questions/14026496/sendinput-sends-num8-when-i-want-to-send-vk-up-how-come
     # https://handmade.network/wiki/2823-keyboard_inputs_-_scancodes,_raw_input,_text_input,_key_names
-    if key in ['up', 'left', 'down', 'right'] and ctypes.windll.user32.GetKeyState(0x90):
+    if key in ["up", "left", "down", "right"] and ctypes.windll.user32.GetKeyState(
+        0x90
+    ):
         hexKeyCode = 0xE0
         extra = ctypes.c_ulong(0)
         ii_ = Input_I()
-        ii_.ki = KeyBdInput(0, hexKeyCode, KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP, 0, ctypes.pointer(extra))
-        x = Input( ctypes.c_ulong(1), ii_)
+        ii_.ki = KeyBdInput(
+            0,
+            hexKeyCode,
+            KEYEVENTF_SCANCODE | KEYEVENTF_KEYUP,
+            0,
+            ctypes.pointer(extra),
+        )
+        x = Input(ctypes.c_ulong(1), ii_)
         SendInput(1, ctypes.pointer(x), ctypes.sizeof(x))
+
 
 # Ignored parameters: logScreenshot
 # nearly identical to PyAutoGUI's implementation
@@ -485,7 +599,7 @@ def press(keys, presses=1, interval=0.0, logScreenshot=None, _pause=True):
     if type(keys) == str:
         if len(keys) > 1:
             keys = keys.lower()
-        keys = [keys] # If keys is 'enter', convert it to ['enter'].
+        keys = [keys]  # If keys is 'enter', convert it to ['enter'].
     else:
         lowerKeys = []
         for s in keys:
@@ -514,6 +628,8 @@ def typewrite(message, interval=0.0, logScreenshot=None, _pause=True):
         press(c, _pause=False)
         time.sleep(interval)
         failSafeCheck()
+
+
 write = typewrite
 
 

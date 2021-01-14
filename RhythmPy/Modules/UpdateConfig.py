@@ -15,8 +15,10 @@ class UpdateConfig:
         # sets logger level
         self.logger.setLevel(logging.DEBUG)
         # define file handler and set formatter
-        self.LoggingFile = logging.FileHandler('app.log')
-        self.Formatter = logging.Formatter('%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s')
+        self.LoggingFile = logging.FileHandler("app.log")
+        self.Formatter = logging.Formatter(
+            "%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s"
+        )
         self.LoggingFile.setFormatter(self.Formatter)
         # add file handler to logger
         self.logger.addHandler(self.LoggingFile)
@@ -25,9 +27,9 @@ class UpdateConfig:
 
     # creates a copy of the Config as `Config_Old`
     def CreateCopy(self):
-        shutil.copyfile('Config.json', 'Config_Old.json')
-        print('created copy of config saved as Config_Old')
-        self.logger.info('created copy of Config saved as Config_Old')
+        shutil.copyfile("Config.json", "Config_Old.json")
+        print("created copy of config saved as Config_Old")
+        self.logger.info("created copy of Config saved as Config_Old")
 
     def Run(self):
         self.CreateCopy()

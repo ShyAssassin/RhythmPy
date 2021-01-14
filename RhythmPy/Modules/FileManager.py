@@ -21,7 +21,7 @@ Defualt_Config_Osu4K = {
     "Collum1Pos": "",
     "Collum2Pos": "",
     "Collum3Pos": "",
-    "Collum4Pos": ""
+    "Collum4Pos": "",
 }
 
 Defualt_Config_Quaver4K = {
@@ -30,7 +30,7 @@ Defualt_Config_Quaver4K = {
     "Collum1Pos": "",
     "Collum2Pos": "",
     "Collum3Pos": "",
-    "Collum4Pos": ""
+    "Collum4Pos": "",
 }
 
 Defualt_Settings = {
@@ -39,7 +39,7 @@ Defualt_Settings = {
     "FirstRun": "True",
     "MultiConfig": "False",
     "FindRunningProcess": "True",
-    "WindowDrag": "True"
+    "WindowDrag": "True",
 }
 
 # creates defualt config files
@@ -53,13 +53,13 @@ class FileManager:
 
     # Creates Config Folder
     def CreateConfigFolder(self):
-        if path.exists(self.appdata + 'Config') == False:
-            self.logger.warning('Config Folder missing, creating now')
+        if path.exists(self.appdata + "Config") == False:
+            self.logger.warning("Config Folder missing, creating now")
             try:
-                os.mkdir(self.appdata + 'Config')
-                self.logger.info('Created config dir')
+                os.mkdir(self.appdata + "Config")
+                self.logger.info("Created config dir")
             except Exception:
-                self.logger.exception('could not create Config dir\n')
+                self.logger.exception("could not create Config dir\n")
                 CloseGlobal(master=None, running=None)
 
     # Creates Config Files
@@ -69,9 +69,9 @@ class FileManager:
             try:
                 with open(self.appdataConfig + "Settings.json", "w+") as json_file:
                     json.dump(Defualt_Settings, json_file, indent=4)
-                    self.logger.info('created Settings.json')
+                    self.logger.info("created Settings.json")
             except Exception:
-                self.logger.exception('Failed to create Settings.json\n')
+                self.logger.exception("Failed to create Settings.json\n")
                 CloseGlobal(master=None, running=None)
 
         # writes defualt Osu config
@@ -79,9 +79,9 @@ class FileManager:
             try:
                 with open(self.appdataConfig + "Osu4K.json", "w+") as json_file:
                     json.dump(Defualt_Config_Osu4K, json_file, indent=4)
-                    self.logger.info('created Osu4K.json')
+                    self.logger.info("created Osu4K.json")
             except Exception:
-                self.logger.exception('Failded to create Osu4K.jso\n')
+                self.logger.exception("Failded to create Osu4K.jso\n")
                 CloseGlobal(master=None, running=None)
 
         # writes defualt quaver config
@@ -89,9 +89,9 @@ class FileManager:
             try:
                 with open(self.appdataConfig + "Quaver4K.json", "w+") as json_file:
                     json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
-                    self.logger.info('created Quaver4K.json')
+                    self.logger.info("created Quaver4K.json")
             except Exception:
-                self.logger.exception('Failed to create Quaver4K.json')
+                self.logger.exception("Failed to create Quaver4K.json")
                 CloseGlobal(master=None, running=None)
 
     # used for loading Config\Settings.json

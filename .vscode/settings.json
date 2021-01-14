@@ -1,0 +1,35 @@
+{
+    "[python]": {
+        "files.trimTrailingWhitespace": true,
+    },
+    "python.pythonPath": "C:\\Users\\Assassin\\anaconda3\\envs\\Dont Break\\python.exe",
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./Tests",
+        "-p",
+        "test*.py"
+    ],
+    // "python.terminal.activateEnvironment": false,
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.testing.promptToConfigure": false,
+    "python.linting.pylintArgs": [
+        "--extension-pkg-whitelist=PyQt5",
+        "--disable=C0103",
+        "--errors-only"
+    ],
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/__pycache__": true
+    },
+    "explorerExclude.backup": null,
+    "python.formatting.provider": "black",
+}

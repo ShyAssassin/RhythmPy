@@ -16,8 +16,8 @@ def CloseGlobal(master, running):
     if running in [False, None]:
         loggerinit = Logger()
         logger = loggerinit.StartLogger(name=__name__)
-        if master == None or master == '':
-            logger.info('Quiting!\n')
+        if master == None or master == "":
+            logger.info("Quiting!\n")
             sys.exit()
             exit()
             sys.exit()
@@ -26,7 +26,7 @@ def CloseGlobal(master, running):
             root = master
             if messagebox.askokcancel("Quit", "Do you want to quit?"):
                 root.destroy()
-                logger.info('Quiting!\n')
+                logger.info("Quiting!\n")
                 sys.exit()
                 exit()
                 sys.exit()

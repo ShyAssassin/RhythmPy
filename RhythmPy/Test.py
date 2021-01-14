@@ -17,15 +17,15 @@ except:
 # this test is used on quaver
 
 # A
-Collum1 = {'top': 0, 'left': 0, 'width': 1920, 'height': 1080}
+Collum1 = {"top": 0, "left": 0, "width": 1920, "height": 1080}
 # S
-Collum2 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
+Collum2 = {"top": 0, "left": 0, "width": 500, "height": 500}
 # K
-Collum3 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
+Collum3 = {"top": 0, "left": 0, "width": 500, "height": 500}
 # L
-Collum4 = {'top': 0, 'left': 0, 'width': 500, 'height': 500}
+Collum4 = {"top": 0, "left": 0, "width": 500, "height": 500}
 
-'''
+"""
 TODO:
 make json Config settings
 add multiprocessing / threading
@@ -34,13 +34,14 @@ detect 4k or 7k
 global stop / start button
 user interface with TKinter
 executable for mac / windows
-'''
+"""
 
-def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
+
+def TestRun(ImShow=True, ConfigFile="", Debug=True, Logging=True):
     last_time = float(time.time())
-    
+
     ##########################################
-    #                                       #       
+    #                                       #
     #                 Logging               #
     #                                       #
     #########################################
@@ -55,18 +56,20 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         logger.setLevel(logging.WARNING)
 
     # define file handler and set formatter
-    LoggingFile = logging.FileHandler('app.log')
-    formatter = logging.Formatter('%(name)s || %(asctime)s :: %(levelname)s :: %(message)s')
+    LoggingFile = logging.FileHandler("app.log")
+    formatter = logging.Formatter(
+        "%(name)s || %(asctime)s :: %(levelname)s :: %(message)s"
+    )
     LoggingFile.setFormatter(formatter)
 
     # add file handler to logger
     logger.addHandler(LoggingFile)
 
-    logger.info('Started')
+    logger.info("Started")
     ###########################################
 
     ##########################################
-    #                                       #       
+    #                                       #
     #             JSON Settings             #
     #                                       #
     #########################################
@@ -82,35 +85,35 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         # captures screen
         ScreenCap = Wincap.screenshot
 
-        # checks if Imshow is called in run 
+        # checks if Imshow is called in run
         if ImShow == True:
-            cv2.imshow('screen', ScreenCap)
-            
-        if (cv2.waitKey(1) & 0xFF) == ord('q'):
-            logger.info('ImShow has been closed')
+            cv2.imshow("screen", ScreenCap)
+
+        if (cv2.waitKey(1) & 0xFF) == ord("q"):
+            logger.info("ImShow has been closed")
             Wincap.stop()
             cv2.destroyAllWindows()
             exit()
 
         ##########################################
-        #                                       #       
+        #                                       #
         #       image is in BGR Not RGB         #
-        #         and Y goes before X           #  
+        #         and Y goes before X           #
         #                                       #
         #########################################
 
         # gets the BGR colour from the Cords in the brackets
         # A                   y   x
-        (BGR) = ScreenCap[904,781]
+        (BGR) = ScreenCap[904, 781]
         Collum1BGR = BGR
         # S                   y   x
-        (BGR) = ScreenCap[114,232]
+        (BGR) = ScreenCap[114, 232]
         Collum2BGR = BGR
         # # K                 y   x
-        (BGR) = ScreenCap[114,232]
+        (BGR) = ScreenCap[114, 232]
         Collum3BGR = BGR
         # # L                 y   x
-        (BGR) = ScreenCap[114,232]
+        (BGR) = ScreenCap[114, 232]
         Collum4BGR = BGR
 
         # converts RGB value into a string
@@ -122,9 +125,13 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
 
         print(Collum2BGR)
 
-        if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
-            print('block')
-            
+        if (
+            Collum1BGR == "[244 244 244 255]"
+            or Collum1BGR == "[243 243 243 255]"
+            or Collum1BGR == "[242 242 242 255]"
+        ):
+            print("block")
+
         # this needs to be at the bottom
         if Debug == True:
             try:
@@ -134,11 +141,11 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
                 print("FPS {}".format(round(fps)))
                 last_time = float(time.time())
             except:
-                logger.error('FPS does not like being devided by one')
+                logger.error("FPS does not like being devided by one")
                 Wincap.stop()
                 cv2.destroyAllWindows()
                 exit()
-            
 
-if __name__ == '__main__':
-   TestRun(Debug=False, ImShow=False, Logging=True)
+
+if __name__ == "__main__":
+    TestRun(Debug=False, ImShow=False, Logging=True)

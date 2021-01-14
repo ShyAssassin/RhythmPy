@@ -13,20 +13,22 @@ class Settings:
             # this is  so bad
             self.masters = tk.Tk()
             canvas = tk.Canvas(self.masters)
-            self.masters.geometry('500x500')
-            self.masters.title(u'Settings')
+            self.masters.geometry("500x500")
+            self.masters.title(u"Settings")
             # creates widgets
             self.Create_Widgets()
-            self.masters.config(bg='#333333')
+            self.masters.config(bg="#333333")
             self.masters.resizable(width=False, height=False)
-            self.masters.attributes("-alpha",0.965)
+            self.masters.attributes("-alpha", 0.965)
             # not sure what this does tbh
-            ttk.Style().configure("TP.TFrame", background="snow") 
+            ttk.Style().configure("TP.TFrame", background="snow")
             CenterWin(self.masters)
             self.masters.mainloop()
         else:
-            messagebox.showwarning('Bot is running', "The Bot is running please stop Bot before changing settings")
-
+            messagebox.showwarning(
+                "Bot is running",
+                "The Bot is running please stop Bot before changing settings",
+            )
 
     def Create_Widgets(self):
         pass
