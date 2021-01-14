@@ -43,7 +43,7 @@ Defualt_Settings = {
 }
 
 # creates defualt config files
-class Config:
+class FileManager:
     def __init__(self):
         # starts logger
         logger = Logger()

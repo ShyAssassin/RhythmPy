@@ -14,11 +14,11 @@ import traceback
 
 # more retarded
 try:
-    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config, CreateAppdataDir
+    from .Modules import ResizeImage, IsProcessRunning, Windowcapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, FileManager, CreateAppdataDir
     from .Settings import Settings
     from .SplashScreen import SplashScreen
 except ImportError:
-    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, Config, CreateAppdataDir
+    from Modules import ResizeImage, IsProcessRunning, WindowCapture, UpdateConfig, FirstRun, CenterWin, Logger, CloseGlobal, FileManager, CreateAppdataDir
     from Settings import Settings
     from SplashScreen import SplashScreen
 
@@ -47,15 +47,15 @@ class Functions:
     '''
     # checks if process is running and selecting game with UI      
     def Process(self):
-        config = Config().LoadSettings()
-        FindRunningProcess = config["FindRunningProcess"]
+        settings = FileManager().LoadSettings()
+        FindRunningProcess = settings["FindRunningProcess"]
         if FindRunningProcess == True or FindRunningProcess == 'True' or FindRunningProcess == 'true':
             # using global to stop me from having a mental break down dealing with retuns
-            global Game
+            global Config
             if(IsProcessRunning('Osu')):
-                Game = 'Osu'
+                Config = 'Osu'
             elif(IsProcessRunning('Quaver')):
-                Game = 'Qauver'
+                Config = 'Qauver'
             else:
                 logger.info('cant find the running Process')
 
@@ -118,7 +118,7 @@ class Functions:
                 # runs window
                 self.masters.mainloop()
         else:
-            Game = 'Other'
+            self.SetGame(master=None, config='Other')
             logger.info('FindRunningProcess is set to False skipping Process Scan')
         # ====================================================================================================================
 
@@ -178,11 +178,18 @@ class Functions:
 
 
     # used to set game during run time
-    def SetGame(self, master, game):
-        global Game
-        Game = game
-        self.Game = game
-        logger.info('changed game to ' + Game)
+    def SetGame(self, master, config):
+        global Config
+        global ConfigName
+        Config = config
+        self.Game = config
+        logger.info('changed game to ' + Config)
+        ConfigName = Config
+        # sets Config name to be shown in UI
+        try:
+            app.UpdateShownConfig()
+        except Exception:
+            pass
         # used for closing window if there is one
         self.SetGameMaster = master
         if self.SetGameMaster == None or self.SetGameMaster == False or self.SetGameMaster == "" or self.SetGameMaster == " ":
@@ -194,15 +201,15 @@ class Functions:
 
 
 class Bot:
-    def __init__(self, Game, Running):
+    def __init__(self, Config, Running):
         self.Running = Running
-        self.Game = Game
+        self.Config = Config
 
     def ManiaStart(self):
-        if Game == 'Osu':
+        if Config == 'Osu':
             # loads Config file
             pass
-        elif Game == 'Quaver':
+        elif Config == 'Quaver':
             # loads config file
             pass
         else:
@@ -228,7 +235,7 @@ class Bot:
             if Running == False:
                 Wincap.stop()
                 logger.info('Window Capture and Bot Stopped')
-                break 
+                break
 
             ScreenCap = Wincap.screenshot
 
@@ -236,11 +243,11 @@ class Bot:
 # used for all UI elements including button functions!
 class Application(tk.Frame):
     def __init__(self, master=None):
-        super().__init__(master)   
+        super().__init__(master)
         self.functions = Functions()
 
         # sets for Config
-        self.config = Config()
+        self.fm = FileManager()
 
         self.master.geometry('500x650')
         self.master.title(u'RhythmPy')
@@ -262,11 +269,16 @@ class Application(tk.Frame):
         and the UI and become unresponsive
         '''
         global Running
-        if(Start_StopBTN["text"] == 'START'):
+        if Start_StopBTN["text"] == 'START':
             Running = True
             # give current game and if it is running
-            bot = Bot(Game, Running)
-  
+            try:
+                bot = Bot(Config, Running)
+            except Exception:
+                Running = False
+                logger.exception('failed to give bot needed info')
+                CloseGlobal(running=Running, master=self.master)
+
             try:
                 self.t1 = threading.Thread(target=bot.ManiaStart)
                 self.t1.start()
@@ -312,8 +324,9 @@ class Application(tk.Frame):
 
     def ConfigSelect(self):
         if Running in [False, None]:
+            global Config
             # loads config
-            Config = self.config.LoadSettings()
+            Config = self.fm.LoadSettings()
             MultiConfig = Config["MultiConfig"]
             if MultiConfig in [True, "True", "true"]:
                 # starts prompt to ask to load a config file
@@ -327,8 +340,19 @@ class Application(tk.Frame):
                 self.functions.ChangeGame()
         else:
             messagebox.showwarning('Bot is running', "The Bot is running please stop Bot before changing game or config")
-        
 
+    def UpdateShownConfig(self):
+        # destroys current lable
+        self.ShownConfig.destroy()
+        self.ShownConfig = None
+        self.ShownConfig = Label(
+            self.master,
+            font = BUTTON_FONT_BOLD,
+            bg = '#333333',
+            fg = '#fffafa',
+            text = 'Current Loaded Config: ' + ConfigName
+        )
+        self.ShownConfig.pack()
     #Widgets
     def Create_Widgets(self):
         # Settings Button
@@ -346,12 +370,12 @@ class Application(tk.Frame):
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
             self.SettingsBTN = Button(
                 self.master,
-                image = self.SettingsIcon, 
-                relief = 'flat', 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                padx = BUTTON_PADX, 
-                pady = BUTTON_PADY, 
+                image = self.SettingsIcon,
+                relief = 'flat',
+                bg = '#333333',
+                fg = '#fffafa',
+                padx = BUTTON_PADX,
+                pady = BUTTON_PADY,
                 borderwidth = 0,
                 activebackground = '#363535',
                 command=lambda: Settings(running = Running)
@@ -375,11 +399,11 @@ class Application(tk.Frame):
             self.ConfigBTN = Button(
                 self.master,
                 image = self.ConfigIcon,
-                relief = 'flat', 
-                bg = '#333333', 
-                fg = '#fffafa', 
-                padx = BUTTON_PADX, 
-                pady = BUTTON_PADY, 
+                relief = 'flat',
+                bg = '#333333',
+                fg = '#fffafa',
+                padx = BUTTON_PADX,
+                pady = BUTTON_PADY,
                 borderwidth = 0,
                 activebackground = '#363535',
                 command = lambda: self.ConfigSelect()
@@ -392,13 +416,13 @@ class Application(tk.Frame):
         try:
             global Start_StopBTN
             Start_StopBTN = Button(
-                self.master, 
-                text = 'START', 
-                font = BUTTON_FONT_BOLD, 
-                width = BUTTON_WIDTH, 
-                height = BUTTON_HEIGHT, 
-                bg = '#333333', 
-                fg = '#fffafa', 
+                self.master,
+                text = 'START',
+                font = BUTTON_FONT_BOLD,
+                width = BUTTON_WIDTH,
+                height = BUTTON_HEIGHT,
+                bg = '#333333',
+                fg = '#fffafa',
                 relief = BUTTON_STYLE,
                 command = self.StartStop
             )
@@ -407,31 +431,52 @@ class Application(tk.Frame):
             logger.exception('something went very wrong while creating Start Stop Button\n')
             CloseGlobal(master=None, running=Running)
 
+        try:
+            # shows Currently loaded config
+            self.ShownConfig = Label(
+                self.master,
+                font = BUTTON_FONT_BOLD,
+                bg = '#333333',
+                fg = '#fffafa',
+                text = 'Current Loaded Config: ' + ConfigName
+            )
+            self.ShownConfig.pack()
+        except Exception:
+            logger.exception('failed to create UI Lable for Loaded Config')
+            CloseGlobal(master=None, running=Running)
+
+
 
 class Run:
     def __init__(self):
-        global logger
+        # global for if bot is running
         global Running
+        Running = None
+        # sets global for config name to be shown in UI
+        global ConfigName
+        ConfigName = ''
 
         CreateAppdataDir()
-        Running = None
+
+        # sets global for logger
+        global logger
         loggerinit = Logger()
         loggerinit.CreateLogFolder()
         logger = loggerinit.StartLogger(name=__name__)
 
         # defines
         functions = Functions()
-        config = Config()
-        
+        fm = FileManager()
+
 
         '''
         Config Things
         '''
         # checks if Config Files exist
-        config.CreateConfigFolder()
-        config.CreateConfigFiles()
+        fm.CreateConfigFolder()
+        fm.CreateConfigFiles()
         # loads settings for later use
-        ConfigFile = config.LoadSettings()
+        ConfigFile = fm.LoadSettings()
 
 
         # used for checking if the json has all the needed keys
@@ -445,20 +490,21 @@ class Run:
         functions.Process()
 
         # Main Window Stuff
-        root = tk.Tk()        
+        root = tk.Tk()
         root.config(bg='#333333')
         root.resizable(width=False, height=False)
         root.attributes("-alpha",0.965)
         ttk.Style().configure("TP.TFrame", background="snow")
+        global app
+        app = Application()
         # binds
         if ConfigFile["WindowDrag"] in [True, "True", "true"]:
-            root.bind('<Button-1>', Application().SaveLastClickPos)
-            root.bind('<B1-Motion>', Application().Dragging)
+            root.bind('<Button-1>', app.SaveLastClickPos)
+            root.bind('<B1-Motion>', app.Dragging)
 
         root.protocol("WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running))
         # root.overrideredirect(1)
-        app = Application()
-        CenterWin(root)   
+        CenterWin(root)
         app.mainloop()
 
 if __name__ == "__main__":

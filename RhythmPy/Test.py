@@ -120,12 +120,10 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
         Collum4BGR = str(Collum4BGR)
         #######################################
 
-        # print(Collum2BGR)
+        print(Collum2BGR)
 
-        # if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
-        #     print('block')
-        #     DirectInput.keyDown('a')
-        #     DirectInput.keyUp('a')
+        if Collum1BGR == '[244 244 244 255]' or Collum1BGR == '[243 243 243 255]' or Collum1BGR == '[242 242 242 255]':
+            print('block')
             
         # this needs to be at the bottom
         if Debug == True:
@@ -143,4 +141,4 @@ def TestRun(ImShow=True, ConfigFile='', Debug=True, Logging=True):
             
 
 if __name__ == '__main__':
-   TestRun(Debug=True, ImShow=True, Logging=True)
+   TestRun(Debug=False, ImShow=False, Logging=True)

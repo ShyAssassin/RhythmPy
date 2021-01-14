@@ -40,11 +40,18 @@ class Build:
             # checks if pyinstaller is installed
             try:
                 subprocess.run(["pyinstaller", "-h"], check=True)
-                subprocess.run('clear')
             except subprocess.CalledProcessError:
                 print('Pyinstaller is not installed please')
                 print('install it with: pip install pyinsaller')
                 sys.exit()
+
+            # clears console
+            try:
+                subprocess.run(['clear'], check=True)
+            except subprocess.CalledProcessError:
+                subprocess.run(['cls'], check=True)
+            except:
+                pass
 
             if self.Type in ["Dev", "dev"]:
                 with cd(r"RhythmPy"):
