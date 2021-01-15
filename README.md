@@ -30,7 +30,7 @@ im still working on this btw :p
   Windows Powershell: `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -`      
   Linux/Mac: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`     
   <a href="https://python-poetry.org/docs/"><sup>Poetry's documentation<sup></sup></sup></a>
-3. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install`
+3. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install --no-dev`
 4. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
 5. Start RhythmPy `poetry run python __main__.py`
 
