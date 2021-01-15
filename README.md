@@ -24,17 +24,23 @@ im still working on this btw :p
 <li><a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable</li>                        
 
 ***Method 2:***        
-1. Clone the Repo (`git clone https://github.com/assassinsorrow/RhythmPy.git`)
-2. run the `Setup.py` script to install needed dependencies or install manually with (`pip install -r requirements.txt`)
-3. Run `__main__.py` to start the program (`python __main__.py`)
+1. Clone the Repo `git clone https://github.com/assassinsorrow/RhythmPy.git`
+2. CD into the project folder `cd RhythmPy` <sup>The folder that has README.md in it</sup>
+2. Install <a href="https://github.com/python-poetry/poetry">Poetry</a>      
+  Windows Powershell: `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -`      
+  Linux/Mac: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`     
+  <a href="https://python-poetry.org/docs/"><sup>Poetry's documentation<sup></sup></sup></a>
+3. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install`
+4. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
+5. Start RhythmPy `poetry run python __main__.py`
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+2. Create your Feature Branch `git checkout -b feature/AmazingFeature`
+3. Commit your Changes `git commit -m 'Add some AmazingFeature'`
+4. Push to the Branch `git push origin feature/AmazingFeature`
 5. Open a Pull Request
 
 i will review the pull request as soon as i can
