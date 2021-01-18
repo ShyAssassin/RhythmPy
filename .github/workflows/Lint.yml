@@ -19,10 +19,7 @@ jobs:
         python-version: 3.7
 
     - name: Install poetry
-      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-      
-    - name: Configure your current shell
-      run: source $HOME/.poetry/env
+      uses: abatilo/actions-poetry@v2.0.0
         
     - name: Install dependencies
       run: poetry install
