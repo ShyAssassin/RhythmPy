@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "RhythmPsy"
+name = "RhythmPy"
 version = "0.2.0"
 description = "A rhythm game bot"
 authors = ["assassinsorrow <assassinsorrows@gmail.com>"]
@@ -13,11 +13,11 @@ Pillow = "^8.1.0"
 opencv-python = "^4.5.1"
 numpy = "^1.19.5"
 requests = "^2.25.1"
-pyinstaller = {version = "^4.2", extras = ["pyinstaller"]}
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
 flake8 = "^3.8.4"
+pyinstaller = "^4.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
