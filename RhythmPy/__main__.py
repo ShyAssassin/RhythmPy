@@ -25,6 +25,7 @@ try:
         WindowCapture,
     )
     from .Settings import Settings
+
     # from .SplashScreen import SplashScreen
 except ImportError:
     from Modules import (
@@ -39,6 +40,7 @@ except ImportError:
         WindowCapture,
     )
     from Settings import Settings
+
     # from SplashScreen import SplashScreen
 
 BUTTON_PADX = 4
