@@ -17,7 +17,7 @@ def IsProcessRunning(processName):
             if processName.lower() in proc.name().lower():
                 return True
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
-            print("no work")
+            pass
     return False
 
 
