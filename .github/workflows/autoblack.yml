@@ -4,7 +4,10 @@ jobs:
   Format:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:
@@ -13,12 +16,12 @@ jobs:
         run: pip install black
       - name: Run black --check .
         run: black --check .
-      - name: If needed, commit black changes to the pull request
+      - name: Commit black changes
         if: failure()
         run: |
           black .
-          git config --global user.name 'autoblack'
-          git config --global user.email 'assassinsorrows@gmail.com'
+          git config --global user.name 'autoblack[bot]'
+          git config --global user.email '49711232+assassinsorrow@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
           git checkout $GITHUB_HEAD_REF
           git commit -am "fixup: Format Python code with Black"
