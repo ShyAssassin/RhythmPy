@@ -15,12 +15,6 @@
     "python.testing.unittestEnabled": false,
     "python.linting.enabled": true,
     "python.testing.promptToConfigure": false,    
-    // "python.linting.pylintEnabled": false,
-    // "python.linting.pylintArgs": [
-    //     "--extension-pkg-whitelist=PyQt5",
-    //     "--disable=C0103",
-    //     "--errors-only"
-    // ],
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -36,5 +30,5 @@
         "--max-line-length=150",
         "--ignore=E402,F841,F401,E302,E305,E711,E712,W503,W605",
     ],
-    "python.linting.pylintEnabled": false,
+    "python.pythonPath": "c:\\Users\\Assassin\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\rhythmpy-gDBW14kE-py3.7\\Scripts\\python.exe",
 }
