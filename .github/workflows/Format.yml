@@ -16,7 +16,10 @@ jobs:
         run: pip install black	
       - name: Run black .
         run: black .	
-      - name: Commit black changes	
+      - name: Check for changes
+        uses: UnicornGlobal/has-changes-action@v1.0.11
+      - name: Commit if black formatted files
+        if: steps.changes.outputs.changed == 1
         run: |		
           git config --global user.name 'Format[bot]'	
           git config --global user.email '49711232+assassinsorrow@users.noreply.github.com'	
