@@ -21,10 +21,11 @@ im still working on this btw :p
 
 ## Installation
 **RhythmPy has been tested to work with python versions 3.7 or lower.**  
-<sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>         
-**Method 1: Using the installer / executable**           
-<a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable                       
+<sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>       
 
+**Method 1: Using the installer / executable**           
+* <a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable                         
+                           
 **Method 2: Using python**        
 1. Clone the Repo `git clone https://github.com/assassinsorrow/RhythmPy.git`
 2. CD into the project folder `cd RhythmPy` <sup>The folder that has README.md in it</sup>
