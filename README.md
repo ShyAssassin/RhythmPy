@@ -22,19 +22,19 @@ im still working on this btw :p
 ## Installation
 **RhythmPy has been tested to work with python versions 3.7 or lower.**  
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>         
-***Method 1:***           
-<li><a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable</li>                        
+**Method 1: Using the installer / executable**           
+<a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable                       
 
-***Method 2:***        
+**Method 2: Using python**        
 1. Clone the Repo `git clone https://github.com/assassinsorrow/RhythmPy.git`
 2. CD into the project folder `cd RhythmPy` <sup>The folder that has README.md in it</sup>
-2. Install <a href="https://github.com/python-poetry/poetry">Poetry</a>      
+3. Install <a href="https://github.com/python-poetry/poetry">Poetry</a>      
   Windows Powershell: `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -`      
   Linux/Mac: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`     
   <a href="https://python-poetry.org/docs/"><sup>Poetry's documentation<sup></sup></sup></a>
-3. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install --no-dev`
-4. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
-5. Start RhythmPy `poetry run python __main__.py`
+4. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install --no-dev`
+5. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
+6. Start RhythmPy `poetry run python __main__.py`
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -48,21 +48,24 @@ Contributions are what make the open source community such an amazing place to l
 i will review the pull request as soon as i can
 
 ## Building from source
-if you want to compile this program yourself you can run the `Build.py` script **or**         
-you can use pyinstaller                  
-***i recommend using a virtual environment for this***
-1. Download needed dependencies `pip install -r requirements`
-2. Download Pyinstaller `pip install pyinstaller`
-3. CD into working directory `cd RhythmPy`
-4. ***OPTIONAL*** Create your own .spec file `pyi-makespec __main__.py` and Fill in needed information <a href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/Main.spec">click here for example</a>.                  
-**you will need to define where the ui elements can be found**
-5. Run `pyinstaller --onedir __main__.spec __main__.py` to create the .exe    
-*it does take some time to complete*
-6. Open the executable found in `dist/RhythmPy` to run the program              
+
+1. [Follow installation guide to step 3](#installation)
+2. install Dev version of RhythmPy `poetry install`    
+
+ **Method 1 Using premade script:**         
+ * 3᎐ Run `poetry run python Build.py` and follow in terminal instructions   
+  
+**Method 2: Using pyinstaller**    
+ * 3.1. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
+ * 3.2. Run `poetry run pyinstaller --onedir __main__.spec __main__.py` to create the .exe  
+ * 3.3 ***OPTIONAL*** Create your own .spec file `poetry run pyi-makespec __main__.py` and Fill in needed information    <a         href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/__main__.spec">click here for example</a>.  
+ you will need to define where the ui elements can be found
+     
+4. Open the executable found in `dist/RhythmPy` to run the program         
 
 **After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
 if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
-**if you want to create a installer please use nsis i am not going to cover how to do it here due to it being rather simple**
+**if you want to create a installer use nsis, i am not going to cover how to do it here due to it being rather simple**
 
 ## Disclaimer 
 *By downloading this program you agree that you and you alone will be held responsible for any banned accounts that may or may not occur. It is completely up to you if you use any of the following* **Tools** or any other **Third-Party Application** *that in any way is breaking the* **EULA** or **TOS** *of the game.*       
