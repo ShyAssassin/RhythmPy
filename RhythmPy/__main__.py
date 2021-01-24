@@ -551,7 +551,7 @@ class Run:
             CenterWin(root)
             App.mainloop()
         except Exception as e:
-            # shows
+            # shows error in logger
             logger.exception("something broke\n")
 
 
