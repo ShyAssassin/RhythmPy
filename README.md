@@ -2,9 +2,8 @@
 <p align="center">
 <img alt="GitHub" src="https://img.shields.io/github/license/assassinsorrow/RhythmPy?style=flat">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
-<a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ALinting"><img src="https://github.com/assassinsorrow/RhythmPy/workflows/Linting/badge.svg"></a>
+<a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ALinting"><img src="https://github.com/assassinsorrow/RhythmPy/workflows/Lint/badge.svg"></a>
 </p>
-
 A not so simple bot that plays rhythm games for you
 im still working on this btw :p       
 <a href="https://trello.com/b/IkrtUXl8/rhythmpy">Click here for the roadmap and planned features</a>
