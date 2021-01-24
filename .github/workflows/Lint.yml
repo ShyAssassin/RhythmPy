@@ -2,10 +2,10 @@ name: Lint
 on:
   push:
     paths:
-      - 'RhythmPy/***'  
+      - 'RhythmPy/'  
   pull_request:
     paths: 
-      - 'RhythmPy/***'
+      - 'RhythmPy/'
 jobs:
   Lint:
     runs-on: ubuntu-latest
