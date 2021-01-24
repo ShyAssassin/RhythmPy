@@ -24,14 +24,10 @@ jobs:
       run: poetry install
       
     - name: Build Dev
-      run: |
-        cd RhythmPy
-        poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
+      run: poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
         
     - name: Build normal
-      run: |
-        cd RhythmPy
-        poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py
+      run: poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py
         
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
