@@ -66,7 +66,7 @@ class Functions:
 
     """
     imma be honest
-    you need to close the below functions so it dont look like shit
+    you need to close the below functions so it dont look like shit!
     """
     # checks if process is running and selecting game with UI
     def Process(self):
