@@ -1,16 +1,16 @@
 name: Lint
-
 on:
   push:
-    branches: [ master ]
+    paths:
+      - 'RhythmPy/'  
+      - 'Tests/'
   pull_request:
-    branches: [ master ]
-
+    paths: 
+      - 'RhythmPy/'
+      - 'Tests/'
 jobs:
   Lint:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python
