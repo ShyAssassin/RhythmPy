@@ -3,9 +3,11 @@ on:
   push:
     paths:
       - 'RhythmPy/'  
+      - 'Tests/'
   pull_request:
     paths: 
       - 'RhythmPy/'
+      - 'Tests/'
 jobs:
   Lint:
     runs-on: ubuntu-latest
