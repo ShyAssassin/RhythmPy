@@ -11,7 +11,7 @@ import threading
 
 from PIL import ImageTk
 
-# more retarded
+# more retarded imports
 try:
     from .Modules import (
         CenterWin,
