@@ -389,6 +389,7 @@ class Application(tk.Frame):
         # destroys current lable
         self.ShownConfig.destroy()
         self.ShownConfig = None
+        # remakes label
         self.ShownConfig = Label(
             self.master,
             font=BUTTON_FONT_BOLD,
@@ -404,12 +405,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                try:
-                    self.SettingsIcon = ResizeImage(
-                        78, 78, r"RhythmPy\UI-Media\icon-gear.png"
-                    )
-                except Exception:
-                    self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
+                self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -435,12 +431,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                try:
-                    self.ConfigIcon = ResizeImage(
-                        82, 82, r"src\UI-Media\Config-icon.png"
-                    )
-                except Exception:
-                    self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+                self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except Exception:
                 logger.exception("can not load or find needed icons\n")
 
@@ -502,6 +493,7 @@ class Run:
     def __init__(self):
         # global for if bot is running
         global Running
+        # is set to None so UI can start
         Running = None
         # sets global for config name to be shown in UI
         global ConfigName
@@ -539,24 +531,28 @@ class Run:
         functions.Process()
 
         # Main Window Stuff
-        root = tk.Tk()
-        root.config(bg="#333333")
-        root.resizable(width=False, height=False)
-        root.attributes("-alpha", 0.965)
-        ttk.Style().configure("TP.TFrame", background="snow")
-        global App
-        App = Application()
-        # binds
-        if ConfigFile["WindowDrag"] in [True, "True", "true"]:
-            root.bind("<Button-1>", App.SaveLastClickPos)
-            root.bind("<B1-Motion>", App.Dragging)
+        try:
+            root = tk.Tk()
+            root.config(bg="#333333")
+            root.resizable(width=False, height=False)
+            root.attributes("-alpha", 0.965)
+            ttk.Style().configure("TP.TFrame", background="snow")
+            global App
+            App = Application()
+            # binds
+            if ConfigFile["WindowDrag"] in [True, "True", "true"]:
+                root.bind("<Button-1>", App.SaveLastClickPos)
+                root.bind("<B1-Motion>", App.Dragging)
 
-        root.protocol(
-            "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running)
-        )
-        # root.overrideredirect(1)
-        CenterWin(root)
-        App.mainloop()
+            root.protocol(
+                "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running)
+            )
+            # root.overrideredirect(1)
+            CenterWin(root)
+            App.mainloop()
+        except Exception as e:
+            # shows
+            logger.exception("something broke\n")
 
 
 if __name__ == "__main__":
