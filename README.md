@@ -2,6 +2,7 @@
 <p align="center">
 <img alt="GitHub" src="https://img.shields.io/github/license/assassinsorrow/RhythmPy?style=flat">
 <a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ABuild"><img src="https://github.com/assassinsorrow/RhythmPy/workflows/Build/badge.svg"></a>
 <a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ALinting"><img src="https://github.com/assassinsorrow/RhythmPy/workflows/Lint/badge.svg"></a>
 </p>
 A not so simple bot that plays rhythm games for you
@@ -22,7 +23,7 @@ im still working on this btw :p
 **RhythmPy has been tested to work with python versions 3.7 or lower.**  
 <sup>In theory this project should work on Mac / Linux but i have not tested it yet</sup>       
 
-**Method 1: Using the installer / executable**           
+**Method 1: Using the official release installers**           
 * <a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable                         
                            
 **Method 2: Using python**        
@@ -35,6 +36,13 @@ im still working on this btw :p
 4. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install --no-dev`
 5. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
 6. Start RhythmPy `poetry run python __main__.py`
+
+**Method 3: The Development Builds**       
+*the Development builds will contain bugs and features that may not work, it is for testing and may not be a stable.*     
+*it contains two seperate builds that do not include system installers and are not compressed (hence the large file size)*             
+***You have been warned!***        
+* You can get a development build by downloading the file listed under `Artifacts` <a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ABuild">Here</a>    (pick the topmost successful build).        
+* You must be logged into GitHub to download a development build.
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -63,7 +71,7 @@ i will review the pull request as soon as i can
      
 4. Open the executable found in `dist/RhythmPy` to run the program         
 
-**After pyinstaller is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
+**After building is done there should be two folders `build` and `dist` if they do not appear or if the generated executable does not work please install <a href="https://support.microsoft.com/en-ca/help/2977003/the-latest-supported-visual-c-downloads">Visual C++ Redistributable</a>      
 if that does not work recompile with `--debug=all` as an option and then check the logs in `build/Main`**                  
 **if you want to create a installer use nsis, i am not going to cover how to do it here due to it being rather simple**
 
