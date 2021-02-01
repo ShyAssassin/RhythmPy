@@ -11,16 +11,18 @@ except ImportError:
 
 try:
     from .Gui import GuiRun
-    import Cli
+    from .Cli import CliRun
 except ImportError:
     from Gui import GuiRun
-    import Cli
+    from Cli import CliRun
 
 if __name__ == "__main__":
     Fm = FileManager()
     ConfigFile = Fm.LoadSettings()
-    if ConfigFile["CliMode"] in [True, "True", "true"]:
-        # runs cli version
-        pass
-    else:
+    try:
+        if ConfigFile["CliMode"] in [True, "True", "true"]:
+            CliRun()
+        else:
+            GuiRun()
+    except Exception:
         GuiRun()
