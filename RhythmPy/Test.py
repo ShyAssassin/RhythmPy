@@ -148,4 +148,4 @@ def TestRun(ImShow=True, ConfigFile="", Debug=True, Logging=True):
 
 
 if __name__ == "__main__":
-    TestRun(Debug=False, ImShow=False, Logging=True)
+    TestRun(Debug=False, ImShow=True, Logging=True)
