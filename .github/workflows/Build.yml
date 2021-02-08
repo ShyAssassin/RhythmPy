@@ -3,13 +3,7 @@ name: Build
 on:
   workflow_dispatch:
   push:
-    paths:
-      - 'RhythmPy/*.py'
-      - 'RhythmPy/*'
   pull_request:
-    paths: 
-      - 'RhythmPy/*.py'
-      - 'RhythmPy/*'
 jobs:
   Build:
     runs-on: windows-latest
