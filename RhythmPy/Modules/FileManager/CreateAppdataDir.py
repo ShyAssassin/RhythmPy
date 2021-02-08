@@ -6,8 +6,10 @@ try:
 except ImportError:
     from .Paths import AppDataDir, AppDataConfigDir
 
-# creates dir for storing logs and configs in %appdata%/RhythmPy
 def CreateAppdataDir():
+    """
+    Creates dir for storing logs and configs in (%appdata%/RhythmPy) or (~//RhythmPy)
+    """
     Platform = platform.system()
     if Platform == "Windows":
         if path.exists(os.path.expandvars("%appdata%//RhythmPy")) == False:

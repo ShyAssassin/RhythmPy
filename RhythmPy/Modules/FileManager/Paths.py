@@ -8,6 +8,9 @@ import platform
 
 # gets home dir + RhythmPy/
 def AppDataDir():
+    """
+    Gets the folder where files are to be stored based on running OS
+    """
     try:
         Platform = platform.system()
         WindowsAppData = str(os.path.expandvars("%appdata%//RhythmPy//"))
@@ -26,6 +29,9 @@ def AppDataDir():
 
 # gets home dir + RhythmPy/Config
 def AppDataConfigDir():
+    """
+    Gets the folder where Config files are to be stored based on running OS
+    """
     try:
         Platform = platform.system()
         WindowsAppDataConfig = str(os.path.expandvars("%appdata%//RhythmPy//Config//"))

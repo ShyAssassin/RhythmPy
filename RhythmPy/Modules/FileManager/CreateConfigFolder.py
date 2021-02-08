@@ -11,12 +11,15 @@ except ImportError:
 
 # Creates Config Folder
 def CreateConfigFolder():
+    """
+    Creates folder that holds configs in (%appdata%//RhythmPy//Config//) or (~//RhythmPy//Config//)
+    """
     logger = Logger()
     logger = logger.StartLogger(name=__name__)
-    if path.exists(AppDataConfigDir) == False:
+    if path.exists(AppDataConfigDir()) == False:
         logger.warning("Config Folder missing, creating now")
         try:
-            os.mkdir(AppDataConfigDir)
+            os.mkdir(AppDataConfigDir())
             logger.info("Created config dir")
         except Exception as e:
             print(e)

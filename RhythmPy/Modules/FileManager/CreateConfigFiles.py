@@ -24,15 +24,20 @@ except ImportError:
     )
 
 # Creates Config Files
-def CreateConfigFiles(self):
+def CreateConfigFiles():
+    """
+    Creates Defualt configs for Osu Qauver and settings
+    """
+    logger = Logger()
+    logger = logger.StartLogger(name=__name__)
     # writes settings
     if path.exists(AppDataConfigDir + "Settings.json") == False:
         try:
             with open(AppDataConfigDir + "Settings.json", "w+") as json_file:
                 json.dump(Defualt_Settings, json_file, indent=4)
-                self.logger.info("created Settings.json")
+                logger.info("created Settings.json")
         except Exception:
-            self.logger.exception("Failed to create Settings.json\n")
+            logger.exception("Failed to create Settings.json\n")
             sys.exit()
 
     # writes defualt Osu config
@@ -40,9 +45,9 @@ def CreateConfigFiles(self):
         try:
             with open(AppDataConfigDir + "Osu4K.json", "w+") as json_file:
                 json.dump(Defualt_Config_Osu4K, json_file, indent=4)
-                self.logger.info("created Osu4K.json")
+                logger.info("created Osu4K.json")
         except Exception:
-            self.logger.exception("Failded to create Osu4K.json\n")
+            logger.exception("Failded to create Osu4K.json\n")
             sys.exit()
 
     # writes defualt quaver config
@@ -50,7 +55,7 @@ def CreateConfigFiles(self):
         try:
             with open(AppDataConfigDir + "Quaver4K.json", "w+") as json_file:
                 json.dump(Defualt_Config_Quaver4K, json_file, indent=4)
-                self.logger.info("created Quaver4K.json")
+                logger.info("created Quaver4K.json")
         except Exception:
-            self.logger.exception("Failed to create Quaver4K.json")
+            logger.exception("Failed to create Quaver4K.json")
             sys.exit()
