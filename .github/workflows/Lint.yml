@@ -3,10 +3,18 @@ on:
   push:
     paths:
       - 'RhythmPy/*.py'  
+      - 'RhythmPy/Modules/*.py'
+      - 'RhythmPy/Modules/Cli/*.py'
+      - 'RhythmPy/Modules/FileManager/*.py'
+      - 'RhythmPy/Modules/Gui/*.py'
       - 'Tests/*.py'
   pull_request:
     paths: 
-      - 'RhythmPy/*.py'
+      - 'RhythmPy/*.py'  
+      - 'RhythmPy/Modules/*.py'
+      - 'RhythmPy/Modules/Cli*.py'
+      - 'RhythmPy/Modules/FileManager*.py'
+      - 'RhythmPy/Modules/Gui*.py'
       - 'Tests/*.py'
 jobs:
   Lint:
