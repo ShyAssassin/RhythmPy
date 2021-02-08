@@ -6,7 +6,7 @@ except ImportError:
     from .Logger import Logger
 import platform
 
-# gets home dir + RhythmPy
+# gets home dir + RhythmPy/
 def AppDataDir():
     try:
         Platform = platform.system()
