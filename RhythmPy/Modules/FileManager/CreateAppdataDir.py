@@ -1,7 +1,6 @@
 from os import path
 import os
 import platform
-
 try:
     from Paths import AppDataDir, AppDataConfigDir
 except ImportError:
