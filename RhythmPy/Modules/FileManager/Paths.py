@@ -7,7 +7,7 @@ except ImportError:
 import platform
 
 # gets home dir + RhythmPy
-def GetAppData():
+def AppDataDir():
     try:
         Platform = platform.system()
         WindowsAppData = str(os.path.expandvars("%appdata%//RhythmPy//"))
