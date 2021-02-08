@@ -2,21 +2,8 @@ name: Build
 
 on:
   push:
-    paths: 
-      - 'RhythmPy/*'
-      - 'RhythmPy/*.py'  
-      - 'RhythmPy/Modules/*.py'
-      - 'RhythmPy/Modules/Cli*.py'
-      - 'RhythmPy/Modules/FileManager*.py'
-      - 'RhythmPy/Modules/Gui*.py'
   pull_request:
-    paths: 
-      - 'RhythmPy/*'
-      - 'RhythmPy/*.py'  
-      - 'RhythmPy/Modules/*.py'
-      - 'RhythmPy/Modules/Cli*.py'
-      - 'RhythmPy/Modules/FileManager*.py'
-      - 'RhythmPy/Modules/Gui*.py'
+  workflow_dispatch:
 jobs:
   Build:
     runs-on: windows-latest
