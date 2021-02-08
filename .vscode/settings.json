@@ -28,7 +28,7 @@
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [
         "--max-line-length=150",
-        "--ignore=E402,F841,F401,E302,E305,E711,E712,W503,W605",
+        "--ignore=E402,F841,F401,E302,E305,E711,E712,W503,W605,W391",
     ],
     "python.pythonPath": "c:\\Users\\Assassin\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\rhythmpy-gDBW14kE-py3.7\\Scripts\\python.exe",
     "python.linting.pylintEnabled": false,
