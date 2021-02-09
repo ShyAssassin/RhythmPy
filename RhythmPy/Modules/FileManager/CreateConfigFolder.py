@@ -1,13 +1,8 @@
 from os import path
 import sys
 import os
-
-try:
-    from Paths import AppDataDir, AppDataConfigDir
-    from Logger import Logger
-except ImportError:
-    from .Paths import AppDataDir, AppDataConfigDir
-    from .Logger import Logger
+from .Paths import AppDataDir, AppDataConfigDir
+from .FmLogger import Logger
 
 # Creates Config Folder
 def CreateConfigFolder():

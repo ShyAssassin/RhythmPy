@@ -1,10 +1,8 @@
 from os import path
 import os
 import platform
-try:
-    from Paths import AppDataDir, AppDataConfigDir
-except ImportError:
-    from .Paths import AppDataDir, AppDataConfigDir
+from .Paths import AppDataDir, AppDataConfigDir
+
 
 def CreateAppdataDir():
     """
@@ -17,4 +15,3 @@ def CreateAppdataDir():
     elif Platform == "Linux" or Platform == "Darwin":
         if path.exists(os.path.expanduser("~//RhythmPy")) == False:
             os.mkdir(os.path.expanduser("~//RhythmPy"))
-

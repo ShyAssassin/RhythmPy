@@ -4,11 +4,8 @@ import json
 import webbrowser
 import sys
 import os
-
-try:
-    from .Logger import Logger
-except ImportError:
-    from Logger import Logger
+from .FileManager import AppDataConfigDir
+from .Logger import Logger
 
 try:
     import tkinter as tk
@@ -17,19 +14,13 @@ except ImportError:
     import Tkinter as tk
     from Tkinter import messagebox
 
-try:
-    from .Logger import Logger
-except ImportError:
-    from Logger import Logger
-
 
 class FirstRun:
     def __init__(self):
         logger = Logger()
         self.logger = logger.StartLogger(name=__name__)
 
-        self.appdata = str(os.path.expandvars("%appdata%//RhythmPy//"))
-        self.appdataConfig = str(os.path.expandvars("%appdata%//RhythmPy//Config//"))
+        self.appdataConfig = AppDataConfigDir()
 
         self.ConfigFile = self.appdataConfig + "Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
@@ -75,7 +66,7 @@ class FirstRun:
                 )
             else:
                 self.logger.info("has been run before carrying on")
-        except:
+        except Exception:
             self.logger.warning(
                 "FirstRun is missing from config user may be using a old config"
             )

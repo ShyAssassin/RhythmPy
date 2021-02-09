@@ -1,10 +1,6 @@
 # this isnt in modules because it is related to ui and not "back end"
 import tkinter as tk
-
-try:
-    from .Modules import CenterWin
-except ImportError:
-    from Modules import CenterWin
+from Modules import CenterWin
 
 
 class SplashScreen:

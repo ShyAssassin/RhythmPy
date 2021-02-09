@@ -1,10 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, Entry, messagebox
-
-try:
-    from .Modules import CenterWin
-except ImportError:
-    from Modules import CenterWin
+from Modules import Gui
 
 # this isnt in modules because it is related to ui and not "back end"
 class Settings:
@@ -22,7 +18,7 @@ class Settings:
             self.masters.attributes("-alpha", 0.965)
             # not sure what this does tbh
             ttk.Style().configure("TP.TFrame", background="snow")
-            CenterWin(self.masters)
+            Gui.CenterWin(self.masters)
             self.masters.mainloop()
         else:
             messagebox.showwarning(

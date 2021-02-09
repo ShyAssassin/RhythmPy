@@ -11,37 +11,16 @@ import threading
 
 from PIL import ImageTk
 
-# more retarded imports
-try:
-    from .Modules import (
-        CenterWin,
-        CloseGlobal,
-        CreateAppdataDir,
-        FileManager,
-        FirstRun,
-        IsProcessRunning,
-        Logger,
-        ResizeImage,
-        WindowCapture,
-    )
-    from .Settings import Settings
-
-    # from .SplashScreen import SplashScreen
-except ImportError:
-    from Modules import (
-        CenterWin,
-        CloseGlobal,
-        CreateAppdataDir,
-        FileManager,
-        FirstRun,
-        IsProcessRunning,
-        Logger,
-        ResizeImage,
-        WindowCapture,
-    )
-    from Settings import Settings
-
-    # from SplashScreen import SplashScreen
+from Modules import (
+    Gui,
+    CloseGlobal,
+    FileManager,
+    FirstRun,
+    IsProcessRunning,
+    Logger,
+    WindowCapture,
+)
+from Settings import Settings
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -70,7 +49,7 @@ class Functions:
     """
     # checks if process is running and selecting game with UI
     def Process(self):
-        settings = FileManager().LoadSettings()
+        settings = FileManager.LoadSettings()
         FindRunningProcess = settings["FindRunningProcess"]
         if (
             FindRunningProcess == True
@@ -144,7 +123,7 @@ class Functions:
                     "WM_DELETE_WINDOW",
                     lambda: CloseGlobal(self.masters, running=Running),
                 )
-                CenterWin(self.masters)
+                Gui.CenterWin(self.masters)
                 # runs window
                 self.masters.mainloop()
         else:
@@ -200,7 +179,7 @@ class Functions:
         self.masters.attributes("-alpha", 0.965)
         # not sure what this does tbh
         ttk.Style().configure("TP.TFrame", background="snow")
-        CenterWin(self.masters)
+        Gui.CenterWin(self.masters)
         # runs window
         self.masters.mainloop()
 
@@ -279,9 +258,6 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.functions = Functions()
-
-        # sets for Config
-        self.Fm = FileManager()
 
         self.master.geometry("500x650")
         self.master.title(u"RhythmPy")
@@ -363,8 +339,8 @@ class Application(tk.Frame):
         if Running in [False, None]:
             global Config
             # loads config
-            Config = self.Fm.LoadSettings()
-            MultiConfig = Config["MultiConfig"]
+            Settings = FileManager.LoadSettings()
+            MultiConfig = Settings["MultiConfig"]
             if MultiConfig in [True, "True", "true"]:
                 # starts prompt to ask to load a config file
                 Path = os.path.dirname(os.path.realpath(__file__))
@@ -405,7 +381,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = ResizeImage(78, 78, r"UI-Media\icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(78, 78, r"UI-Media\icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -431,7 +407,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.ConfigIcon = ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+                self.ConfigIcon = Gui.ResizeImage(82, 82, r"UI-Media\Config-icon.png")
             except Exception:
                 logger.exception("can not load or find needed icons\n")
 
@@ -499,7 +475,7 @@ class GuiRun:
         global ConfigName
         ConfigName = ""
 
-        CreateAppdataDir()
+        FileManager.CreateAppdataDir()
 
         # sets global for logger
         global logger
@@ -509,16 +485,15 @@ class GuiRun:
 
         # defines
         functions = Functions()
-        Fm = FileManager()
 
         """
         Config Things
         """
         # checks if Config Files exist
-        Fm.CreateConfigFolder()
-        Fm.CreateConfigFiles()
+        FileManager.CreateConfigFolder()
+        FileManager.CreateConfigFiles()
         # loads settings for later use
-        ConfigFile = Fm.LoadSettings()
+        SettingsFile = FileManager.LoadSettings()
 
         # used for checking if the json has all the needed keys
         # not done yet needs to be fixed!
@@ -540,7 +515,7 @@ class GuiRun:
             global App
             App = Application()
             # binds
-            if ConfigFile["WindowDrag"] in [True, "True", "true"]:
+            if SettingsFile["WindowDrag"] in [True, "True", "true"]:
                 root.bind("<Button-1>", App.SaveLastClickPos)
                 root.bind("<B1-Motion>", App.Dragging)
 
@@ -548,7 +523,7 @@ class GuiRun:
                 "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running)
             )
             # root.overrideredirect(1)
-            CenterWin(root)
+            Gui.CenterWin(root)
             App.mainloop()
         except Exception as e:
             # shows error in logger

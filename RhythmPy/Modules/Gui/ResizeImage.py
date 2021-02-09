@@ -1,5 +1,6 @@
 from PIL import Image
 
+
 def ResizeImage(Xsize, Ysize, image):
     """
     Used for resizing images for use in tkinter

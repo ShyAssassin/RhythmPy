@@ -5,15 +5,12 @@ import sys
 import os
 from os import path
 from datetime import date
+from .Paths import AppDataLogsDir
 
 
 class Logger:
-    def CreateLogFolder(self):
-        if path.exists(os.path.expandvars("%appdata%//RhythmPy//Logs")) == False:
-            os.mkdir(os.path.expandvars("%appdata%//RhythmPy//Logs"))
-
     def StartLogger(self, name):
-        self.appdatapath = os.path.expandvars("%appdata%//RhythmPy//Logs//")
+        self.appdatapath = AppDataLogsDir()
 
         # gets current date
         self.CurrentDate = str(date.today())
