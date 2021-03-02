@@ -1,6 +1,5 @@
-# this isnt in modules because it is related to ui and not "back end"
 import tkinter as tk
-from Modules import CenterWin
+from Core import CenterWin
 
 
 class SplashScreen:

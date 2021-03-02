@@ -1,4 +1,4 @@
-from Modules import FileManager
+from Core import FileManager
 
 
 from Gui import GuiRun

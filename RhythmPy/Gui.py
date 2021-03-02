@@ -11,7 +11,7 @@ import threading
 
 from PIL import ImageTk
 
-from Modules import (
+from Core import (
     Gui,
     CloseGlobal,
     FileManager,
@@ -19,8 +19,8 @@ from Modules import (
     IsProcessRunning,
     Logger,
     WindowCapture,
+    Paths,
 )
-from Settings import Settings
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -343,9 +343,7 @@ class Application(tk.Frame):
             MultiConfig = Settings["MultiConfig"]
             if MultiConfig in [True, "True", "true"]:
                 # starts prompt to ask to load a config file
-                Path = os.path.dirname(os.path.realpath(__file__))
-                ConfigPath = Path.replace("\src", "")
-                ConfigPath = "".join("Config")
+                ConfigPath = Paths.AppDataConfigDir()
                 Config = filedialog.askopenfilename(
                     initialdir=ConfigPath,
                     title="Select Config",
@@ -381,7 +379,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = Gui.ResizeImage(78, 78, r"UI-Media\icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -398,7 +396,7 @@ class Application(tk.Frame):
                 pady=BUTTON_PADY,
                 borderwidth=0,
                 activebackground="#363535",
-                command=lambda: Settings(running=Running),
+                command=lambda: Gui.Settings(running=Running),
             )
             self.SettingsBTN.place(x=415, y=563)
         except Exception:
@@ -407,7 +405,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.ConfigIcon = Gui.ResizeImage(82, 82, r"UI-Media\Config-icon.png")
+                self.ConfigIcon = Gui.ResizeImage(82, 82, r"Assets/Config-icon.png")
             except Exception:
                 logger.exception("can not load or find needed icons\n")
 
@@ -510,6 +508,7 @@ class GuiRun:
             root = tk.Tk()
             root.config(bg="#333333")
             root.resizable(width=False, height=False)
+            root.wait_visibility()
             root.attributes("-alpha", 0.965)
             ttk.Style().configure("TP.TFrame", background="snow")
             global App

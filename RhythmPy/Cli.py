@@ -5,7 +5,7 @@ import threading
 from PIL import ImageTk
 
 # more retarded imports
-from Modules import (
+from Core import (
     CloseGlobal,
     CreateAppdataDir,
     FileManager,
@@ -14,7 +14,6 @@ from Modules import (
     Logger,
     WindowCapture,
 )
-from Settings import Settings
 
 
 class CliRun:

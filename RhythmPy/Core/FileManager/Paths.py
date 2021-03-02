@@ -38,6 +38,7 @@ def AppDataConfigDir():
     except Exception:
         print("failed to get AppdataConfigDir")
 
+
 # gets home dir + RhythmPy/Logs
 def AppDataLogsDir():
     """
