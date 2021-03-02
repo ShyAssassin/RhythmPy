@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['__main__.py'],
-             pathex=['RhythmPy', "RhythmPy\\Modules"],
+             pathex=['RhythmPy', "RhythmPy\\Core"],
              binaries=[],
              datas=[(r'Assets\*.png', 'Assets')],
              hiddenimports=['FixTk', 'tkinter', 'PIL', 'numpy', 'psutil', 'json', 'os', 'sys', 'time', 'cv2', 'threading', 'win32gui', 'win32ui', 'win32con', 'pywin32', 'win32', 'requests', 'inspect', 'functools', 'ctypes', 'logging', 'webbrowser'],
