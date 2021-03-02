@@ -2,7 +2,7 @@
 name = "RhythmPy"
 version = "0.2.0"
 description = "A rhythm game bot"
-authors = ["assassinsorrow <assassinsorrows@gmail.com>"]
+authors = ["assassinsorrow <49711232+assassinsorrow@users.noreply.github.com>"]
 license = "APGL-3.0"
 
 [tool.poetry.dependencies]
