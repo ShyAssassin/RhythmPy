@@ -12,7 +12,7 @@ from Core import (
     FirstRun,
     IsProcessRunning,
     Logger,
-    WindowCapture,
+    Windows,
 )
 
 

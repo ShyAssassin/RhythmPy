@@ -1,4 +1,4 @@
-# from Core.Logger import Logger
+from Core.Logger import Logger
 import os
 import sys
 from os import path
@@ -6,9 +6,11 @@ from os import path
 class ApplySkins:
     class Osu:
         def __init__(self):
+            self.logger = Logger()
+            self.logger = self.logger.StartLogger(name=__name__)
             self.OsuSkinDir = self.GetOsuSkinDir()
-            self.CreateSkinDir(self.OsuSkinDir)
-            self.WriteSkin(self.OsuSkinDir)
+            if self.CreateSkinDir(self.OsuSkinDir):
+                self.WriteSkin(self.OsuSkinDir)
 
         def GetOsuSkinDir(self):
             try:
@@ -17,14 +19,25 @@ class ApplySkins:
                 OsuSkinDir = str(OsuDir + '//Skins')
                 return str(OsuSkinDir)
             except Exception:
-                print("failed to get Osu Skin Dir")
+                self.logger.exception("failed to get Osu Skin Dir\n")
 
         def CreateSkinDir(self, Dir):
-            if path.exists(Dir + "/RhythmPy") == False:
-                os.mkdir(Dir + "/RhythmPy")
+            try:
+                if path.exists(Dir + "//RhythmPy") == False:
+                    os.mkdir(Dir + "//RhythmPy")
+                    return True
+                else:
+                    return False
+            except Exception:
+                self.logger.exception('Failed to Create Osu Skin folder')
 
         def WriteSkin(self, Dir):
-            pass
+            try:
+                RhythmPySkinDir = str(Dir + "//RhythmPy//PlaceHolder.txt")
+                f = open(RhythmPySkinDir, "x")
+                f.close()
+            except Exception:
+                self.logger.exception('Failed to Write Osu skin')
 
     class Quaver:
         def __init__(self):

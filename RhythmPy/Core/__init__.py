@@ -1,5 +1,4 @@
 from .ProcessCheck import IsProcessRunning
-from .WindowCapture import WindowCapture
 from .Logger import Logger
 from .CloseGlobal import CloseGlobal
 from .FileManager import (

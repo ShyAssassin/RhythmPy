@@ -15,10 +15,9 @@ from Core import (
     Gui,
     CloseGlobal,
     FileManager,
-    FirstRun,
     IsProcessRunning,
     Logger,
-    WindowCapture,
+    Windows,
     Paths,
 )
 
@@ -231,7 +230,7 @@ class Bot:
 
         # will need to be updated to reflect the name of window found in Config
         try:
-            Wincap = WindowCapture(None)
+            Wincap = Windows.WindowCapture(None)
             Wincap.start()
             logger.info("Window Capture started")
         except Exception:
@@ -473,8 +472,6 @@ class GuiRun:
         global ConfigName
         ConfigName = ""
 
-        FileManager.CreateAppdataDir()
-
         # sets global for logger
         global logger
         loggerinit = Logger()
@@ -496,9 +493,6 @@ class GuiRun:
         # used for checking if the json has all the needed keys
         # not done yet needs to be fixed!
         # UpdateConfig(Defualt_Config)
-
-        # used for first run
-        FirstRun().Run()
 
         # checks for running Games, needs to be run after config checking and first run check
         functions.Process()
