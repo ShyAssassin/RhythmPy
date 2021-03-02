@@ -64,9 +64,8 @@ i will review the pull request as soon as i can
  * 3᎐ Run `poetry run python Build.py` and follow in terminal instructions   
   
 **Method 2: Using pyinstaller**    
- * 3.1. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
- * 3.2. Run `poetry run pyinstaller --onedir __main__.spec __main__.py` to create the .exe  
- * 3.3 ***OPTIONAL*** Create your own .spec file `poetry run pyi-makespec __main__.py` and Fill in needed information    <a         href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/__main__.spec">click here for example</a>.  
+ * 3.1 ***OPTIONAL*** Create your own .spec file `poetry run pyi-makespec RhythmPy/__main__.py` and Fill in needed information    <a         href="https://github.com/assassinsorrow/RhythmPy/blob/master/RhythmPy/RhythmPy.spec">click here for example</a>.  
+ * 3.2 Run `poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py` to create the .exe  
  you will need to define where the ui elements can be found
      
 4. Open the executable found in `dist/RhythmPy` to run the program         
