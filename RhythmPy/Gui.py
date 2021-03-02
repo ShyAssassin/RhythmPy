@@ -379,7 +379,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/UI/icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -405,7 +405,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.ConfigIcon = Gui.ResizeImage(82, 82, r"Assets/Config-icon.png")
+                self.ConfigIcon = Gui.ResizeImage(82, 82, r"Assets/UI/Config-icon.png")
             except Exception:
                 logger.exception("can not load or find needed icons\n")
 

@@ -17,9 +17,9 @@ def CreateConfigFiles():
     logger = Logger()
     logger = logger.StartLogger(name=__name__)
     # writes settings
-    if path.exists(AppDataConfigDir() + "Settings.json") == False:
+    if path.exists(AppDataDir() + "Settings.json") == False:
         try:
-            with open(AppDataConfigDir() + "Settings.json", "w+") as json_file:
+            with open(AppDataDir() + "Settings.json", "w+") as json_file:
                 json.dump(Defualt_Settings, json_file, indent=4)
                 logger.info("created Settings.json")
         except Exception:

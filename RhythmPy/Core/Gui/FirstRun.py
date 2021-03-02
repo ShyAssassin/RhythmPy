@@ -4,8 +4,8 @@ import json
 import webbrowser
 import sys
 import os
-from .FileManager import AppDataConfigDir
-from .Logger import Logger
+from Core.FileManager import AppDataDir
+from Core.Logger import Logger
 
 try:
     import tkinter as tk
@@ -20,7 +20,7 @@ class FirstRun:
         logger = Logger()
         self.logger = logger.StartLogger(name=__name__)
 
-        self.appdataConfig = AppDataConfigDir()
+        self.appdataConfig = AppDataDir()
 
         self.ConfigFile = self.appdataConfig + "Settings.json"
         self.ConfigOpen = open(self.ConfigFile, "r")
