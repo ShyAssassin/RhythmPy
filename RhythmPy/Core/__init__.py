@@ -5,6 +5,7 @@ from .FileManager import (
     CreateAppdataDir,
     CreateConfigFiles,
     CreateConfigFolder,
+    CreatePluginFolder,
     DefualtConfigs,
     LoadConfig,
     LoadSettings,

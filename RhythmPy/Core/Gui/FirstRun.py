@@ -64,8 +64,6 @@ class FirstRun:
                 webbrowser.open_new(
                     "https://github.com/assassinsorrow/RhythmPy/blob/master/README.md"
                 )
-            else:
-                self.logger.info("has been run before carrying on")
         except Exception:
             self.logger.warning(
                 "FirstRun is missing from config user may be using a old config"

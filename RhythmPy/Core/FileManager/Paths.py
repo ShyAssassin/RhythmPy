@@ -20,6 +20,24 @@ def AppDataDir():
         print("failed to get AppDataDir")
 
 
+def PluginsDir():
+    """
+    Gets the folder where plugins are to be stored based on running OS
+    """
+    try:
+        Platform = platform.system()
+        WindowsPlugins = str(os.path.expandvars("%appdata%//RhythmPy//Plugins//"))
+        LinuxPlugins = str(os.path.expanduser("~//RhythmPy//Plugins//"))
+        if Platform == "Windows":
+            return str(WindowsPlugins)
+        elif Platform == "Linux" or Platform == "Darwin":
+            return str(LinuxPlugins)
+        else:
+            raise Exception
+    except Exception:
+        print("failed to get PluginsDir")
+
+
 # gets home dir + RhythmPy/Config
 def AppDataConfigDir():
     """

@@ -1,6 +1,7 @@
 from .CreateAppdataDir import CreateAppdataDir
 from .CreateConfigFiles import CreateConfigFiles
 from .CreateConfigFolder import CreateConfigFolder
+from .CreatePluginFolder import CreatePluginFolder
 from .DefualtConfigs import (
     Defualt_Config_Osu4K,
     Defualt_Config_Quaver4K,
@@ -8,4 +9,4 @@ from .DefualtConfigs import (
 )
 from .LoadConfig import LoadConfig
 from .LoadSettings import LoadSettings
-from .Paths import AppDataConfigDir, AppDataDir
+from .Paths import AppDataConfigDir, AppDataDir, PluginsDir

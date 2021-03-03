@@ -26,7 +26,7 @@ class Build:
     def askBuild(self):
         while self.Type not in ["Dev", "dev", "Normal", "normal"]:
             if self.Type in ["Quit", "quit"]:
-                print('quiting...')
+                print("quiting...")
                 sys.exit()
 
             if self.Type in ["Help", "help"]:
@@ -89,7 +89,7 @@ class Build:
                             "pyinstaller",
                             "--onedir",
                             "RhythmPy/RhythmPy.spec",
-                            "RhythmPy/__main__.py"
+                            "RhythmPy/__main__.py",
                         ],
                         check=True,
                     )

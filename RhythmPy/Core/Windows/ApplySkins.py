@@ -4,6 +4,7 @@ import sys
 from os import path
 from tkinter import filedialog
 
+
 class ApplySkins:
     class Osu:
         def __init__(self):
@@ -17,8 +18,8 @@ class ApplySkins:
         def GetOsuSkinDir(self):
             try:
                 AppDataLocal = str(os.path.expandvars("%localappdata%"))
-                OsuDir = str(AppDataLocal + '//osu!')
-                OsuSkinDir = str(OsuDir + '//Skins')
+                OsuDir = str(AppDataLocal + "//osu!")
+                OsuSkinDir = str(OsuDir + "//Skins")
                 if path.exists(OsuSkinDir) == False:
                     raise Exception
                 else:
@@ -34,7 +35,7 @@ class ApplySkins:
                 else:
                     return False
             except Exception:
-                self.logger.exception('Failed to Create Osu Skin folder')
+                self.logger.exception("Failed to Create Osu Skin folder")
 
         def WriteSkin(self, Dir):
             try:
@@ -42,10 +43,11 @@ class ApplySkins:
                 f = open(RhythmPySkinDir, "x")
                 f.close()
             except Exception:
-                self.logger.exception('Failed to Write Osu skin')
+                self.logger.exception("Failed to Write Osu skin")
 
     class Quaver:
         def __init__(self):
             pass
+
 
 ApplySkins.Osu()

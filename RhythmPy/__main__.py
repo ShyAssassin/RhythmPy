@@ -9,6 +9,7 @@ if __name__ == "__main__":
         logger.CreateLogFolder()
         FileManager.CreateConfigFolder()
         FileManager.CreateConfigFiles()
+        FileManager.CreatePluginFolder()
         logger = logger.StartLogger(name=__name__)
     except Exception as e:
         print("i dont know and i dont want to know\n")
@@ -16,10 +17,13 @@ if __name__ == "__main__":
     # fmt: on
 
     # Imports
-    from Core import Windows, FirstRun
-    from Gui import GuiRun
-    from Cli import CliRun
-    import platform
+    try:
+        from Core import Windows, FirstRun
+        from Gui import GuiRun
+        from Cli import CliRun
+        import platform
+    except ImportError:
+        logger.exception("Failed to import needed libraries\n")
 
     # loads normal stuff
     try:
@@ -30,12 +34,18 @@ if __name__ == "__main__":
 
     # first run stuff
     try:
-        # FirstRun().Run()
-        if platform == "Windows":
-            Windows.ApplySkins.Osu()
-            # Windows.ApplySkins.Quaver()
-        elif platform == "Linux" or platform == "Darwin":
-            pass
+        try:
+            if ConfigFile["FirstRun"] in [True, "True", "true"]:
+                FirstRun().Run()
+                if platform == "Windows":
+                    Windows.ApplySkins.Osu()
+                    # Windows.ApplySkins.Quaver()
+                elif platform == "Linux" or platform == "Darwin":
+                    pass
+            else:
+                logger.info("has been run before carrying on")
+        except Exception:
+            FirstRun().Run()
     except Exception:
         logger.warning("failed to apply skins\n")
 

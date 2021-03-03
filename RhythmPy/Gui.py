@@ -308,7 +308,7 @@ class Application(tk.Frame):
                 logger.exception("Failed to close the Bot thread\n")
                 Start_StopBTN.configure(text="STOP")
         else:
-            logger.warn("I dont even know man")
+            logger.warn("I dont even know man\n")
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
