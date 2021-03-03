@@ -7,9 +7,9 @@ if __name__ == "__main__":
         FileManager.CreateAppdataDir()
         logger = Logger()
         logger.CreateLogFolder()
-        logger = logger.StartLogger(name=__name__)
         FileManager.CreateConfigFolder()
         FileManager.CreateConfigFiles()
+        logger = logger.StartLogger(name=__name__)
     except Exception as e:
         print("i dont know and i dont want to know\n")
         print(e)
@@ -30,14 +30,14 @@ if __name__ == "__main__":
 
     # first run stuff
     try:
-        FirstRun().Run()
+        # FirstRun().Run()
         if platform == "Windows":
             Windows.ApplySkins.Osu()
-            Windows.ApplySkins.Quaver()
+            # Windows.ApplySkins.Quaver()
         elif platform == "Linux" or platform == "Darwin":
             pass
     except Exception:
-        logger.warning("failed to apply skins")
+        logger.warning("failed to apply skins\n")
 
     # bot stuff
     try:

@@ -2,29 +2,34 @@ from Core.Logger import Logger
 import os
 import sys
 from os import path
+from tkinter import filedialog
 
 class ApplySkins:
     class Osu:
         def __init__(self):
             self.logger = Logger()
             self.logger = self.logger.StartLogger(name=__name__)
-            self.OsuSkinDir = self.GetOsuSkinDir()
-            if self.CreateSkinDir(self.OsuSkinDir):
-                self.WriteSkin(self.OsuSkinDir)
+            # gets the defualt osu skin path for windows
+            self.OsuSkinDir = str(self.GetOsuSkinDir())
+            if self.CreateSkinDir(str(self.OsuSkinDir)):
+                self.WriteSkin(str(self.OsuSkinDir))
 
         def GetOsuSkinDir(self):
             try:
                 AppDataLocal = str(os.path.expandvars("%localappdata%"))
                 OsuDir = str(AppDataLocal + '//osu!')
                 OsuSkinDir = str(OsuDir + '//Skins')
-                return str(OsuSkinDir)
+                if path.exists(OsuSkinDir) == False:
+                    raise Exception
+                else:
+                    return str(OsuSkinDir)
             except Exception:
                 self.logger.exception("failed to get Osu Skin Dir\n")
 
         def CreateSkinDir(self, Dir):
             try:
-                if path.exists(Dir + "//RhythmPy") == False:
-                    os.mkdir(Dir + "//RhythmPy")
+                if path.exists(str(Dir + "//RhythmPy")) == False:
+                    os.mkdir(str(Dir + "//RhythmPy"))
                     return True
                 else:
                     return False
