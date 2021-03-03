@@ -26,14 +26,21 @@ class Build:
     def askBuild(self):
         while self.Type not in ["Dev", "dev", "Normal", "normal"]:
             if self.Type in ["Quit", "quit"]:
+                print('quiting...')
                 sys.exit()
 
             if self.Type in ["Help", "help"]:
                 print(
-                    "the Dev build includes a console on runtime with --debug modes enabled while pyinstaller is Building the exe. The dev build is for well developers"
+                    """
+                    the Dev build includes a console on runtime with --debug modes enabled while pyinstaller is Building the exe.
+                    The dev build is for well developers.
+                    """
                 )
                 print(
-                    "Normal build does not include a console on runtime and only consists of the GUI. Normal mode is for just creating a exe that will work\n"
+                    """
+                    Normal build does not include a console on runtime and only consists of the GUI.
+                    Normal mode is for just creating a exe that will just work without any tweaking.\n
+                    """
                 )
 
             self.Type = input(
@@ -58,34 +65,37 @@ class Build:
                 subprocess.run(["clear"], check=True)
             except subprocess.CalledProcessError:
                 subprocess.run(["cls"], check=True)
-            except:
+            except Exception:
                 pass
 
             if self.Type in ["Dev", "dev"]:
-                with cd(r"RhythmPy"):
-                    try:
-                        subprocess.run(
-                            [
-                                "pyinstaller",
-                                "--onedir",
-                                "__main__Dev.spec",
-                                "__main__.py",
-                            ],
-                            check=True,
-                        )
-                    except subprocess.CalledProcessError:
-                        print("failed to create exe refer to /build log file")
-                        sys.exit()
+                try:
+                    subprocess.run(
+                        [
+                            "pyinstaller",
+                            "--onedir",
+                            "RhythmPy/RhythmPyDev.spec",
+                            "RhythmPy/__main__.py",
+                        ],
+                        check=True,
+                    )
+                except subprocess.CalledProcessError:
+                    print("failed to create exe refer to /build log file")
+                    sys.exit()
             elif self.Type in ["Normal", "normal"]:
-                with cd(r"RhythmPy"):
-                    try:
-                        subprocess.run(
-                            ["pyinstaller", "--onedir", "__main__.spec", "__main__.py"],
-                            check=True,
-                        )
-                    except subprocess.CalledProcessError:
-                        print("failed to create exe refer to /build log file")
-                        sys.exit()
+                try:
+                    subprocess.run(
+                        [
+                            "pyinstaller",
+                            "--onedir",
+                            "RhythmPy/RhythmPy.spec",
+                            "RhythmPy/__main__.py"
+                        ],
+                        check=True,
+                    )
+                except subprocess.CalledProcessError:
+                    print("failed to create exe refer to /build log file")
+                    sys.exit()
         else:
             self.Type = None
             self.askBuild()
