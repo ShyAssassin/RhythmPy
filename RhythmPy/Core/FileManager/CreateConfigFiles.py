@@ -11,9 +11,7 @@ from .DefualtConfigs import (
 
 # Creates Config Files
 def CreateConfigFiles():
-    """
-    Creates Defualt configs for Osu Qauver and settings
-    """
+    """Creates Defualt configs for Osu Qauver and settings"""
     logger = Logger()
     logger = logger.StartLogger(name=__name__)
     # writes settings

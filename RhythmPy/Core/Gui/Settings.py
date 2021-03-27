@@ -16,7 +16,7 @@ class Settings:
             self.masters.config(bg="#333333")
             self.masters.resizable(width=False, height=False)
             self.masters.attributes("-alpha", 0.965)
-            # not sure what this does tbh
+            self.masters.wait_visibility()
             ttk.Style().configure("TP.TFrame", background="snow")
             Gui.CenterWin(self.masters)
             self.masters.mainloop()

@@ -6,6 +6,7 @@ from tkinter import filedialog
 
 
 class ApplySkins:
+    """Puts required skins into relevant folders"""
     class Osu:
         def __init__(self):
             self.logger = Logger()

@@ -31,7 +31,7 @@ class FirstRun:
         wins.withdraw()
         messagebox.showwarning(
             "READ THE DOCS!",
-            "Please take some time to read the setup guide before complaining",
+            "Please take some time to read the setup guide before complaining!",
         )
         wins.destroy()
 

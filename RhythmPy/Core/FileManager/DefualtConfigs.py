@@ -12,6 +12,7 @@ Defualt_Settings = {
 
 Defualt_Config_Osu4K = {
     "Collums": "4",
+    "FPS": "60",
     "Window Name": "",
     "Collum1Pos": "",
     "Collum2Pos": "",
@@ -21,6 +22,7 @@ Defualt_Config_Osu4K = {
 
 Defualt_Config_Quaver4K = {
     "Collums": "4",
+    "FPS": "60",
     "Window Name": "",
     "Collum1Pos": "",
     "Collum2Pos": "",

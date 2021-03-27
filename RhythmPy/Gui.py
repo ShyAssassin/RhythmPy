@@ -273,10 +273,8 @@ class Application(tk.Frame):
 
     # stop start command for the button :p
     def StartStop(self):
-        """
-        i am using threads because if i dont it will break tkinter's main loop
-        and the UI and become unresponsive
-        """
+        # i am using threads because if i dont it will break tkinter's main loop
+        # and the UI and become unresponsive
         global Running
         if Start_StopBTN["text"] == "START":
             Running = True
@@ -484,9 +482,6 @@ class GuiRun:
         """
         Config Things
         """
-        # checks if Config Files exist
-        FileManager.CreateConfigFolder()
-        FileManager.CreateConfigFiles()
         # loads settings for later use
         SettingsFile = FileManager.LoadSettings()
 

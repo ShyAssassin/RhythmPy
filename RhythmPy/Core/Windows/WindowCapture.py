@@ -118,13 +118,13 @@ class WindowCapture:
 
     def start(self):
         self.stopped = False
-        t = Thread(target=self.run)
+        t = Thread(target=self._run)
         t.start()
 
     def stop(self):
         self.stopped = True
 
-    def run(self):
+    def _run(self):
         # TODO: you can write your own time/iterations calculation to determine how fast this is
         while not self.stopped:
             # get an updated image of the game
@@ -139,7 +139,6 @@ if __name__ == "__main__":
     import time
 
     Wincap = WindowCapture(None)
-    Wincap.run()
     Wincap.start()
     last_time = float(time.time())
     while True:

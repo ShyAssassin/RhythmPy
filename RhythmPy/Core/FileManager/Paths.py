@@ -3,9 +3,7 @@ import platform
 
 # gets home dir + RhythmPy/
 def AppDataDir():
-    """
-    Gets the folder where files are to be stored based on running OS
-    """
+    """Gets the folder where files are to be stored based on running OS"""
     try:
         Platform = platform.system()
         WindowsAppData = str(os.path.expandvars("%appdata%//RhythmPy//"))
@@ -21,9 +19,7 @@ def AppDataDir():
 
 
 def PluginsDir():
-    """
-    Gets the folder where plugins are to be stored based on running OS
-    """
+    """Gets the folder where plugins are to be stored based on running OS"""
     try:
         Platform = platform.system()
         WindowsPlugins = str(os.path.expandvars("%appdata%//RhythmPy//Plugins//"))
@@ -40,9 +36,7 @@ def PluginsDir():
 
 # gets home dir + RhythmPy/Config
 def AppDataConfigDir():
-    """
-    Gets the folder where Config files are to be stored based on running OS
-    """
+    """Gets the folder where Config files are to be stored based on running OS"""
     try:
         Platform = platform.system()
         WindowsAppDataConfig = str(os.path.expandvars("%appdata%//RhythmPy//Config//"))
@@ -59,9 +53,7 @@ def AppDataConfigDir():
 
 # gets home dir + RhythmPy/Logs
 def AppDataLogsDir():
-    """
-    Gets the folder where Log files are to be stored based on running OS
-    """
+    """Gets the folder where Log files are to be stored based on running OS"""
     try:
         Platform = platform.system()
         WindowsAppDataLogs = str(os.path.expandvars("%appdata%//RhythmPy//Logs//"))

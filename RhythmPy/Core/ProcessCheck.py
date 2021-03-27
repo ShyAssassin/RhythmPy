@@ -7,9 +7,7 @@ this will be used to check if the game is running
 
 
 def IsProcessRunning(processName):
-    """
-    Check if there is any running process that contains the given name processName.
-    """
+    """Check if there is any running process that contains the given name processName"""
     # Iterate over the all the running process
     for proc in psutil.process_iter():
         try:

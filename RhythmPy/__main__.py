@@ -3,9 +3,14 @@ if __name__ == "__main__":
     # creates appdata dir and needed files
     from Core import FileManager
     from Core.Logger import Logger
+    from SplashScreen import SplashScreen
+    import time
     try:
+        Splash = SplashScreen()
+        Splash.Start()
         FileManager.CreateAppdataDir()
         logger = Logger()
+        # Creates log Folder
         logger.CreateLogFolder()
         FileManager.CreateConfigFolder()
         FileManager.CreateConfigFiles()
@@ -34,23 +39,22 @@ if __name__ == "__main__":
 
     # first run stuff
     try:
-        try:
-            if ConfigFile["FirstRun"] in [True, "True", "true"]:
-                FirstRun().Run()
-                if platform == "Windows":
-                    Windows.ApplySkins.Osu()
-                    # Windows.ApplySkins.Quaver()
-                elif platform == "Linux" or platform == "Darwin":
-                    pass
-            else:
-                logger.info("has been run before carrying on")
-        except Exception:
+        if ConfigFile["FirstRun"] in [True, "True", "true"]:
             FirstRun().Run()
+            if platform == "Windows":
+                Windows.ApplySkins.Osu()
+                # Windows.ApplySkins.Quaver()
+            elif platform == "Linux" or platform == "Darwin":
+                pass
+        else:
+            logger.info("has been run before carrying on")
     except Exception:
         logger.warning("failed to apply skins\n")
 
-    # bot stuff
+    # interface stuff
     try:
+        time.sleep(1)
+        Splash.Stop()
         if ConfigFile["CliMode"] in [True, "True", "true"]:
             CliRun()
         else:

@@ -13,6 +13,7 @@ import time
 
 # used to close application globally
 def CloseGlobal(master, running):
+    """Closes the application"""
     if running in [False, None]:
         loggerinit = Logger()
         logger = loggerinit.StartLogger(name=__name__)
