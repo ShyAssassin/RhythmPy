@@ -10,7 +10,7 @@ class SplashScreen:
         self.master = tk.Tk()
         canvas = tk.Canvas(self.master)
         canvas.pack(expand=True)
-        op = Image.open(r"Assets\UI\Splash.png")
+        op = Image.open(r"Assets/UI/Splash.png")
         SplashImage = ImageTk.PhotoImage(op)
         Splash = tk.Label(self.master, image=SplashImage)
         Splash.image = SplashImage

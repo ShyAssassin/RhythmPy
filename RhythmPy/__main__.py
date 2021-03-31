@@ -27,7 +27,7 @@ if __name__ == "__main__":
         from Gui import GuiRun
         from Cli import CliRun
         import platform
-    except ImportError:
+    except(ImportError, ModuleNotFoundError):
         logger.exception("Failed to import needed libraries\n")
 
     # loads normal stuff

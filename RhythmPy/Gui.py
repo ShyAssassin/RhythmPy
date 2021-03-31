@@ -1,15 +1,20 @@
 try:
     import tkinter as tk
     from tkinter import Button, Label, filedialog, messagebox, ttk
-except ImportError:
+except(ImportError, ModuleNotFoundError):
     import Tkinter as tk
     from Tkinter import ttk, Button, Label, messagebox, filedialog
 
 import os
 import sys
 import threading
+import platform
 
 from PIL import ImageTk
+
+Platform = platform.system()
+if Platform == "Windows":
+    from Core import Windows
 
 from Core import (
     Gui,
@@ -17,7 +22,6 @@ from Core import (
     FileManager,
     IsProcessRunning,
     Logger,
-    Windows,
     Paths,
 )
 
