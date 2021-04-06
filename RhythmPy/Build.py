@@ -39,7 +39,7 @@ class Build:
                 print(
                     """
                     Normal build does not include a console on runtime and only consists of the GUI.
-                    Normal mode is for just creating a exe that will just work without any tweaking.\n
+                    Normal mode is for just creating a exe that will just work without any tweaking!\n
                     """
                 )
 
