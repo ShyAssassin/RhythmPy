@@ -20,6 +20,9 @@ jobs:
     - name: Install dependencies
       run: poetry install
       
+    - name: CD into RhythmPy
+      run: cd RhythmPy
+
     - name: Build Dev
       run: poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
         
