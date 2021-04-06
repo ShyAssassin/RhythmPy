@@ -483,9 +483,6 @@ class GuiRun:
         # defines
         functions = Functions()
 
-        """
-        Config Things
-        """
         # loads settings for later use
         SettingsFile = FileManager.LoadSettings()
 
