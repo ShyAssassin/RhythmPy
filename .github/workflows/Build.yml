@@ -22,8 +22,10 @@ jobs:
       
     - name: CD into RhythmPy
       run: cd RhythmPy
+      run: ls
 
     - name: Build Dev
+      run: ls
       run: poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
         
     - name: Build normal
