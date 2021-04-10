@@ -18,13 +18,16 @@ jobs:
       uses: abatilo/actions-poetry@v2.0.0
         
     - name: Install dependencies
-      run: poetry install
+      run: |
+        poetry install
 
     - name: Build Dev
-      run: poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
+      run: |
+        poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
         
     - name: Build normal
-      run: poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py
+      run: |
+        poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py
         
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v2
