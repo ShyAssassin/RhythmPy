@@ -19,7 +19,10 @@
         "**/__pycache__": true,
         "RhythmPy/*.spec": true,
         "**/build": true,
-        "**/dist": true
+        "**/dist": true,
+        "poetry.lock": true,
+        ".gitattributes": true,
+        "LICENSE": true
     },
     "explorerExclude.backup": null,
     "python.formatting.provider": "black",
