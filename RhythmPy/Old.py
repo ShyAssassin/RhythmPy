@@ -67,7 +67,6 @@ def TestRun(ImShow=True, ConfigFile="", Debug=True, Logging=True):
 
     logger.info("Started")
     ###########################################
-
     ##########################################
     #                                       #
     #             JSON Settings             #
