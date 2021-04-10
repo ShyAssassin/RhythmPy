@@ -2,7 +2,7 @@ from PIL import Image
 
 
 def ResizeImage(Xsize, Ysize, image):
-    """Used for resizing images for use in tkinter"""
+    """Resizes images for use in tkinter"""
     image = Image.open(image)
     image.convert("LA")
     new_image = image.resize((Xsize, Ysize), Image.ANTIALIAS)

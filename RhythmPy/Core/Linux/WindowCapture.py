@@ -86,7 +86,7 @@ class WindowCapture:
         while not self.stopped:
             # get an updated image of the game
             screenshot = self.get_screenshot(Stream=self.Stream)
-            # lock the thread while updating the results
+            # Lock the thread while updating the results
             self.lock.acquire()
             self.screenshot = screenshot
             self.lock.release()

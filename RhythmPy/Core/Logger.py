@@ -20,6 +20,7 @@ class Logger:
 
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
+
         # define file handler and set formatter
         self.LoggingFile = logging.FileHandler(self.LogFile)
         self.Formatter = logging.Formatter(

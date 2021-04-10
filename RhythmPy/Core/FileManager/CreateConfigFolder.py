@@ -4,7 +4,7 @@ import os
 from .Paths import AppDataDir, AppDataConfigDir
 from .FmLogger import Logger
 
-# Creates Config Folder
+# Creates Config Folder!
 def CreateConfigFolder():
     """Creates folder that holds configs in (%appdata%//RhythmPy//Config//) or (~//RhythmPy//Config//)"""
     logger = Logger()

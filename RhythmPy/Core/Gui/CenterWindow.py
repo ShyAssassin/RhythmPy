@@ -2,7 +2,7 @@ import tkinter
 
 
 def CenterWin(win):
-    """centers a tkinter window"""
+    """Centers a tkinter window"""
     win.update_idletasks()
     width = win.winfo_width()
     frm_width = win.winfo_rootx() - win.winfo_x()

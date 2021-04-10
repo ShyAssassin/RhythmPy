@@ -1,4 +1,4 @@
-# needs to be updated when new key is used
+# needs to be updated when new key is used!
 # fmt: off
 Defualt_Settings = {
     "Version": "1",

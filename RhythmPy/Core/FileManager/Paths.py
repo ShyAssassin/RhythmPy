@@ -40,7 +40,9 @@ def AppDataConfigDir():
     try:
         Platform = platform.system()
         if Platform == "Windows":
-            WindowsAppDataConfig = str(os.path.expandvars("%appdata%//RhythmPy//Config//"))
+            WindowsAppDataConfig = str(
+                os.path.expandvars("%appdata%//RhythmPy//Config//")
+            )
             return str(WindowsAppDataConfig)
         elif Platform == "Linux" or Platform == "Darwin":
             LinuxAppdataConfig = str(os.path.expanduser("~/RhythmPy/Config/"))

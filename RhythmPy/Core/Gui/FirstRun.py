@@ -54,6 +54,7 @@ class FirstRun:
 
     def Run(self):
         try:
+            # need to re do this
             if self.ReadValue():
                 self.logger.info("First time running!")
                 # changes the values so it can later be dumped into file

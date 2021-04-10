@@ -161,7 +161,7 @@ KEYBOARD_MAPPING = {
     "apps": 0xDD + 1024,
     "ctrlright": 0x9D + 1024,
     # arrow key scancodes can be different depending on the hardware,
-    # so I think the best solution is to look it up based on the virtual key
+    # So I think the best solution is to look it up based on the virtual key
     # https://docs.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-mapvirtualkeya?redirectedfrom=MSDN
     "up": MapVirtualKey(0x26, MAPVK_VK_TO_VSC),
     "left": MapVirtualKey(0x25, MAPVK_VK_TO_VSC),

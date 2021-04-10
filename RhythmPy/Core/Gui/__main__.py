@@ -1,7 +1,7 @@
 try:
     import tkinter as tk
     from tkinter import Button, Label, filedialog, messagebox, ttk
-except(ImportError, ModuleNotFoundError):
+except (ImportError, ModuleNotFoundError):
     import Tkinter as tk
     from Tkinter import ttk, Button, Label, messagebox, filedialog
 
@@ -464,7 +464,7 @@ class Application(tk.Frame):
             CloseGlobal(master=None, running=Running)
 
 
-class GuiRun:
+class Run:
     def __init__(self):
         # global for if bot is running
         global Running
@@ -520,4 +520,4 @@ class GuiRun:
 
 
 if __name__ == "__main__":
-    GuiRun()
+    Run()

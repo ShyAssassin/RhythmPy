@@ -5,7 +5,7 @@ from .Paths import AppDataDir, AppDataConfigDir
 
 
 def CreateAppdataDir():
-    """Creates dir for storing logs and configs in (%appdata%/RhythmPy) or (~//RhythmPy)"""
+    """Creates dir for storing logs, configs and plugins in (%appdata%/RhythmPy) or (~//RhythmPy)"""
     Platform = platform.system()
     if Platform == "Windows":
         if path.exists(os.path.expandvars("%appdata%//RhythmPy")) == False:

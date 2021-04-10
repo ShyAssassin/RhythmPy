@@ -7,6 +7,6 @@ from .DefualtConfigs import (
     Defualt_Config_Quaver4K,
     Defualt_Settings,
 )
+from .Paths import AppDataConfigDir, AppDataDir, PluginsDir
 from .LoadConfig import LoadConfig
 from .LoadSettings import LoadSettings
-from .Paths import AppDataConfigDir, AppDataDir, PluginsDir

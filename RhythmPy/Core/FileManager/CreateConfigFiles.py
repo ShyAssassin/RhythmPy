@@ -9,6 +9,7 @@ from .DefualtConfigs import (
     Defualt_Settings,
 )
 
+
 # Creates Config Files
 def CreateConfigFiles():
     """Creates Defualt configs for Osu Qauver and settings"""

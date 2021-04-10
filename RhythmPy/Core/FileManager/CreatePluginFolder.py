@@ -6,7 +6,7 @@ from .FmLogger import Logger
 
 # Creates Config Folder
 def CreatePluginFolder():
-    """Creates folder that holds Plugins in (%appdata%//RhythmPy//Plugins//) or (~//RhythmPy//Plugins//)"""
+    """Creates folder that will hold Plugins in (%appdata%//RhythmPy//Plugins//) or (~//RhythmPy//Plugins//)"""
     logger = Logger()
     logger = logger.StartLogger(name=__name__)
     if path.exists(str(PluginsDir())) == False:

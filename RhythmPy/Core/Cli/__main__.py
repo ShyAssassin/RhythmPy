@@ -16,10 +16,10 @@ from Core import (
 )
 
 
-class CliRun:
+class Run:
     def __init__(self):
         print("soon")
 
 
 if __name__ == "__main__":
-    CliRun()
+    Run()

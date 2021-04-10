@@ -1,9 +1,7 @@
 import psutil
 import time
 
-"""
-this will be used to check if the game is running
-"""
+# this will be used to check if the game is running
 
 
 def IsProcessRunning(processName):

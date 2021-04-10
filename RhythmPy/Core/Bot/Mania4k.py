@@ -14,7 +14,7 @@ elif platform == "Linux" or platform == "Darwin":
     if Linux.CheckFFmpeg():
         wincap = Linux
     else:
-        # will deal with this later
+        # will deal with this later!
         Logger().StartLogger().warning('FFmpeg is not installed on current linux system')
         raise ModuleNotFoundError
 # fmt: on
