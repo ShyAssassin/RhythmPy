@@ -30,8 +30,8 @@
     ],
     "python.pythonPath": "c:\\Users\\Assassin\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\rhythmpy-gDBW14kE-py3.7\\Scripts\\python.exe",
     "python.linting.pylintEnabled": false,
-    "cmake.configureOnOpen": false,
+    "cmake.configureOnOpen": true,
     "terminal.integrated.cwd": "RhythmPy/",
-    "cmake.sourceDirectory": "${workspaceFolder}/RhythmPy/Installer",
-    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Installer/Build"
+    "cmake.sourceDirectory": "${workspaceFolder}/RhythmPy/Updater",
+    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Updater/Build"
 }

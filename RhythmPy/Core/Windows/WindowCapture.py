@@ -148,11 +148,11 @@ if __name__ == "__main__":
             continue
         screen = Wincap.screenshot
         screenbgr = screen[904, 781]
-        cv2.imshow("Window", screen)
-        if cv2.waitKey(1) == ord("q"):
-            Wincap.stop()
-            cv2.destroyAllWindows()
-            break
+        # # cv2.imshow("Window", screen)
+        # if cv2.waitKey(1) == ord("q"):
+        #     Wincap.stop()
+        #     cv2.destroyAllWindows()
+        #     break
 
         counter += 1
         if (time.time() - start_time) > x:
