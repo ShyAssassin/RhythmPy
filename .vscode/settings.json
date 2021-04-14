@@ -36,5 +36,9 @@
     "cmake.configureOnOpen": true,
     "terminal.integrated.cwd": "RhythmPy/",
     "cmake.sourceDirectory": "${workspaceFolder}/RhythmPy/Updater",
-    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Updater/Build"
+    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Updater/Build",
+    "files.associations": {
+        "ostream": "cpp",
+        "iostream": "cpp"
+    }
 }
