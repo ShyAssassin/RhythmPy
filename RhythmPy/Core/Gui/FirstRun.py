@@ -1,9 +1,5 @@
-from os import path
-import logging
 import json
 import webbrowser
-import sys
-import os
 from Core.FileManager import AppDataDir
 from Core.Logger import Logger
 

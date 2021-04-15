@@ -4,8 +4,6 @@ Defualt_Settings = {
     "Version": "1",
     "Debug": "False",
     "FirstRun": "True",
-    "MultiConfig": "False",
-    "FindRunningProcess": "True",
     "WindowDrag": "True",
     "CliMode": "False"
 }

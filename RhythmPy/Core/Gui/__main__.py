@@ -24,6 +24,7 @@ from Core import (
     Logger,
     Paths,
 )
+from Core.Bot import Bot
 
 BUTTON_PADX = 4
 BUTTON_PADY = 8
@@ -37,231 +38,11 @@ BUTTON_WIDTH = 10
 BUTTON_HEIGHT = 2
 BUTTON_STYLE = "solid"  # flat, groove, raised, ridge, solid, sunken
 
-# used for non main UI related things
-class Functions:
-    def __init__(self):
-        PACKAGE_PARENT = ".."
-        SCRIPT_DIR = os.path.dirname(
-            os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__)))
-        )
-        sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, PACKAGE_PARENT)))
-
-    """
-    imma be honest
-    you need to close the below functions so it dont look like shit!
-    """
-    # checks if process is running and selecting game with UI
-    def Process(self):
-        settings = FileManager.LoadSettings()
-        FindRunningProcess = settings["FindRunningProcess"]
-        if (
-            FindRunningProcess == True
-            or FindRunningProcess == "True"
-            or FindRunningProcess == "true"
-        ):
-            # using global to stop me from having a mental break down dealing with retuns
-            global Config
-            if IsProcessRunning("Osu"):
-                Config = "Osu"
-            elif IsProcessRunning("Quaver"):
-                Config = "Qauver"
-            else:
-                logger.info("cant find the running Process")
-
-                # just adding a UI for selecting game
-                self.masters = tk.Tk()
-                canvas = tk.Canvas(self.masters)
-                self.masters.geometry("400x550")
-                self.masters.title(u"Select Game!")
-
-                # creates widgets
-                Label(
-                    self.masters,
-                    font=BUTTON_FONT_BOLD,
-                    bg="#333333",
-                    fg="#fffafa",
-                    text="Could not a find running game!",
-                ).pack()
-
-                Label(
-                    self.masters,
-                    font=BUTTON_FONT_BOLD,
-                    bg="#333333",
-                    fg="#fffafa",
-                    text="Please select a game manually!",
-                ).place(x=63, y=185)
-
-                self.OsuBTN = Button(
-                    self.masters,
-                    text="Osu",
-                    font=BUTTON_FONT_BOLD,
-                    width=BUTTON_WIDTH,
-                    height=BUTTON_HEIGHT,
-                    bg="#333333",
-                    fg="#fffafa",
-                    relief=BUTTON_STYLE,
-                    command=lambda: self.SetGame(self.masters, "Osu"),
-                )
-                self.OsuBTN.place(x=215, y=225)
-
-                self.QuaverBTN = Button(
-                    self.masters,
-                    text="Quaver",
-                    font=BUTTON_FONT_BOLD,
-                    width=BUTTON_WIDTH,
-                    height=BUTTON_HEIGHT,
-                    bg="#333333",
-                    fg="#fffafa",
-                    relief=BUTTON_STYLE,
-                    command=lambda: self.SetGame(self.masters, "Quaver"),
-                )
-                self.QuaverBTN.place(x=65, y=225)
-
-                self.masters.config(bg="#333333")
-                self.masters.resizable(width=False, height=False)
-                self.masters.attributes("-alpha", 0.965)
-                # not sure what this does tbh
-                ttk.Style().configure("TP.TFrame", background="snow")
-                self.masters.protocol(
-                    "WM_DELETE_WINDOW",
-                    lambda: CloseGlobal(self.masters, running=Running),
-                )
-                Gui.CenterWin(self.masters)
-                # runs window
-                self.masters.mainloop()
-        else:
-            self.SetGame(master=None, config="Other")
-            logger.info("FindRunningProcess is set to False skipping Process Scan")
-        # ====================================================================================================================
-
-    # change game during runtime with UI
-    def ChangeGame(self):
-        # just adding a UI for selecting game
-        self.masters = tk.Tk()
-        canvas = tk.Canvas(self.masters)
-        self.masters.geometry("400x550")
-        self.masters.title(u"Select Game!")
-
-        # creates widgets
-        Label(
-            self.masters,
-            font=BUTTON_FONT_BOLD,
-            bg="#333333",
-            fg="#fffafa",
-            text="Please select a game!",
-        ).place(x=63, y=185)
-
-        self.OsuBTN = Button(
-            self.masters,
-            text="Osu",
-            font=BUTTON_FONT_BOLD,
-            width=BUTTON_WIDTH,
-            height=BUTTON_HEIGHT,
-            bg="#333333",
-            fg="#fffafa",
-            relief=BUTTON_STYLE,
-            command=lambda: self.SetGame(self.masters, "Osu"),
-        )
-        self.OsuBTN.place(x=215, y=225)
-
-        self.QuaverBTN = Button(
-            self.masters,
-            text="Quaver",
-            font=BUTTON_FONT_BOLD,
-            width=BUTTON_WIDTH,
-            height=BUTTON_HEIGHT,
-            bg="#333333",
-            fg="#fffafa",
-            relief=BUTTON_STYLE,
-            command=lambda: self.SetGame(self.masters, "Quaver"),
-        )
-        self.QuaverBTN.place(x=65, y=225)
-
-        self.masters.config(bg="#333333")
-        self.masters.resizable(width=False, height=False)
-        self.masters.attributes("-alpha", 0.965)
-        # not sure what this does tbh
-        ttk.Style().configure("TP.TFrame", background="snow")
-        Gui.CenterWin(self.masters)
-        # runs window
-        self.masters.mainloop()
-
-    # ====================================================================================================================
-
-    # used to set game during run time
-    def SetGame(self, master, config):
-        global Config
-        global ConfigName
-        Config = config
-        self.Game = config
-        logger.info("changed game to " + Config)
-        ConfigName = Config
-        # sets Config name to be shown in UI
-        try:
-            App.UpdateShownConfig()
-        except Exception:
-            pass
-        # used for closing window if there is one
-        self.SetGameMaster = master
-        if (
-            self.SetGameMaster == None
-            or self.SetGameMaster == False
-            or self.SetGameMaster == ""
-            or self.SetGameMaster == " "
-        ):
-            pass
-        else:
-            # does not need to close gloabal for this one
-            # just the current window
-            self.SetGameMaster.destroy()
-
-
-class Bot:
-    def __init__(self, Config, Running):
-        self.Running = Running
-        self.Config = Config
-
-    def ManiaStart(self):
-        if Config == "Osu":
-            # loads Config file
-            pass
-        elif Config == "Quaver":
-            # loads config file
-            pass
-        else:
-            # loads custom config
-            pass
-
-        # will need to be updated to reflect the name of window found in Config
-        try:
-            Wincap = Windows.WindowCapture(None)
-            Wincap.start()
-            logger.info("Window Capture started")
-        except Exception:
-            logger.exception("Something went wrong while starting window capture\n")
-            # sets button text if wincap fails to start
-            Start_StopBTN.configure(text="START")
-            self.Running = False
-
-        while self.Running == True:
-            # stops program from crashing when starting wincap
-            if Wincap.screenshot is None:
-                continue
-            # used for stopping the bot and stopping the loop so the thread can be killed
-            if Running == False:
-                Wincap.stop()
-                logger.info("Window Capture and Bot Stopped")
-                break
-
-            ScreenCap = Wincap.screenshot
-
-
 # used for all UI elements including button functions!
 class Application(tk.Frame):
     def __init__(self, master=None):
+        self.Running = False
         super().__init__(master)
-        self.functions = Functions()
-
         self.master.geometry("500x650")
         self.master.title(u"RhythmPy")
         # IDK
@@ -275,42 +56,27 @@ class Application(tk.Frame):
         )
         self.Create_Widgets()
 
-    # stop start command for the button :p
     def StartStop(self):
-        # i am using threads because if i dont it will break tkinter's main loop
-        # and the UI and become unresponsive
-        global Running
-        if Start_StopBTN["text"] == "START":
-            Running = True
-            # give current game and if it is running
+        if self.Start_StopBTN["text"] == "START" and "Config" in dir(self):
             try:
-                bot = Bot(Config, Running)
+                self.Running = True
+                Bot.Start(Running=self.Running, Config=self.Config)
+                self.Start_StopBTN.configure(text="STOP")
             except Exception:
-                Running = False
-                logger.exception("failed to give bot needed info")
-                CloseGlobal(running=Running, master=self.master)
-
+                self.tart_StopBTN.configure(text="START")
+                logger.exception("Failed to Start bot\n")
+        elif self.Start_StopBTN["text"] == "STOP":
             try:
-                self.t1 = threading.Thread(target=bot.ManiaStart)
-                self.t1.start()
-                logger.info("Started Thread for Bot")
-                Start_StopBTN.configure(text="STOP")
+                Bot.Stop()
+                self.Running = False
+                self.Start_StopBTN.configure(text="START")
             except Exception:
-                logger.exception("Failed to start Thread for Bot\n")
-                # sets button text if thread cant start
-                Start_StopBTN.configure(text="START")
-        elif Start_StopBTN["text"] == "STOP":
-            try:
-                # stops program
-                Running = False
-                self.t1.join()
-                logger.info("Closed thread for Bot")
-                Start_StopBTN.configure(text="START")
-            except Exception:
-                logger.exception("Failed to close the Bot thread\n")
-                Start_StopBTN.configure(text="STOP")
+                self.Start_StopBTN.configure(text="STOP")
+                logger.exception("Failed to stop bot\n")
         else:
-            logger.warn("I dont even know man\n")
+            messagebox.showwarning(
+                "No Config", "No Config is currently loaded, load one to continue."
+            )
 
     # used for moving window when overidedirect(1) is active
     def SaveLastClickPos(self, event):
@@ -326,34 +92,21 @@ class Application(tk.Frame):
         )
         self.master.geometry("+%s+%s" % (x, y))
 
-    """
-    Button Example:
-        Button(self.master, text='TEXT', font=BUTTON_FONT, width=BUTTON_WIDTH, height=BUTTON_HEIGHT, bg='#444444', fg='#fffafa',
-                  padx=BUTTON_PADX, pady=BUTTON_PADY, relief=BUTTON_STYLE)
-    Image Button Example:
-        self.Image = ResizeImage(100, 100, r"UI-Media\icon-gear.png")
-        self.Image = ImageTk.PhotoImage(self.Image)
-        Button(image = self.Image, relief=BUTTON_STYLE, bg='#333333', fg='#fffafa').pack()
-    """
-
     def ConfigSelect(self):
-        if Running in [False, None]:
-            global Config
-            # loads config
-            Settings = FileManager.LoadSettings()
-            MultiConfig = Settings["MultiConfig"]
-            if MultiConfig in [True, "True", "true"]:
-                # starts prompt to ask to load a config file
-                ConfigPath = Paths.AppDataConfigDir()
-                Config = filedialog.askopenfilename(
-                    initialdir=ConfigPath,
-                    title="Select Config",
-                    filetypes=(("Config Files", "*.json"), ("all files", "*.*")),
+        if self.Running in [False, None]:
+            # starts prompt to ask to load a config file
+            ConfigPath = Paths.AppDataConfigDir()
+            self.Config = filedialog.askopenfilename(
+                initialdir=ConfigPath,
+                title="Select Config",
+                filetypes=(("Config Files", "*.json"), ("all files", "*.*")),
+            )
+            # gets files base name and removes .json
+            if self.Config != "":
+                self.ConfigName = str(
+                    os.path.basename(self.Config).replace(".json", "")
                 )
-                print(Config)
-            else:
-                # runs change game if multi config is False
-                self.functions.ChangeGame()
+                self.UpdateShownConfig()
         else:
             messagebox.showwarning(
                 "Bot is running",
@@ -370,7 +123,7 @@ class Application(tk.Frame):
             font=BUTTON_FONT_BOLD,
             bg="#333333",
             fg="#fffafa",
-            text="Current Loaded Config: " + ConfigName,
+            text="Current Loaded Config: " + self.ConfigName,
         )
         self.ShownConfig.pack()
 
@@ -397,11 +150,11 @@ class Application(tk.Frame):
                 pady=BUTTON_PADY,
                 borderwidth=0,
                 activebackground="#363535",
-                command=lambda: Gui.Settings(running=Running),
+                command=lambda: Gui.Settings(running=self.Running),
             )
             self.SettingsBTN.place(x=415, y=563)
         except Exception:
-            CloseGlobal(master=None, running=Running)
+            CloseGlobal(master=None, running=False)
 
         try:
             # loads icon
@@ -426,12 +179,11 @@ class Application(tk.Frame):
             )
             self.ConfigBTN.place(x=0, y=568)
         except Exception:
-            CloseGlobal(master=None, running=Running)
+            CloseGlobal(master=None, running=False)
 
         # Start / Stop Button
         try:
-            global Start_StopBTN
-            Start_StopBTN = Button(
+            self.Start_StopBTN = Button(
                 self.master,
                 text="START",
                 font=BUTTON_FONT_BOLD,
@@ -442,56 +194,39 @@ class Application(tk.Frame):
                 relief=BUTTON_STYLE,
                 command=self.StartStop,
             )
-            Start_StopBTN.place(x=190, y=255)
+            self.Start_StopBTN.place(x=190, y=255)
         except Exception:
             logger.exception(
                 "something went very wrong while creating Start Stop Button\n"
             )
-            CloseGlobal(master=None, running=Running)
+            CloseGlobal(master=None, running=False)
 
         try:
             # shows Currently loaded config
+            self.ConfigName = "None"
             self.ShownConfig = Label(
                 self.master,
                 font=BUTTON_FONT_BOLD,
                 bg="#333333",
                 fg="#fffafa",
-                text="Current Loaded Config: " + ConfigName,
+                text="Current Loaded Config: " + self.ConfigName,
             )
             self.ShownConfig.pack()
         except Exception:
             logger.exception("failed to create UI Lable for Loaded Config")
-            CloseGlobal(master=None, running=Running)
+            CloseGlobal(master=None, running=False)
 
 
 class Run:
     def __init__(self):
-        # global for if bot is running
-        global Running
-        # is set to None so UI can start
-        Running = None
-        # sets global for config name to be shown in UI
-        global ConfigName
-        ConfigName = ""
-
         # sets global for logger
         global logger
         loggerinit = Logger()
         loggerinit.CreateLogFolder()
         logger = loggerinit.StartLogger(name=__name__)
 
-        # defines
-        functions = Functions()
-
         # loads settings for later use
         SettingsFile = FileManager.LoadSettings()
-
-        # used for checking if the json has all the needed keys
-        # not done yet needs to be fixed!
-        # UpdateConfig(Defualt_Config)
-
-        # checks for running Games, needs to be run after config checking and first run check
-        functions.Process()
 
         # Main Window Stuff
         try:
@@ -501,7 +236,6 @@ class Run:
             root.wait_visibility()
             root.attributes("-alpha", 0.965)
             ttk.Style().configure("TP.TFrame", background="snow")
-            global App
             App = Application()
             # binds
             if SettingsFile["WindowDrag"] in [True, "True", "true"]:
@@ -509,7 +243,7 @@ class Run:
                 root.bind("<B1-Motion>", App.Dragging)
 
             root.protocol(
-                "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=Running)
+                "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=App.Running)
             )
             # root.overrideredirect(1)
             Gui.CenterWin(root)

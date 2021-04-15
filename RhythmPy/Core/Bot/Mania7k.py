@@ -21,24 +21,19 @@ elif platform == "Linux" or platform == "Darwin":
 
 
 class Mania7k:
-    def Start(self, Config, Running, Button=None):
+    def Start(self, Config, Running):
+        loggerinit = Logger()
+        self.logger = loggerinit.StartLogger(name=__name__)
         try:
-            # sets logger
-            loggerinit = Logger()
-            self.logger = loggerinit.StartLogger(name=__name__)
-        except Exception:
-            self.logger = None
-        try:
-            self.thread = threading.Thread(
-                target=self._run, args=(Config, Running, Button)
-            )
+            self.thread = threading.Thread(target=self._run, args=(Config, Running))
             # Start the execution
             self.thread.start()
             self.logger.info("Started Thread for bot")
         except threading.ThreadError:
             self.logger.critical("Failed to start Thread for bot")
+            self.logger.exception()
 
-    def _run(self, Config, Running, Button=None):
+    def _run(self, Config, Running):
         self.Running = Running
         try:
             # will need to be updated to reflect the name of window found in Config
@@ -48,8 +43,6 @@ class Mania7k:
         except Exception:
             self.logger.exception("Failed to start Window capture\n")
             self.Running = False
-            # sets button text if wincap fails to start
-            Button.configure(text="START")
         try:
             while True:
                 # stops bot when Running is False
