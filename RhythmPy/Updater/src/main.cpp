@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Commands/Help.hpp"
 
 using namespace std;
 
