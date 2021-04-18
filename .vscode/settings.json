@@ -1,15 +1,29 @@
 {
-    "[python]": {
-        "files.trimTrailingWhitespace": true,
-    },
-    "python.testing.unittestArgs": [
-        "-v",
-        "-s",
-        "./Tests",
-        "-p",
-        "test*.py"
+    // vscode stuff
+    "editor.formatOnSave": true,
+    // "terminal.integrated.cwd": "RhythmPy",
+
+    // python stuff
+    "python.analysis.extraPaths": ["./RhythmPy/"],
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black",
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8CategorySeverity.E": "Warning",
+    "python.linting.lintOnSave": true,
+    "python.linting.flake8Args": [
+        "--ignore=E712"
     ],
-    "python.linting.enabled": true,    
+
+    // cpp stuff
+    "cmake.configureOnOpen": true,
+    "cmake.sourceDirectory": "${workspaceFolder}/RhythmPy/Updater",
+    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Updater/Build",
+    "files.associations": {
+        "ostream": "cpp",
+        "iostream": "cpp"
+    },
+
+    // hides files
     "files.exclude": {
         "**/.git": true,
         "**/.svn": true,
@@ -24,21 +38,4 @@
         ".gitattributes": true,
         "LICENSE": true
     },
-    "explorerExclude.backup": null,
-    "python.formatting.provider": "black",
-    "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": [
-        "--max-line-length=150",
-        "--ignore=E402,F841,F401,E302,E305,E711,E712,W503,W605,W391",
-    ],
-    "python.pythonPath": "c:\\Users\\Assassin\\AppData\\Local\\pypoetry\\Cache\\virtualenvs\\rhythmpy-gDBW14kE-py3.7\\Scripts\\python.exe",
-    "python.linting.pylintEnabled": false,
-    "cmake.configureOnOpen": true,
-    "terminal.integrated.cwd": "RhythmPy/",
-    "cmake.sourceDirectory": "${workspaceFolder}/RhythmPy/Updater",
-    "cmake.buildDirectory": "${workspaceFolder}/RhythmPy/Updater/Build",
-    "files.associations": {
-        "ostream": "cpp",
-        "iostream": "cpp"
-    }
 }
