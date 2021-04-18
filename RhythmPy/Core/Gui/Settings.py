@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, Entry, messagebox
 from Core import Gui
 
+
 # this isnt in modules because it is related to ui and not "back end"
 class Settings:
     def __init__(self, running):

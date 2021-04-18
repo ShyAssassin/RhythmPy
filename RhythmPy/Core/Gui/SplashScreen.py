@@ -1,6 +1,5 @@
 import tkinter as tk
 from Core.Gui import CenterWin
-import threading
 import time
 from PIL import Image, ImageTk
 

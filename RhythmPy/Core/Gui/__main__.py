@@ -6,21 +6,13 @@ except (ImportError, ModuleNotFoundError):
     from Tkinter import ttk, Button, Label, messagebox, filedialog
 
 import os
-import sys
-import threading
-import platform
 
 from PIL import ImageTk
-
-Platform = platform.system()
-if Platform == "Windows":
-    from Core import Windows
 
 from Core import (
     Gui,
     CloseGlobal,
     FileManager,
-    IsProcessRunning,
     Logger,
     Paths,
 )
@@ -37,6 +29,7 @@ BUTTON_FONT_ITALIC = ("Yu Gothic UI", 13, "italic")
 BUTTON_WIDTH = 10
 BUTTON_HEIGHT = 2
 BUTTON_STYLE = "solid"  # flat, groove, raised, ridge, solid, sunken
+
 
 # used for all UI elements including button functions!
 class Application(tk.Frame):
@@ -243,12 +236,13 @@ class Run:
                 root.bind("<B1-Motion>", App.Dragging)
 
             root.protocol(
-                "WM_DELETE_WINDOW", lambda: CloseGlobal(master=root, running=App.Running)
+                "WM_DELETE_WINDOW",
+                lambda: CloseGlobal(master=root, running=App.Running),
             )
             # root.overrideredirect(1)
             Gui.CenterWin(root)
             App.mainloop()
-        except Exception as e:
+        except Exception:
             # shows error in logger
             logger.exception("something broke\n")
 

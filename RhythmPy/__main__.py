@@ -41,7 +41,6 @@ try:
             FirstRun,
             Gui,
             Cli,
-            CloseGlobal,
         )
     except (ImportError, ModuleNotFoundError):
         logger.exception("failed to import the bot\n")
