@@ -8,7 +8,9 @@
     "python.linting.enabled": true,
     "python.formatting.provider": "black",
     "python.linting.flake8Enabled": true,
+    // :(
     "python.linting.flake8CategorySeverity.E": "Warning",
+    "python.linting.flake8CategorySeverity.F": "Warning",
     "python.linting.lintOnSave": true,
     "python.linting.flake8Args": [
         "--ignore=E712"
