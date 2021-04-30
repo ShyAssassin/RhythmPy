@@ -13,7 +13,7 @@
     "python.linting.flake8CategorySeverity.F": "Warning",
     "python.linting.lintOnSave": true,
     "python.linting.flake8Args": [
-        "--ignore=E712"
+        "--ignore=E712,E501"
     ],
 
     // cpp stuff
