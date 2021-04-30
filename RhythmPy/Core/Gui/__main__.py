@@ -5,8 +5,6 @@ except (ImportError, ModuleNotFoundError):
     import Tkinter as tk
     from Tkinter import ttk, Button, Label, messagebox, filedialog
 
-import os
-
 from PIL import ImageTk
 
 from Core import (
@@ -50,13 +48,14 @@ class Application(tk.Frame):
         self.Create_Widgets()
 
     def StartStop(self):
+        # checks if Config exists and if bot is running
         if self.Start_StopBTN["text"] == "START" and "Config" in dir(self):
             try:
                 self.Running = True
-                Bot.Start(Running=self.Running, Config=self.Config)
+                Bot.Start(Running=self.Running, ConfigFile=self.Config)
                 self.Start_StopBTN.configure(text="STOP")
             except Exception:
-                self.tart_StopBTN.configure(text="START")
+                self.Start_StopBTN.configure(text="START")
                 logger.exception("Failed to Start bot\n")
         elif self.Start_StopBTN["text"] == "STOP":
             try:
@@ -67,6 +66,7 @@ class Application(tk.Frame):
                 self.Start_StopBTN.configure(text="STOP")
                 logger.exception("Failed to stop bot\n")
         else:
+            # run if no Config is selected
             messagebox.showwarning(
                 "No Config", "No Config is currently loaded, load one to continue."
             )
@@ -86,6 +86,7 @@ class Application(tk.Frame):
         self.master.geometry("+%s+%s" % (x, y))
 
     def ConfigSelect(self):
+        """Creates File dialog for getting Config Files"""
         if self.Running in [False, None]:
             # starts prompt to ask to load a config file
             ConfigPath = Paths.AppDataConfigDir()
@@ -94,11 +95,10 @@ class Application(tk.Frame):
                 title="Select Config",
                 filetypes=(("Config Files", "*.json"), ("all files", "*.*")),
             )
-            # gets files base name and removes .json
+            # gets Config name and sets ConfigName
             if self.Config != "":
-                self.ConfigName = str(
-                    os.path.basename(self.Config).replace(".json", "")
-                )
+                self.ConfigName = FileManager.LoadConfig(self.Config)
+                self.ConfigName = self.ConfigName["Name"]
                 self.UpdateShownConfig()
         else:
             messagebox.showwarning(
@@ -107,6 +107,7 @@ class Application(tk.Frame):
             )
 
     def UpdateShownConfig(self):
+        """Updates Currently showed Config"""
         # destroys current lable
         self.ShownConfig.destroy()
         self.ShownConfig = None
@@ -122,6 +123,7 @@ class Application(tk.Frame):
 
     # Widgets
     def Create_Widgets(self):
+        """Create all UI elements"""
         # Settings Button
         try:
             # loads icon

@@ -1,30 +1,48 @@
 # needs to be updated when new key is used!
 # fmt: off
 Defualt_Settings = {
-    "Version": "1",
+    "Version": "",
     "Debug": "False",
     "FirstRun": "True",
     "WindowDrag": "True",
-    "CliMode": "False"
+    "CliMode": "False",
 }
 
 Defualt_Config_Osu4K = {
-    "Collums": "4",
+    "Name": "Osu4k",
+    "Mode": "4k",
     "FPS": "60",
     "Window Name": "",
-    "Collum1Pos": "",
-    "Collum2Pos": "",
-    "Collum3Pos": "",
-    "Collum4Pos": ""
+    "Collum 1": {
+        "Position": "",
+    },
+    "Collum 2": {
+        "Position": "",
+    },
+    "Collum 3": {
+        "Position": "",
+    },
+    "Collum 4": {
+        "Position": "",
+    },
 }
 
 Defualt_Config_Quaver4K = {
-    "Collums": "4",
+    "Name": "Qauver4k",
+    "Mode": "4k",
     "FPS": "60",
     "Window Name": "",
-    "Collum1Pos": "",
-    "Collum2Pos": "",
-    "Collum3Pos": "",
-    "Collum4Pos": ""
+    "Collum 1": {
+        "Position": ""
+    },
+    "Collum 2": {
+        "Position": ""
+    },
+    "Collum 3": {
+        "Position": ""
+    },
+    "Collum 4": {
+        "Position": ""
+    },
 }
 # fmt: on

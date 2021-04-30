@@ -40,18 +40,10 @@ class FirstRun:
         )
         winss.destroy()
 
-    # reads Value
-    def ReadValue(self):
-        Value = self.Config["FirstRun"]
-        if Value == True or Value == "True" or Value == "true":
-            return True
-        else:
-            return False
-
     def Run(self):
         try:
             # need to re do this
-            if self.ReadValue():
+            if self.Config in [True, "True", "true"]:
                 self.logger.info("First time running!")
                 # changes the values so it can later be dumped into file
                 self.Config["FirstRun"] = "False"
