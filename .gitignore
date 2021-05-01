@@ -2,6 +2,7 @@
 build
 lib/*
 .DS_Store
+Updater.exe
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
