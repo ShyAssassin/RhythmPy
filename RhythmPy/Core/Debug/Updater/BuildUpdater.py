@@ -1,0 +1,27 @@
+import subprocess
+from Core.Logger import Logger
+
+
+def BuildUpdater():
+    """Used for building the Updater"""
+    # start logger
+    logger = Logger()
+    logger = logger.StartLogger(name=__name__)
+    try:
+        logger.info("Building Updater...")
+        Build = subprocess.run(
+            ["cmake", "--build", "."],
+            cwd=r"Updater/Build",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
+        )
+        # god only knows why stderr does not get asigned if we dont do this
+        if Build.stderr != "":
+            raise (Exception)
+        logger.info("Updater built successfully")
+    except Exception:
+        logger.warning(
+            "Updater failed to build\n" + str(Build.stderr).replace(r"\n", "\n")
+        )
+        raise (Exception)
