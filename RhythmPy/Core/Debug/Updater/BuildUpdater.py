@@ -21,7 +21,10 @@ def BuildUpdater():
             raise (Exception)
         logger.info("Updater built successfully")
     except Exception:
-        logger.warning(
-            "Updater failed to build\n" + str(Build.stderr).replace(r"\n", "\n")
-        )
+        for i in str(Build.stderr).replace(r"\n", "\n").split("\n"):
+            if i in ["\n", "", " "]:
+                pass
+            else:
+                logger.warning(i)
+        logger.warning("Updater failed to build")
         raise (Exception)

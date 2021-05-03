@@ -1,5 +1,6 @@
 import subprocess
 from Core.Logger import Logger
+import os
 
 
 def CreateBuildFolder():
@@ -9,11 +10,9 @@ def CreateBuildFolder():
     logger = logger.StartLogger(name=__name__)
     try:
         logger.info("Creating Build folder...")
-        BuildFolder = subprocess.run(["mkdir", "-p", "Build"], cwd=r"Updater/")
+        os.mkdir("Updater/Build")
         logger.info("Created Build Folder")
-    except Exception:
-        logger.warning(
-            "Failed to create Build dir\n"
-            + str(BuildFolder.stderr).replace(r"\n", "\n")
-        )
-        raise (Exception)
+    except FileExistsError:
+        logger.info("Build dir already exists")
+    except PermissionError:
+        logger.exception("Failed to create Build Dir")
