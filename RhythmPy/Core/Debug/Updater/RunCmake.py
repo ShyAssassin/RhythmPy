@@ -17,6 +17,7 @@ def RunCmake():
                 stdout=subprocess.PIPE,
                 stderr=subprocess.PIPE,
                 universal_newlines=True,
+                check=True,
             )
         except Exception:
             # Windows
