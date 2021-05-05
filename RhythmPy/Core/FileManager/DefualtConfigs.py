@@ -14,15 +14,19 @@ Defualt_Config_Osu4K = {
     "FPS": "60",
     "Window Name": "",
     "Collum 1": {
+        "Key": "d",
         "Position": "",
     },
     "Collum 2": {
+        "Key": "f",
         "Position": "",
     },
     "Collum 3": {
+        "Key": "j",
         "Position": "",
     },
     "Collum 4": {
+        "Key": "k",
         "Position": "",
     },
 }
@@ -33,15 +37,19 @@ Defualt_Config_Quaver4K = {
     "FPS": "60",
     "Window Name": "",
     "Collum 1": {
+        "Key": "a",
         "Position": ""
     },
     "Collum 2": {
+        "Key": "s",
         "Position": ""
     },
     "Collum 3": {
+        "Key": "k",
         "Position": ""
     },
     "Collum 4": {
+        "Key": "l",
         "Position": ""
     },
 }
