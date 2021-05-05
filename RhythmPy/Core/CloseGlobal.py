@@ -22,7 +22,6 @@ def CloseGlobal(master, running):
             sys.exit()
             exit()
             sys.exit()
-            time.sleep("10")
         else:
             root = master
             if messagebox.askokcancel("Quit", "Do you want to quit?"):
@@ -31,4 +30,3 @@ def CloseGlobal(master, running):
                 sys.exit()
                 exit()
                 sys.exit()
-                time.sleep("10")
