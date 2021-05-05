@@ -28,7 +28,6 @@ try:
         splash = None
 
     # if debug is enabled will attempt to build the updater
-    import subprocess
     from Core.Debug import Updater
     Settings = FileManager.LoadSettings()
     if Settings["Debug"] in [True, "True", "true"]:
