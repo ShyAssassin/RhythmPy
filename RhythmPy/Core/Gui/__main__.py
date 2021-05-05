@@ -97,9 +97,16 @@ class Application(tk.Frame):
             )
             # gets Config name and sets ConfigName
             if self.Config != "":
-                self.ConfigName = FileManager.LoadConfig(self.Config)
-                self.ConfigName = self.ConfigName["Name"]
-                self.UpdateShownConfig()
+                try:
+                    self.ConfigName = FileManager.LoadConfig(self.Config)
+                    self.ConfigName = self.ConfigName["Name"]
+                    self.UpdateShownConfig()
+                except KeyError:
+                    messagebox.showerror(
+                        "Config Error",
+                        "Invalid Config\nCheck Logs for details. %s"
+                        % loggerinit.GetCurrentLogFile(),
+                    )
         else:
             messagebox.showwarning(
                 "Bot is running",
@@ -216,6 +223,7 @@ class Run:
     def __init__(self):
         # sets global for logger
         global logger
+        global loggerinit
         loggerinit = Logger()
         loggerinit.CreateLogFolder()
         logger = loggerinit.StartLogger(name=__name__)

@@ -35,3 +35,6 @@ class Logger:
         self.logger.addHandler(self.consoleHandler)
         self.logger.addHandler(self.LoggingFile)
         return self.logger
+
+    def GetCurrentLogFile(self):
+        return self.LogFile
