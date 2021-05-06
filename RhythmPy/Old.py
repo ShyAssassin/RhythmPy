@@ -8,11 +8,9 @@ from cv2 import cv2
 
 # more retarded imports
 try:
-    from .Core import GameInput
-    from .Core import WindowCapture
+    from .Core.Windows import WindowCapture
 except:
-    from Core import GameInput
-    from Core import WindowCapture
+    from Core.Windows import WindowCapture
 
 # this test is used on quaver
 
@@ -128,6 +126,7 @@ def TestRun(ImShow=True, ConfigFile="", Debug=True, Logging=True):
             Collum1BGR == "[244 244 244 255]"
             or Collum1BGR == "[243 243 243 255]"
             or Collum1BGR == "[242 242 242 255]"
+            or Collum1BGR == "[255 255 255 255]"
         ):
             print("block")
 
@@ -147,4 +146,4 @@ def TestRun(ImShow=True, ConfigFile="", Debug=True, Logging=True):
 
 
 if __name__ == "__main__":
-    TestRun(Debug=False, ImShow=True, Logging=True)
+    TestRun(Debug=False, ImShow=True, Logging=False)

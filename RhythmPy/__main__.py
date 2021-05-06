@@ -2,6 +2,7 @@
 try:
     # fmt: off
     import platform
+    import traceback
     # Starts Logger
     try:
         from Core import FileManager
@@ -13,7 +14,7 @@ try:
         logger.CreateLogFolder()
         logger = logger.StartLogger(name=__name__)
     except (ImportError, ModuleNotFoundError) as e:
-        print("failed to start logger\n", e)
+        print("failed to start logger\n")
         input()
         exit()
 
@@ -29,15 +30,18 @@ try:
 
     # if debug is enabled will attempt to build the updater
     from Core.Debug import Updater
-    Settings = FileManager.LoadSettings()
-    if Settings["Debug"] in [True, "True", "true"]:
-        logger.info("Debug enabled attempting to build Updater")
-        Updater.CreateBuildFolder()
-        Updater.RunCmake()
-        Updater.BuildUpdater()
-        Updater.CopyUpdater()
-    else:
-        logger.info('Debug not enabled skipping Updater build')
+    try:
+        Settings = FileManager.LoadSettings()
+        if Settings["Debug"] in [True, "True", "true"]:
+            logger.info("Debug enabled attempting to build Updater")
+            Updater.CreateBuildFolder()
+            Updater.RunCmake()
+            Updater.BuildUpdater()
+            Updater.CopyUpdater()
+        else:
+            logger.info('Debug not enabled skipping Updater build')
+    except Exception:
+        logger.warning("Settings.json missing skipping build")
 
     # creates needed files
     try:

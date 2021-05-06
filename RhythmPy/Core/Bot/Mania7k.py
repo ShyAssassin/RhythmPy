@@ -7,6 +7,7 @@ if "Logger" not in dir():
     global logger
     from Core.Logger import Logger
     loggerinit = Logger()
+    loggerinit.CreateLogFolder()
     logger = loggerinit.StartLogger(name=__name__)
 import threading
 

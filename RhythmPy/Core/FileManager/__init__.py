@@ -1,4 +1,7 @@
 from .CreateAppdataDir import CreateAppdataDir
+
+# generates base folder
+CreateAppdataDir()
 from .CreateConfigFiles import CreateConfigFiles
 from .CreateConfigFolder import CreateConfigFolder
 from .CreatePluginFolder import CreatePluginFolder
