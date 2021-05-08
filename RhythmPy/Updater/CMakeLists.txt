@@ -15,7 +15,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # header files
-include_directories(${PROJECT_SOURCE_DIR}/src/Commands)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 # source files
 file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)

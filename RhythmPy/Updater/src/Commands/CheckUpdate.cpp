@@ -1,2 +1,7 @@
 #include <iostream>
-#include "CheckUpdate.hpp"
+#include "../Commands.hpp"
+
+int CheckUpdate()
+{
+    return 0;
+}

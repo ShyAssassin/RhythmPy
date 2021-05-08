@@ -1,2 +1,7 @@
 #include <iostream>
-#include "Help.hpp"
+#include "../Commands.hpp"
+
+int Help()
+{
+    return 0;
+}

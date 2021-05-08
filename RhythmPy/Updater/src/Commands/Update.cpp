@@ -1,2 +1,7 @@
 #include <iostream>
-#include "Update.hpp"
+#include "../Commands.hpp"
+
+int Update()
+{
+    return 0;
+}
