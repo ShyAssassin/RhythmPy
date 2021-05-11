@@ -10,7 +10,7 @@ def AppDataDir():
             WindowsAppData = str(os.path.expandvars("%appdata%//RhythmPy//"))
             return str(WindowsAppData)
         elif Platform == "Linux" or Platform == "Darwin":
-            LinuxAppdata = str(os.path.expanduser("~/RhythmPy/"))
+            LinuxAppdata = str(os.path.expanduser("~/.RhythmPy/"))
             return str(LinuxAppdata)
         else:
             raise Exception
@@ -26,7 +26,7 @@ def PluginsDir():
             WindowsPlugins = str(os.path.expandvars("%appdata%//RhythmPy//Plugins//"))
             return str(WindowsPlugins)
         elif Platform == "Linux" or Platform == "Darwin":
-            LinuxPlugins = str(os.path.expanduser("~/RhythmPy/Plugins/"))
+            LinuxPlugins = str(os.path.expanduser("~/.RhythmPy/Plugins/"))
             return str(LinuxPlugins)
         else:
             raise Exception
@@ -45,7 +45,7 @@ def AppDataConfigDir():
             )
             return str(WindowsAppDataConfig)
         elif Platform == "Linux" or Platform == "Darwin":
-            LinuxAppdataConfig = str(os.path.expanduser("~/RhythmPy/Config/"))
+            LinuxAppdataConfig = str(os.path.expanduser("~/.RhythmPy/Config/"))
             return str(LinuxAppdataConfig)
         else:
             raise Exception
@@ -62,7 +62,7 @@ def AppDataLogsDir():
             WindowsAppDataLogs = str(os.path.expandvars("%appdata%//RhythmPy//Logs//"))
             return str(WindowsAppDataLogs)
         elif Platform == "Linux" or Platform == "Darwin":
-            LinuxAppdataLogs = str(os.path.expanduser("~/RhythmPy/Logs/"))
+            LinuxAppdataLogs = str(os.path.expanduser("~/.RhythmPy/Logs/"))
             return str(LinuxAppdataLogs)
         else:
             raise Exception
