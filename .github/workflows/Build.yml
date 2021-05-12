@@ -19,7 +19,7 @@ jobs:
         
     - name: Install dependencies
       run: |
-        poetry install
+        poetry install --extras "Windows pyinstaller"
 
     - name: Build Dev
       run: |
