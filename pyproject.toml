@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "RhythmPy"
-version = "0.2.0"
+version = "0.3.0"
 description = "A rhythm game bot"
 authors = ["assassinsorrow <49711232+assassinsorrow@users.noreply.github.com>"]
 license = "APGL-3.0"
@@ -12,12 +12,14 @@ Pillow = "^8.1.0"
 opencv-python = "^4.5.1"
 numpy = "^1.19.5"
 requests = "^2.25.1"
-pywin32 = "^300"
 
 [tool.poetry.dev-dependencies]
-black = "^20.8b1"
+black = { version = "*", allow-prereleases = true }
 flake8 = "^3.8.4"
-pyinstaller = "^4.2"
+
+[tool.poetry.extras]
+Windows = ["pywin32"]
+pyinstaller = ["pyinstaller"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

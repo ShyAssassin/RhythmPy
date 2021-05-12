@@ -11,5 +11,5 @@ def CreateAppdataDir():
         if path.exists(os.path.expandvars("%appdata%//RhythmPy")) == False:
             os.mkdir(os.path.expandvars("%appdata%//RhythmPy"))
     elif Platform == "Linux" or Platform == "Darwin":
-        if path.exists(os.path.expanduser("~//RhythmPy")) == False:
-            os.mkdir(os.path.expanduser("~//RhythmPy"))
+        if path.exists(os.path.expanduser("~//.RhythmPy")) == False:
+            os.mkdir(os.path.expanduser("~//.RhythmPy"))

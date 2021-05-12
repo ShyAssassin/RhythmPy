@@ -1,2 +1,2 @@
 from .WindowCapture import WindowCapture
-from .CheckFFmpeg import CheeckFFmpeg
+from .CheckFFmpeg import CheckFFmpeg

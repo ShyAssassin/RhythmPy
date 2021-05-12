@@ -17,10 +17,11 @@ if platform == "Windows":
     from Core import Windows
     wincap = Windows
 elif platform == "Linux" or platform == "Darwin":
-    from Core import Linux
+    from Core.Linux import CheckFFmpeg
     # checks if ffmpeg is insttalled
-    if Linux.CheckFFmpeg():
-        wincap = Linux
+    if CheckFFmpeg():
+        pass
+        # wincap = Linux
     else:
         # will deal with this later!
         logger.warning('FFmpeg is not installed on current linux system')
