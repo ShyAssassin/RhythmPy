@@ -1,5 +1,6 @@
 # C++ Stuff
 build
+Build/
 lib/*
 .DS_Store
 Updater.exe
