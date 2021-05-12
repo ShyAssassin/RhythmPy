@@ -294,7 +294,7 @@ name = "setuptools"
 version = "56.2.0"
 description = "Easily download, build, install, upgrade, and uninstall Python packages"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=3.6"
 
 [package.extras]
@@ -359,7 +359,7 @@ pyinstaller = ["pyinstaller"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "282d6b9872ace672221d054a582addde6a0f069fd6c4fe6423473801e1e9c16b"
+content-hash = "53f66d43b25d506fef695abc0615e5b18d856bd27d155a3999a5390cd21d33eb"
 
 [metadata.files]
 altgraph = [
