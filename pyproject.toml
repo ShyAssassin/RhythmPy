@@ -12,7 +12,6 @@ Pillow = "^8.1.0"
 opencv-python = "^4.5.1"
 numpy = "^1.19.5"
 requests = "^2.25.1"
-setuptools = "^56.2.0"
 pyinstaller = {version = "*", optional = true}
 pywin32 = {version = "*", optional = true}
 
