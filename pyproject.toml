@@ -13,7 +13,7 @@ opencv-python = "^4.5.1"
 numpy = "^1.19.5"
 requests = "^2.25.1"
 pyinstaller = {version = "*", optional = true}
-pywin32 = {version = "^300", optional = true}
+pywin32 = {version = "*", optional = true}
 
 [tool.poetry.dev-dependencies]
 black = { version = "*", allow-prereleases = true }
