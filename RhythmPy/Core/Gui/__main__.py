@@ -135,7 +135,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/UI/icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(82, 82, r"Assets/UI/icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -154,10 +154,11 @@ class Application(tk.Frame):
                 activebackground="#363535",
                 command=lambda: Gui.Settings(running=self.Running),
             )
-            self.SettingsBTN.place(x=415, y=563)
+            self.SettingsBTN.place(x=413, y=563)
         except Exception:
             CloseGlobal(master=None, running=False)
 
+        # Config icon
         try:
             # loads icon
             try:
@@ -179,7 +180,7 @@ class Application(tk.Frame):
                 activebackground="#363535",
                 command=lambda: self.ConfigSelect(),
             )
-            self.ConfigBTN.place(x=0, y=568)
+            self.ConfigBTN.place(x=0, y=563)
         except Exception:
             CloseGlobal(master=None, running=False)
 
@@ -193,10 +194,14 @@ class Application(tk.Frame):
                 height=BUTTON_HEIGHT,
                 bg="#333333",
                 fg="#fffafa",
+                bd=0,
                 relief=BUTTON_STYLE,
+                borderwidth=0,
+                pady=0,
+                padx=0,
                 command=self.StartStop,
             )
-            self.Start_StopBTN.place(x=190, y=255)
+            self.Start_StopBTN.place(x=185, y=255)
         except Exception:
             logger.exception(
                 "something went very wrong while creating Start Stop Button\n"
@@ -238,7 +243,8 @@ class Run:
             root.resizable(width=False, height=False)
             root.wait_visibility()
             root.attributes("-alpha", 0.965)
-            ttk.Style().configure("TP.TFrame", background="snow")
+            Style = ttk.Style(root)
+            Style.configure("TP.TFrame", background="snow")
             App = Application()
             # binds
             if SettingsFile["WindowDrag"] in [True, "True", "true"]:
