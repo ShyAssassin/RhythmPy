@@ -135,7 +135,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = Gui.ResizeImage(82, 82, r"Assets/UI/icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/UI/icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -154,7 +154,7 @@ class Application(tk.Frame):
                 activebackground="#363535",
                 command=lambda: Gui.Settings(running=self.Running),
             )
-            self.SettingsBTN.place(x=413, y=563)
+            self.SettingsBTN.place(x=415, y=570)
         except Exception:
             CloseGlobal(master=None, running=False)
 
@@ -180,7 +180,7 @@ class Application(tk.Frame):
                 activebackground="#363535",
                 command=lambda: self.ConfigSelect(),
             )
-            self.ConfigBTN.place(x=0, y=563)
+            self.ConfigBTN.place(x=0, y=568)
         except Exception:
             CloseGlobal(master=None, running=False)
 
@@ -196,7 +196,7 @@ class Application(tk.Frame):
                 fg="#fffafa",
                 bd=0,
                 relief=BUTTON_STYLE,
-                borderwidth=0,
+                borderwidth=1,
                 pady=0,
                 padx=0,
                 command=self.StartStop,
