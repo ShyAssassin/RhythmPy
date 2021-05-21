@@ -23,30 +23,36 @@ class WindowCapture:
 
     def OpenStream(self, Stream="udp://127.0.0.1:1234/"):
         """Opens FFmpeg Stream"""
-        cap = cv2.VideoCapture()
-        cap.open(Stream)
-        i = 0
-        # tries to open stream 20 times
-        while not cap.open() & i < 20:
-            i = i + 1
-            cap.open(Stream)
-            time.sleep(1)
-        if not cap.open:
-            raise ("failed to open Stream")
-        return cap
+        try:
+            self.cap = cv2.VideoCapture()
+            self.cap.open(Stream)
+        except Exception:
+            i = 0
+            # tries to open stream 20 times
+            while not self.cap.open() & i < 20:
+                i = i + 1
+                self.cap.open(Stream)
+                time.sleep(1)
+            if not self.cap.open:
+                raise ("failed to open Stream")
+        return self.cap
 
-    def StartStream(self, FPS=60):
+    def CloseStream(self):
+        """Closes FFmpeg Stream"""
+        self.cap.release()
+
+    def StartFFmpeg(self, FPS=60):
         """Starts FFmpeg Stream"""
         # fmt: off
-        subprocess.run(
+        self.ffmpeg = subprocess.Popen(
             [
                 "ffmpeg",
-                # The use of –probesize and –analyzeduration help FFMPEG to recognize the audio and video stream parameters of a file
+                # The use of –probesize and –analyzeduration helps FFmpeg to recognize the audio and video stream parameters of a file
                 "-probesize", "1MB",
                 # Resolution
                 "-video_size", "1920x1080",
                 # Framerate
-                "-framerate", FPS,
+                "-framerate", str(FPS),
                 # (filter) Driver
                 "-f", "x11grab",
                 # Input device (Desktop)
@@ -66,26 +72,32 @@ class WindowCapture:
         )
         # fmt: on
 
-    def get_screenshot(self, Stream):
+    def GetScreenshot(self, Stream):
         ret, frame = Stream.read()
         return frame
+
+    def GetScreenSize():
+        pass
 
     def start(self):
         """Starts Window Capture"""
         self.stopped = False
-        t = Thread(target=self._run)
-        t.start()
+        self.thread = Thread(target=self._run)
+        self.thread.start()
 
     def stop(self):
         """Stops Window Capture"""
         self.stopped = True
+        self.CloseStream()
+        self.ffmpeg.terminate()
+        self.thread.join()
 
     def _run(self):
-        self.StartStream()
+        self.StartFFmpeg()
         self.Stream = self.OpenStream()
         while not self.stopped:
             # get an updated image of the game
-            screenshot = self.get_screenshot(Stream=self.Stream)
+            screenshot = self.GetScreenshot(Stream=self.Stream)
             # Lock the thread while updating the results
             self.lock.acquire()
             self.screenshot = screenshot

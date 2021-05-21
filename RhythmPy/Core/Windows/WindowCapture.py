@@ -1,5 +1,5 @@
 import numpy as np
-import win32gui, win32ui, win32con
+import win32gui, win32ui, win32con, win32api
 from threading import Thread, Lock
 from cv2 import cv2
 
@@ -51,7 +51,7 @@ class WindowCapture:
         self.offset_x = window_rect[0] + self.cropped_x
         self.offset_y = window_rect[1] + self.cropped_y
 
-    def get_screenshot(self):
+    def GetScreenshot(self):
 
         # get the window image data
         wDC = win32gui.GetWindowDC(self.hwnd)
@@ -80,24 +80,15 @@ class WindowCapture:
         win32gui.ReleaseDC(self.hwnd, wDC)
         win32gui.DeleteObject(dataBitMap.GetHandle())
 
-        # drop the alpha channel, or cv.matchTemplate() will throw an error like:
-        #   error: (-215:Assertion failed) (depth == CV_8U || depth == CV_32F) && type == _templ.type()
-        #   && _img.dims() <= 2 in function 'cv::matchTemplate'
-        # we dont need this for now.....
-        # img = img[...,:3]
-
         # make image C_CONTIGUOUS to avoid errors that look like:
         #   File ... in draw_rectangles
         #   TypeError: an integer is required (got type tuple)
-        # see the discussion here:
-        # https://github.com/opencv/opencv/issues/14866#issuecomment-580207109
         img = np.ascontiguousarray(img)
 
         return img
 
     # find the name of the window you're interested in.
     # once you have it, update window_capture()
-    # https://stackoverflow.com/questions/55547940/how-to-get-a-list-of-the-name-of-every-open-window
     @staticmethod
     def list_window_names():
         def winEnumHandler(hwnd, ctx):
@@ -114,21 +105,26 @@ class WindowCapture:
     def get_screen_position(self, pos):
         return (pos[0] + self.offset_x, pos[1] + self.offset_y)
 
-    # threading methods
+    def GetScreenSize():
+        Width = win32api.GetSystemMetrics(0)
+        Height = win32api.GetSystemMetrics(1)
+        # fromats outpus as (1920x1080)
+        ScreenSize = str(Width) + "x" + str(Height)
+        return ScreenSize
 
     def start(self):
         self.stopped = False
-        t = Thread(target=self._run)
-        t.start()
+        self.thread = Thread(target=self._run)
+        self.thread.start()
 
     def stop(self):
         self.stopped = True
+        self.thread.join()
 
     def _run(self):
-        # TODO: you can write your own time/iterations calculation to determine how fast this is
         while not self.stopped:
             # get an updated image of the game
-            screenshot = self.get_screenshot()
+            screenshot = self.GetScreenshot()
             # lock the thread while updating the results
             self.lock.acquire()
             self.screenshot = screenshot
