@@ -1,38 +1,52 @@
 name: Build
 
 on:
-  workflow_dispatch:
   push:
+    branches: [master, dev]
   pull_request:
+    branches: [master, dev]
+  workflow_dispatch:
+  
 jobs:
   Build:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
     - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
+      uses: actions/setup-python@v2	
+      with:	
         python-version: 3.7
 
     - name: Install poetry
-      uses: abatilo/actions-poetry@v2.0.0
-      with:
+      uses: abatilo/actions-poetry@v2.0.0	
+      with:	
         poetry-version: 1.1.6
-        
-    - name: Install dependencies
-      run: |
-        poetry install --extras "Windows pyinstaller"
-
-    - name: Build Dev
-      run: |
-        poetry run pyinstaller --onedir RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
-        
-    - name: Build normal
-      run: |
-        poetry run pyinstaller --onedir RhythmPy/RhythmPy.spec RhythmPy/__main__.py
-        
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v2
+    
+    - name: Install Cmake
+      uses: jwlawson/actions-setup-cmake@v1.9
       with:
-        name: RhythmPy-Expremental
-        path: dist/
+        cmake-version: '3.16.x'
+    
+    - name: Install Make
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: sudo apt install build-essential
+    
+    - name: Install Make with Choco
+      if: ${{ matrix.os == 'windows-latest' }}
+      uses: crazy-max/ghaction-chocolatey@v1.5.0
+      with:
+        args: install make
+    
+    - name: Install python dependencies (Linux)
+      if: ${{ matrix.os == 'ubuntu-latest' }}
+      run: poetry install -E pyinstaller
+    
+    - name: Install python dependencies (Windows)
+      if: ${{ matrix.os == 'windows-latest' }}
+      run: poetry install --extras "Windows pyinstaller"
+  
