@@ -132,3 +132,4 @@ dmypy.json
 .pyre/
 *.nsi
 .nsi
+.vscode/settings.json
