@@ -39,6 +39,8 @@ dev:
 	cmake -B RhythmPy/Updater/Build -S RhythmPy/Updater -G "Unix Makefiles"
 	cmake --build RhythmPy/Updater/Build
 	$(CopyDevBuild)
+python:
+	cd RhythmPy && poetry run python __main__.py
 run:
 	make dev
 	cd dist/RhythmPyDev && $(run)
