@@ -51,7 +51,7 @@ jobs:
       run: poetry install --extras "Windows pyinstaller"
     
     - name: Make RhythmPy
-      run: make RhythmPy
+      run: make RhythmPyDev
     
     - name: Make Updater
       run: make Updater
