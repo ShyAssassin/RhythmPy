@@ -22,3 +22,9 @@ file(GLOB_RECURSE SOURCES ${PROJECT_SOURCE_DIR}/src/*.cpp)
 
 # adds sourcefiles
 add_executable(Updater ${SOURCES})
+set_target_properties(
+    Updater
+    PROPERTIES 
+        OUTPUT_NAME "Updater"
+        SUFFIX ".exe"
+)
