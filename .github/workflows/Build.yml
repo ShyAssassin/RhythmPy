@@ -51,6 +51,7 @@ jobs:
       run: poetry install --extras "Windows pyinstaller"
     
     - name: Make RhythmPy
+      if: ${{ matrix.os == 'windows-latest' }}
       run: make RhythmPyDev
     
     - name: Make Updater
