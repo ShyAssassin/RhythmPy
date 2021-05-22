@@ -2,16 +2,18 @@
 Pyinstaller = poetry run pyinstaller --onedir --noconfirm
 # windows
 ifdef OS
-	ifeq ($(shell uname -o), Msys)
+	ifeq ($(shell uname -o), Msys) #MINGW on windows
 		RM = rm -rf
 		CP = cp
 		mkdir = mkdir -p
+		run = ./RhythmPyDev
 		CopyDevBuild = cp "RhythmPy/Updater/Build/Updater.exe" "dist/RhythmPyDev"
 		CopyBuild = cp "RhythmPy/Updater/Build/Updater.exe" "dist/RhythmPy"
-	else
+	else #Normal windows
 		RM = rmdir /S /Q
 		CP = copy
 		mkdir = mkdir 
+		run = RhythmPyDev.exe
 		CopyDevBuild = copy RhythmPy\Updater\Build\Updater.exe dist/RhythmPyDev
 		CopyBuild = copy RhythmPy\Updater\Build\Updater.exe dist\RhythmPy
 	endif
@@ -20,6 +22,7 @@ else #Linux
 		RM = rm -rf
 		CP = cp
 		mkdir = mkdir -p
+		run = ./RhythmPyDev
 		CopyDevBuild = cp "RhythmPy/Updater/Build/Updater.exe" "dist/RhythmPyDev"
 		CopyBuild = cp "RhythmPy/Updater/Build/Updater.exe" "dist/RhythmPy"
 	endif
@@ -33,10 +36,12 @@ default:
 	$(CopyBuild)
 dev:
 	$(Pyinstaller) RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
-	$(mkdir) "RhythmPy/Updater/Build"
 	cmake -B RhythmPy/Updater/Build -S RhythmPy/Updater -G "Unix Makefiles"
 	cmake --build RhythmPy/Updater/Build
 	$(CopyDevBuild)
+run:
+	make dev
+	cd dist/RhythmPyDev && $(run)
 Updater:
 	$(mkdir) "RhythmPy/Updater/Build"
 	cmake -B RhythmPy/Updater/Build -S RhythmPy/Updater -G "Unix Makefiles"
