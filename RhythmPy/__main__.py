@@ -33,10 +33,14 @@ try:
         Settings = FileManager.LoadSettings()
         if Settings["Debug"] in [True, "True", "true"]:
             logger.info("Debug enabled attempting to build Updater")
-            Updater.CreateBuildFolder()
-            Updater.RunCmake()
-            Updater.BuildUpdater()
-            Updater.CopyUpdater()
+            # checks if Rhythmpy is compiled
+            if Updater.IsProduction() == False:
+                Updater.CreateBuildFolder()
+                Updater.RunCmake()
+                Updater.BuildUpdater()
+                Updater.CopyUpdater()
+            else:
+                logger.info("RhythmPy is being run in production skipping build...")
         else:
             logger.info('Debug not enabled skipping Updater build')
     except Exception:
