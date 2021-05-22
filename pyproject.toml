@@ -4,6 +4,8 @@ version = "0.3.0"
 description = "A rhythm game bot"
 authors = ["assassinsorrow <49711232+assassinsorrow@users.noreply.github.com>"]
 license = "APGL-3.0"
+repository = "https://github.com/assassinsorrow/RhythmPy"
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.7"
