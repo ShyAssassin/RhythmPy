@@ -46,7 +46,7 @@ Updater:
 	$(mkdir) "RhythmPy/Updater/Build"
 	cmake -B RhythmPy/Updater/Build -S RhythmPy/Updater -G "Unix Makefiles"
 	cmake --build RhythmPy/Updater/Build
-RhythmPy:
+RhythmPyDev:
 	$(Pyinstaller) RhythmPy/RhythmPyDev.spec RhythmPy/__main__.py
 clean:
 	$(RM) "build/"
