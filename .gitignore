@@ -133,3 +133,5 @@ dmypy.json
 *.nsi
 .nsi
 .vscode/settings.json
+*.gdf
+RhythmPy/pycallgraph.png
