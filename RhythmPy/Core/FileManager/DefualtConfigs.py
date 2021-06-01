@@ -13,21 +13,59 @@ Defualt_Config_Osu4K = {
     "Mode": "4k",
     "FPS": "60",
     "Window Name": "",
+    "Screen Size": "1920x1080",
+    "Collums": "4",
     "Collum 1": {
         "Key": "d",
-        "Position": "",
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 2": {
         "Key": "f",
-        "Position": "",
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 3": {
         "Key": "j",
-        "Position": "",
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 4": {
         "Key": "k",
-        "Position": "",
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
 }
 
@@ -36,21 +74,59 @@ Defualt_Config_Quaver4K = {
     "Mode": "4k",
     "FPS": "60",
     "Window Name": "",
+    "Screen Size": "1920x1080",
+    "Collums": "4",
     "Collum 1": {
         "Key": "a",
-        "Position": ""
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 2": {
         "Key": "s",
-        "Position": ""
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 3": {
         "Key": "k",
-        "Position": ""
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
     "Collum 4": {
         "Key": "l",
-        "Position": ""
+        "Position": {
+            "X": "",
+            "Y": "",
+        },
+        "Colours": {
+            "Note Primary": "",
+            "Note Secondary": "None",
+            "Slider Primary": "",
+            "Slider Secondary": "None",
+        },
     },
 }
 # fmt: on
