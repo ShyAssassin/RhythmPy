@@ -77,4 +77,6 @@
         ".gitattributes": true,
         "LICENSE": true
     },
+    "explorerExclude.backup": null,
+    "python.pythonPath": ".venv\\Scripts\\python.exe",
 }

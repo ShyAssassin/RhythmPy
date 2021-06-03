@@ -68,29 +68,35 @@ class WindowCapture:
                 # (Filter) Stream with mpegts over udp
                 "-f", "mpegts", "udp://127.0.0.1:1234",
             ],
-            check=True,
         )
         # fmt: on
+
+    def StopFFmpeg():
+        pass
 
     def GetScreenshot(self, Stream):
         ret, frame = Stream.read()
         return frame
 
-    def GetScreenSize():
+    def GetScreenSize(self):
         pass
 
     def start(self):
         """Starts Window Capture"""
         self.stopped = False
-        self.thread = Thread(target=self._run)
+        self.thread = Thread(target=self._run, daemon=True)
         self.thread.start()
 
     def stop(self):
         """Stops Window Capture"""
-        self.stopped = True
-        self.CloseStream()
-        self.ffmpeg.terminate()
-        self.thread.join()
+        try:
+            self.stopped = True
+            self.CloseStream()
+            self.ffmpeg.terminate()
+            self.StopFFmpeg()
+            self.thread.join()
+        except Exception:
+            raise (Exception)
 
     def _run(self):
         self.StartFFmpeg()

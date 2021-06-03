@@ -114,12 +114,15 @@ class WindowCapture:
 
     def start(self):
         self.stopped = False
-        self.thread = Thread(target=self._run)
+        self.thread = Thread(target=self._run, daemon=True)
         self.thread.start()
 
     def stop(self):
-        self.stopped = True
-        self.thread.join()
+        try:
+            self.stopped = True
+            self.thread.join()
+        except Exception:
+            raise (Exception)
 
     def _run(self):
         while not self.stopped:
