@@ -1,22 +1,15 @@
-try:
-    from tkinter import messagebox
-except ImportError:
-    from Tkinter import messagebox
-
-try:
-    from .Logger import Logger
-except ImportError:
-    from Logger import Logger
-
+from tkinter import messagebox
+from .Logger import Logger
 import sys
-import time
+
 
 # used to close application globally
-def CloseGlobal(master, running):
+def CloseGlobal(master, running=None):
     """Closes the app"""
     if running in [False, None]:
         loggerinit = Logger()
         logger = loggerinit.StartLogger(name=__name__)
+        # checks for tkinter window
         if master == None or master == "":
             logger.info("Quiting!\n")
             sys.exit()
@@ -30,3 +23,7 @@ def CloseGlobal(master, running):
                 sys.exit()
                 exit()
                 sys.exit()
+    else:
+        messagebox.showwarning(
+            "Bot is running", "The bot is currently running exit it before quiting."
+        )
