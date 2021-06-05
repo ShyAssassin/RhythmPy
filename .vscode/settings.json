@@ -76,9 +76,14 @@
         "poetry.lock": true,
         ".gitattributes": true,
         "LICENSE": true,
+<<<<<<< Updated upstream
         "**/pycallgraph.png": true,
         "**/pycallgraph.gdf": true,
         "RhythmPy/Updater.exe": true
+=======
+        "**/*.gdf": true,
+        "**/pycallgraph.png": true
+>>>>>>> Stashed changes
     },
     "explorerExclude.backup": null,
     "python.pythonPath": ".venv\\Scripts\\python.exe",
