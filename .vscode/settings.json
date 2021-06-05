@@ -75,7 +75,10 @@
         "**/dist": true,
         "poetry.lock": true,
         ".gitattributes": true,
-        "LICENSE": true
+        "LICENSE": true,
+        "**/pycallgraph.png": true,
+        "**/pycallgraph.gdf": true,
+        "RhythmPy/Updater.exe": true
     },
     "explorerExclude.backup": null,
     "python.pythonPath": ".venv\\Scripts\\python.exe",
