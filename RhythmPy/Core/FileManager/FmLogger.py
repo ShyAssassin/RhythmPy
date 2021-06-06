@@ -1,8 +1,6 @@
 # please fix this!
 import logging
 import sys
-import os
-from os import path
 from datetime import date
 from .Paths import AppDataLogsDir
 

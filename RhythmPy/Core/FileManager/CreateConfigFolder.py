@@ -1,8 +1,9 @@
 from os import path
 import sys
 import os
-from .Paths import AppDataDir, AppDataConfigDir
+from .Paths import AppDataConfigDir
 from .FmLogger import Logger
+
 
 # Creates Config Folder!
 def CreateConfigFolder():

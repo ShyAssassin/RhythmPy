@@ -1,6 +1,7 @@
 import os
 import platform
 
+
 # gets home dir + RhythmPy/
 def AppDataDir():
     """Gets the folder where files are to be stored based on running OS"""

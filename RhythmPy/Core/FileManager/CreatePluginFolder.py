@@ -1,8 +1,9 @@
 from os import path
 import sys
 import os
-from .Paths import AppDataDir, AppDataConfigDir, PluginsDir
+from .Paths import PluginsDir
 from .FmLogger import Logger
+
 
 # Creates Config Folder
 def CreatePluginFolder():

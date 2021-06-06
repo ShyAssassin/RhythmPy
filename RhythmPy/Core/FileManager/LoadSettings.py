@@ -1,6 +1,5 @@
 import json
-import os
-from .Paths import AppDataDir, AppDataConfigDir
+from .Paths import AppDataDir
 
 
 # used for loading Config\Settings.json
