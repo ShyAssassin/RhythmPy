@@ -55,3 +55,4 @@ RhythmPyDev:
 clean:
 	$(RM) "build/"
 	$(RM) "dist/"
+	$(RM) "RhythmPy/Updater/Build"
