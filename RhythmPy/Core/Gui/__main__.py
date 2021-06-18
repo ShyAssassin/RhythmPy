@@ -1,19 +1,7 @@
-try:
-    import tkinter as tk
-    from tkinter import Button, Label, filedialog, messagebox, ttk
-except (ImportError, ModuleNotFoundError):
-    import Tkinter as tk
-    from Tkinter import ttk, Button, Label, messagebox, filedialog
-
+import tkinter as tk
+from tkinter import Button, Label, filedialog, messagebox, ttk
 from PIL import ImageTk
-
-from Core import (
-    Gui,
-    CloseGlobal,
-    FileManager,
-    Logger,
-    Paths,
-)
+from Core import Gui, CloseGlobal, FileManager, Logger, Paths, Settings
 from Core.Bot import Bot
 
 BUTTON_PADX = 4
@@ -30,7 +18,9 @@ BUTTON_STYLE = "solid"  # flat, groove, raised, ridge, solid, sunken
 
 
 # used for all UI elements including button functions!
-class Application(tk.Frame):
+class RhythmPy(tk.Frame):
+    """The GUI for RhythmPy"""
+
     def __init__(self, master=None):
         self.Running = False
         super().__init__(master)
@@ -52,14 +42,15 @@ class Application(tk.Frame):
         if self.Start_StopBTN["text"] == "START" and "Config" in dir(self):
             try:
                 self.Running = True
-                Bot.Start(Running=self.Running, ConfigFile=self.Config)
+                self.bot = Bot(Running=self.Running, ConfigFile=self.Config)
+                self.bot.Start()
                 self.Start_StopBTN.configure(text="STOP")
             except Exception:
                 self.Start_StopBTN.configure(text="START")
                 logger.exception("Failed to Start bot\n")
         elif self.Start_StopBTN["text"] == "STOP":
             try:
-                Bot.Stop()
+                self.bot.Stop()
                 self.Running = False
                 self.Start_StopBTN.configure(text="START")
             except Exception:
@@ -102,6 +93,7 @@ class Application(tk.Frame):
                     self.ConfigName = self.ConfigName["Name"]
                     self.UpdateShownConfig()
                 except KeyError:
+                    logger.exception("Invalid Config loaded\n")
                     messagebox.showerror(
                         "Config Error",
                         "Invalid Config\nCheck Logs for details. %s"
@@ -135,7 +127,7 @@ class Application(tk.Frame):
         try:
             # loads icon
             try:
-                self.SettingsIcon = Gui.ResizeImage(78, 78, r"Assets/UI/icon-gear.png")
+                self.SettingsIcon = Gui.ResizeImage(76, 76, r"Assets/UI/icon-gear.png")
             except Exception:
                 logger.exception(
                     "can not load or find needed icons for Settings Button\n"
@@ -152,9 +144,9 @@ class Application(tk.Frame):
                 pady=BUTTON_PADY,
                 borderwidth=0,
                 activebackground="#363535",
-                command=lambda: Gui.Settings(running=self.Running),
+                command=lambda: Settings.Run(),
             )
-            self.SettingsBTN.place(x=415, y=570)
+            self.SettingsBTN.place(x=415, y=565)
         except Exception:
             CloseGlobal(master=None, running=False)
 
@@ -224,43 +216,42 @@ class Application(tk.Frame):
             CloseGlobal(master=None, running=False)
 
 
-class Run:
-    def __init__(self):
-        # sets global for logger
-        global logger
-        global loggerinit
-        loggerinit = Logger()
-        loggerinit.CreateLogFolder()
-        logger = loggerinit.StartLogger(name=__name__)
+def Run():
+    # sets global for logger
+    global logger
+    global loggerinit
+    loggerinit = Logger()
+    loggerinit.CreateLogFolder()
+    logger = loggerinit.StartLogger(name=__name__)
 
-        # loads settings for later use
-        SettingsFile = FileManager.LoadSettings()
+    # loads settings for later use
+    SettingsFile = FileManager.LoadSettings()
 
-        # Main Window Stuff
-        try:
-            root = tk.Tk()
-            root.config(bg="#333333")
-            root.resizable(width=False, height=False)
-            root.wait_visibility()
-            root.attributes("-alpha", 0.965)
-            Style = ttk.Style(root)
-            Style.configure("TP.TFrame", background="snow")
-            App = Application()
-            # binds
-            if SettingsFile["WindowDrag"] in [True, "True", "true"]:
-                root.bind("<Button-1>", App.SaveLastClickPos)
-                root.bind("<B1-Motion>", App.Dragging)
+    # Main Window Stuff
+    try:
+        root = tk.Tk()
+        root.config(bg="#333333")
+        root.resizable(width=False, height=False)
+        root.wait_visibility()
+        root.attributes("-alpha", 0.965)
+        Style = ttk.Style(root)
+        Style.configure("TP.TFrame", background="snow")
+        App = RhythmPy()
+        # binds
+        if SettingsFile["WindowDrag"] in [True, "True", "true"]:
+            root.bind("<Button-1>", App.SaveLastClickPos)
+            root.bind("<B1-Motion>", App.Dragging)
 
-            root.protocol(
-                "WM_DELETE_WINDOW",
-                lambda: CloseGlobal(master=root, running=App.Running),
-            )
-            # root.overrideredirect(1)
-            Gui.CenterWin(root)
-            App.mainloop()
-        except Exception:
-            # shows error in logger
-            logger.exception("something broke\n")
+        root.protocol(
+            "WM_DELETE_WINDOW",
+            lambda: CloseGlobal(master=root, running=App.Running),
+        )
+        # root.overrideredirect(1)
+        Gui.CenterWin(root)
+        App.mainloop()
+    except Exception:
+        # shows error in logger
+        logger.exception("something broke\n")
 
 
 if __name__ == "__main__":

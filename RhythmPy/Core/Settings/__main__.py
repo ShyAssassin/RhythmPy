@@ -1,10 +1,5 @@
-try:
-    import tkinter as tk
-    from tkinter import Button, Label, filedialog, messagebox, ttk
-except (ImportError, ModuleNotFoundError):
-    import Tkinter as tk
-    from Tkinter import ttk, Button, Label, messagebox, filedialog
-
+import tkinter as tk
+from tkinter import Button, Label, filedialog, messagebox, ttk
 from Core import (
     Gui,
 )
@@ -28,7 +23,7 @@ class Settings(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master.geometry("500x500")
-        self.master.title(u"RhythmPy")
+        self.master.title(u"Settings")
         # IDK
         self.entry = tk.Entry(
             self.master,
@@ -53,7 +48,7 @@ def Run():
         root.attributes("-alpha", 0.965)
         Style = ttk.Style(root)
         Style.configure("TP.TFrame", background="snow")
-        App = Settings()
+        App = Settings(root)
         Gui.CenterWin(root)
         App.mainloop()
     except Exception:
