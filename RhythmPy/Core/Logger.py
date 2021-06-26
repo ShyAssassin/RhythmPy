@@ -24,7 +24,7 @@ class Logger:
         # define file handler and set formatter
         self.LoggingFile = logging.FileHandler(self.LogFile)
         self.Formatter = logging.Formatter(
-            "%(name)s, %(lineno)d || %(asctime)s :: %(levelname)s :: %(message)s"
+            "%(name)s, %(funcName)s(), %(lineno)d, || %(asctime)s :: %(levelname)s :: %(message)s"
         )
         self.LoggingFile.setFormatter(self.Formatter)
         # add file handler to logger
