@@ -114,6 +114,7 @@ class WindowCapture:
     def start(self):
         self.stopped = False
         self.thread = Thread(target=self._run, daemon=True)
+        self.thread.name = "Window Capture"
         self.thread.start()
 
     def stop(self):
