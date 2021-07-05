@@ -1,8 +1,8 @@
 from Core import FileManager
 import threading
 import platform
+from .Worker import Worker
 
-global test
 # fmt: off
 # if we dont do this horibleness the logger will output
 # multiple times
@@ -51,14 +51,15 @@ class Bot:
             self.thread = threading.Thread(
                 target=self._run, args=(self.ConfigFile,), daemon=True
             )
+            self.thread.name = "Bot"
             self.thread.start()
             logger.info("Started bots thread")
         except threading.ThreadError:
             logger.exception("Failed to start bots thread\n")
             raise ("BotThreadingError")
 
-    def _run(self, ConfigFile):
-        # initializes the bot
+    def _initialize(self, ConfigFile):
+        """initializes the bot"""
         try:
             # loads config file
             try:
@@ -79,15 +80,31 @@ class Bot:
             try:
                 self.WorkerThreads = []
                 for i in range(int(self.Config["Collums"])):
-                    self.WorkerThreads.append("fuck")
+                    self.WorkerThreads.append(
+                        Worker(ThreadNumber=i, ConfigFile=ConfigFile)
+                    )
                 logger.info("Created worker thread list")
             except Exception:
                 logger.exception("failed to create list of worker threads\n")
+                raise Exception
+            # starts the worker threads
+            try:
+                for worker in self.WorkerThreads:
+                    worker.Start()
+                logger.info("Started worker threads")
+            except Exception:
+                logger.exception("Failed to start worker threads\n")
                 raise Exception
         except Exception:
             logger.critical("Failed to initialize bot")
             self.Running = False
             raise Exception
+
+    def _run(self, ConfigFile):
+        self._initialize(ConfigFile)
+        while self.Running:
+            for worker in self.WorkerThreads:
+                worker.Update(address=id(self.Wincap.screenshot))
 
     def Stop(self):
         """Stops the bot"""
@@ -95,18 +112,13 @@ class Bot:
             self.Running = False
             # stops all worker threads
             try:
-                for Threads in self.WorkerThreads:
-                    Threads.Stop()
+                for worker in self.WorkerThreads:
+                    worker.Stop()
                 logger.info("Stopped all worker threads")
+                # clears / resets worker thread list
+                self.WorkerThreads = []
             except Exception:
                 logger.exception("Failed to stop worker threads")
-                raise Exception
-            # clears / resets worker thread list
-            try:
-                self.WorkerThreads = []
-                logger.info("cleared / reset worker thread list")
-            except Exception:
-                logger.exception("Failed to clear / reset worker thread list\n")
                 raise Exception
             # stops window capture
             try:
