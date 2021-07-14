@@ -104,7 +104,7 @@ class WindowCapture:
     def get_screen_position(self, pos):
         return (pos[0] + self.offset_x, pos[1] + self.offset_y)
 
-    def GetScreenSize():
+    def GetScreenSize(self):
         Width = win32api.GetSystemMetrics(0)
         Height = win32api.GetSystemMetrics(1)
         # fromats outpus as (1920x1080)
