@@ -18,8 +18,10 @@ class Worker:
     def __init__(self, ThreadNumber, ConfigFile):
         self.ScreenCap = None
         self.Running = False
+        self.ThreadNumber = ThreadNumber
         self.Threadname = str("Worker " + str(ThreadNumber))
-        self.Config = FileManager.LoadConfig(ConfigFile)
+        # base Config
+        self.BaseConfig = FileManager.LoadConfig(ConfigFile)
 
     def Update(self, address):
         """Updates workers current information using a memory address"""
@@ -33,10 +35,27 @@ class Worker:
             self.thread.name = self.Threadname
             self.thread.start()
         except threading.ThreadError:
-            logger.exception("Failed to start worker thread\n")
+            logger.exception(
+                "Failed to start worker thread number %s\n", self.ThreadNumber
+            )
             raise Exception
 
+    def GetValues(self):
+        self.CollumConfig = self.BaseConfig[str("Collum " + str(self.ThreadNumber + 1))]
+        # Key to be pressed
+        self.Key = self.CollumConfig["Key"]
+        # Postions
+        self.PosX = self.CollumConfig["Position"]["X"]
+        self.PosY = self.CollumConfig["Position"]["Y"]
+        # note colours
+        self.NotePrimaryColour = self.CollumConfig["Colours"]["Note Primary"]
+        self.NoteSecondaryColour = self.CollumConfig["Colours"]["Note Secondary"]
+        # slider colours
+        self.SliderPrimaryColour = self.CollumConfig["Colours"]["Slider Primary"]
+        self.SliderSecondaryColour = self.CollumConfig["Colours"]["Slider Secondary"]
+
     def _run(self):
+        self.GetValues()
         while self.Running == True and self.ScreenCap != None:
             # resets frame so we dont do the same frame twice
             self.ScreenCap = None
