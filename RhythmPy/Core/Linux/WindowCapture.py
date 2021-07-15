@@ -71,7 +71,7 @@ class WindowCapture:
         )
         # fmt: on
 
-    def StopFFmpeg():
+    def StopFFmpeg(self):
         pass
 
     def GetScreenshot(self, Stream):
