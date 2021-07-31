@@ -18,8 +18,8 @@ Defualt_Config_Osu4K = {
     "Collum 1": {
         "Key": "d",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -31,8 +31,8 @@ Defualt_Config_Osu4K = {
     "Collum 2": {
         "Key": "f",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -44,8 +44,8 @@ Defualt_Config_Osu4K = {
     "Collum 3": {
         "Key": "j",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -57,8 +57,8 @@ Defualt_Config_Osu4K = {
     "Collum 4": {
         "Key": "k",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -79,8 +79,8 @@ Defualt_Config_Quaver4K = {
     "Collum 1": {
         "Key": "a",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -92,8 +92,8 @@ Defualt_Config_Quaver4K = {
     "Collum 2": {
         "Key": "s",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -105,8 +105,8 @@ Defualt_Config_Quaver4K = {
     "Collum 3": {
         "Key": "k",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
@@ -118,8 +118,8 @@ Defualt_Config_Quaver4K = {
     "Collum 4": {
         "Key": "l",
         "Position": {
-            "X": "",
-            "Y": "",
+            "X": "0",
+            "Y": "0",
         },
         "Colours": {
             "Note Primary": "",
