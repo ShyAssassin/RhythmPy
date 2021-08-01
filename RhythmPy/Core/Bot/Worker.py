@@ -1,6 +1,7 @@
 import threading
-import ctypes
 from Core import FileManager
+import ctypes
+import numpy as np
 
 # fmt: off
 # if we dont do this horibleness the logger will output
@@ -23,10 +24,6 @@ class Worker:
         # base Config
         self.BaseConfig = FileManager.LoadConfig(ConfigFile)
 
-    def Update(self, address):
-        """Updates workers current information using a memory address"""
-        self.ScreenCap = ctypes.cast(address, ctypes.py_object).value
-
     def Start(self):
         """Starts the worker thread"""
         try:
@@ -40,27 +37,35 @@ class Worker:
             )
             raise Exception
 
+    def Stop(self):
+        """Stops worker thread"""
+        self.Running = False
+        self.thread.join()
+
+    def _run(self):
+        global ScreenCap
+        self.GetValues()
+        while self.Running == True:
+            if type(ScreenCap) == np.ndarray:
+                (BGR) = ScreenCap[self.PosY, self.PosX]
+                # so we dont check same frame twice
+                ScreenCap = None
+
+    def Update(self, address):
+        """Updates workers current information using a memory address"""
+        global ScreenCap  # using global because local doesnt work for some reason
+        ScreenCap = ctypes.cast(address, ctypes.py_object).value
+
     def GetValues(self):
         self.CollumConfig = self.BaseConfig[str("Collum " + str(self.ThreadNumber + 1))]
         # Key to be pressed
         self.Key = self.CollumConfig["Key"]
         # Postions
-        self.PosX = self.CollumConfig["Position"]["X"]
-        self.PosY = self.CollumConfig["Position"]["Y"]
+        self.PosX = int(self.CollumConfig["Position"]["X"])
+        self.PosY = int(self.CollumConfig["Position"]["Y"])
         # note colours
         self.NotePrimaryColour = self.CollumConfig["Colours"]["Note Primary"]
         self.NoteSecondaryColour = self.CollumConfig["Colours"]["Note Secondary"]
         # slider colours
         self.SliderPrimaryColour = self.CollumConfig["Colours"]["Slider Primary"]
         self.SliderSecondaryColour = self.CollumConfig["Colours"]["Slider Secondary"]
-
-    def _run(self):
-        self.GetValues()
-        while self.Running == True and self.ScreenCap != None:
-            # resets frame so we dont do the same frame twice
-            self.ScreenCap = None
-
-    def Stop(self):
-        """Stops worker thread"""
-        self.Running = False
-        self.thread.join()

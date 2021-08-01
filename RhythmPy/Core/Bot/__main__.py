@@ -90,7 +90,7 @@ class Bot:
             # starts the worker threads
             try:
                 for worker in self.WorkerThreads:
-                    worker.Start()
+                    worker.Update(address=id(self.Wincap.screenshot))
                 logger.info("Started worker threads")
             except Exception:
                 logger.exception("Failed to start worker threads\n")
@@ -102,6 +102,9 @@ class Bot:
 
     def _run(self, ConfigFile):
         self._initialize(ConfigFile)
+        # starts worker threads
+        for worker in self.WorkerThreads:
+            worker.Start()
         while self.Running:
             for worker in self.WorkerThreads:
                 worker.Update(address=id(self.Wincap.screenshot))
