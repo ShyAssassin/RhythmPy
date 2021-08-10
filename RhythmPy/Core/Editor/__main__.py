@@ -23,7 +23,7 @@ class Editor(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master.geometry("500x500")
-        self.master.title(u"Settings")
+        self.master.title(u"Editor")
         # IDK
         self.entry = tk.Entry(
             self.master,
