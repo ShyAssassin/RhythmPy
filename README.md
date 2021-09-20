@@ -26,23 +26,10 @@ im still working on this btw :p
 **Method 1: Using the official release installers**           
 * <a href="https://github.com/assassinsorrow/RhythmPy/releases">Download the latest release</a> it is faster and includes a installer for RhythmPy with an optional standalone executable                         
                            
-**Method 2: Using python**        
-1. Clone the Repo `git clone https://github.com/assassinsorrow/RhythmPy.git`
-2. CD into the project folder `cd RhythmPy` <sup>The folder that has README.md in it</sup>
-3. Install <a href="https://github.com/python-poetry/poetry">Poetry</a>      
-  Windows Powershell: `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python -`      
-  Linux/Mac: `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python`     
-  <a href="https://python-poetry.org/docs/"><sup>Poetry's documentation<sup></sup></sup></a>
-4. Create a virtual environment for RhythmPy with <a href="https://github.com/python-poetry/poetry">Poetry</a> `poetry install --no-dev`
-5. CD into working directory `cd RhythmPy` <sup>The folder that has the scripts</sup>
-6. Start RhythmPy `poetry run python __main__.py`
-
-**Method 3: The Development Builds**       
-*the Development builds will contain bugs and features that may not work, it is for testing and may not be a stable.*     
-*it contains two seperate builds that do not include system installers and are not compressed (hence the large file size)*             
-***You have been warned!***        
-* You can get a development build by downloading the file listed under `Artifacts` <a href="https://github.com/assassinsorrow/RhythmPy/actions?query=workflow%3ABuild">Here</a>    (pick the topmost successful build).        
-* You must be logged into GitHub to download a development build.
+**Method 2: Running / Building the source**     
+This project is made using `make` if you are on windows you will need to install `make` before proceeding.
+  * Use `make python` to run the python version
+  * Use `make build && make run` to build and run
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
