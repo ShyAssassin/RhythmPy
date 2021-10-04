@@ -20,7 +20,6 @@ pywin32 = {version = "*", optional = true}
 [tool.poetry.dev-dependencies]
 black = { version = "*", allow-prereleases = true }
 flake8 = "^3.8.4"
-pycallgraph = "^1.0.1"
 
 [tool.poetry.extras]
 Windows = ["pywin32"]
