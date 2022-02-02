@@ -13,4 +13,4 @@ def CopyUpdater():
         logger.info("Coppied Updater from `Updater/Build/Updater`")
     except Exception:
         logger.exception("Failed to copy Updater\n")
-        raise (Exception)
+        raise FileNotFoundError

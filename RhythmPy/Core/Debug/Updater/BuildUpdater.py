@@ -27,4 +27,4 @@ def BuildUpdater():
             else:
                 logger.warning(i)
         logger.warning("Updater failed to build")
-        raise (Exception)
+        raise ChildProcessError

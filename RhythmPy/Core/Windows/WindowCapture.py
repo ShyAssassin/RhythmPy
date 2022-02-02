@@ -1,3 +1,4 @@
+import threading
 import numpy as np
 import win32gui, win32ui, win32con, win32api
 from threading import Thread, Lock
@@ -122,7 +123,7 @@ class WindowCapture:
             self.stopped = True
             self.thread.join()
         except Exception:
-            raise (Exception)
+            raise threading.ThreadError
 
     def _run(self):
         while self.stopped == False:

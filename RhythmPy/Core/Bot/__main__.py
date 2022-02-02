@@ -32,7 +32,6 @@ elif platform == "Linux" or platform == "Darwin":
 
 class Bot:
     """used for utilizing the bot and its commands
-
     Args:
         Running, Bool: the current state of the bot
         ConfigFile, String: the location of a .json config file
@@ -56,7 +55,7 @@ class Bot:
             logger.info("Started bots thread")
         except threading.ThreadError:
             logger.exception("Failed to start bots thread\n")
-            raise ("BotThreadingError")
+            raise threading.ThreadError
 
     def _initialize(self, ConfigFile):
         """initializes the bot"""

@@ -30,7 +30,7 @@ def RunCmake():
             )
         # god only knows why stderr does not get asigned if we dont do this
         if Cmake.stderr != "":
-            raise (Exception)
+            raise ReferenceError
         else:
             # logs formatted output
             for i in str(Cmake.stdout).replace(r"\n", "\n").split("\n"):
@@ -47,4 +47,4 @@ def RunCmake():
             else:
                 logger.warning(i)
         logger.warning("failed to run cmake")
-        raise (Exception)
+        raise ChildProcessError

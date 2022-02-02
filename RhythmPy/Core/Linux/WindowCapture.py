@@ -1,4 +1,5 @@
 from threading import Thread, Lock
+import threading
 import cv2
 import time
 import subprocess
@@ -34,7 +35,7 @@ class WindowCapture:
                 self.cap.open(Stream)
                 time.sleep(1)
             if not self.cap.open:
-                raise ("failed to open Stream")
+                raise TimeoutError
         return self.cap
 
     def CloseStream(self):
@@ -97,7 +98,7 @@ class WindowCapture:
             self.StopFFmpeg()
             self.thread.join()
         except Exception:
-            raise (Exception)
+            raise threading.ThreadError
 
     def _run(self):
         self.StartFFmpeg()

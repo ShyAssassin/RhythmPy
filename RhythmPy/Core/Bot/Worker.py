@@ -35,7 +35,7 @@ class Worker:
             logger.exception(
                 "Failed to start worker thread number %s\n", self.ThreadNumber
             )
-            raise Exception
+            raise threading.ThreadError
 
     def Stop(self):
         """Stops worker thread"""
@@ -57,6 +57,7 @@ class Worker:
         ScreenCap = ctypes.cast(address, ctypes.py_object).value
 
     def GetValues(self):
+        # current Worker thread number will relate to what collum we are working on in order from 1 to n
         self.CollumConfig = self.BaseConfig[str("Collum " + str(self.ThreadNumber + 1))]
         # Key to be pressed
         self.Key = self.CollumConfig["Key"]

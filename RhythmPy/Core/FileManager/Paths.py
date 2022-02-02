@@ -1,3 +1,4 @@
+from importlib.metadata import PathDistribution
 import os
 import platform
 
@@ -13,10 +14,9 @@ def AppDataDir():
         elif Platform == "Linux" or Platform == "Darwin":
             LinuxAppdata = str(os.path.expanduser("~/.RhythmPy/"))
             return str(LinuxAppdata)
-        else:
-            raise Exception
     except Exception:
         print("failed to get AppDataDir")
+        raise NotADirectoryError
 
 
 def PluginsDir():
@@ -29,10 +29,9 @@ def PluginsDir():
         elif Platform == "Linux" or Platform == "Darwin":
             LinuxPlugins = str(os.path.expanduser("~/.RhythmPy/Plugins/"))
             return str(LinuxPlugins)
-        else:
-            raise Exception
     except Exception:
         print("failed to get PluginsDir")
+        raise NotADirectoryError
 
 
 # gets home dir + RhythmPy/Config
@@ -48,10 +47,9 @@ def AppDataConfigDir():
         elif Platform == "Linux" or Platform == "Darwin":
             LinuxAppdataConfig = str(os.path.expanduser("~/.RhythmPy/Config/"))
             return str(LinuxAppdataConfig)
-        else:
-            raise Exception
     except Exception:
         print("failed to get AppdataConfigDir")
+        raise NotADirectoryError
 
 
 # gets home dir + RhythmPy/Logs
@@ -65,7 +63,6 @@ def AppDataLogsDir():
         elif Platform == "Linux" or Platform == "Darwin":
             LinuxAppdataLogs = str(os.path.expanduser("~/.RhythmPy/Logs/"))
             return str(LinuxAppdataLogs)
-        else:
-            raise Exception
     except Exception:
         print("failed to get AppDataLogsDir")
+        raise NotADirectoryError
