@@ -38,7 +38,7 @@ class RhythmPy(tk.Frame):
         self.Create_Widgets()
 
     def StartStop(self):
-        # checks if Config exists and if bot is running
+        # checks if Config as been initialized and if bot is running
         if self.Start_StopBTN["text"] == "START" and "Config" in dir(self):
             try:
                 self.Running = True
@@ -53,8 +53,11 @@ class RhythmPy(tk.Frame):
                 self.bot.Stop()
                 self.Running = False
                 self.Start_StopBTN.configure(text="START")
-            except Exception:
+            except Exception as e:
                 self.Start_StopBTN.configure(text="STOP")
+                messagebox.showerror(
+                    "Failed to Start", "The bot failed to start\n %s", e.with_traceback()
+                )
                 logger.exception("Failed to stop bot\n")
         else:
             # run if no Config is selected

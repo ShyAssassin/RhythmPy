@@ -6,7 +6,6 @@ def ResizeImage(Xsize, Ysize, image):
     image = Image.open(image)
     image.convert("LA")
     new_image = image.resize((Xsize, Ysize), Image.ANTIALIAS)
-    # Resized_Image = ImageTk.PhotoImage(new_image)
-    # _tkinter.TclError: image "2284364432192ResizeImage" doesn't exist
+    # cant do the below because of `_tkinter.TclError: image "2284364432192ResizeImage" doesn't exist`
     # Resized_Image = ImageTk.PhotoImage(new_image)
     return new_image

@@ -18,6 +18,8 @@ class SplashScreen:
         self.master.overrideredirect(True)
         self.master.attributes("-topmost", True)
         CenterWin(self.master)
+        # we cant start the window mainloop because that will then take over the main thread and block other code from running 
+        # so we update it once and the app will "hang" until we have initialized the main tkinter window and other systems
         self.master.update()
 
     def Stop(self):
