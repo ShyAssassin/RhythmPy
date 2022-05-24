@@ -56,3 +56,10 @@ jobs:
     - name: Make Updater
       run: make Updater
   
+    - name: Upload Build Artifacts
+      if: ${{ matrix.os == 'windows-latest' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: RhythmPy-Expremental
+        path: dist/
+  
