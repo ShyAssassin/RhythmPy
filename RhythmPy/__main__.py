@@ -2,6 +2,7 @@
 try:
     # fmt: off
     import platform
+    import traceback
     # Starts Logger
     try:
         from Core import FileManager
@@ -12,8 +13,8 @@ try:
         # creates log folder
         logger.CreateLogFolder()
         logger = logger.StartLogger(name=__name__)
-    except (ImportError, ModuleNotFoundError) as e:
-        print("failed to start logger\n", e)
+    except (ImportError, ModuleNotFoundError):
+        print("failed to start logger\n", traceback.format_exc())
         input()
         exit()
 
