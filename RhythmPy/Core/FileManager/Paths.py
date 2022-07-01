@@ -1,4 +1,3 @@
-from importlib.metadata import PathDistribution
 import os
 import platform
 
