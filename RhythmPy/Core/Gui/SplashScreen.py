@@ -1,7 +1,6 @@
 import tkinter as tk
 from Core.Gui import CenterWin
-import time
-from PIL import Image, ImageTk
+import PIL
 
 
 class SplashScreen:
@@ -9,26 +8,21 @@ class SplashScreen:
         self.master = tk.Tk()
         canvas = tk.Canvas(self.master)
         canvas.pack(expand=True)
-        op = Image.open(r"Assets/UI/Splash.png")
-        SplashImage = ImageTk.PhotoImage(op)
-        Splash = tk.Label(self.master, image=SplashImage)
-        Splash.image = SplashImage
-        Splash.place(x=-2, y=-2)
+        # load splash screen asset
+        ImageAsset = PIL.Image.open(r"Assets/UI/Splash.png")
+        Image = PIL.ImageTk.PhotoImage(ImageAsset)
+        SplashScreen = tk.Label(self.master, image=Image)
+        SplashScreen.image = Image
+        SplashScreen.place(x=-2, y=-2)
         self.master.geometry("620x300")
         self.master.overrideredirect(True)
+        # force window the be ontop of everything else
         self.master.attributes("-topmost", True)
         CenterWin(self.master)
-        # we cant start the window mainloop because that will then take over the main thread and block other code from running 
+        # we cant start the window mainloop because that will then take over the main thread and block other code from running
         # so we update it once and the app will "hang" until we have initialized the main tkinter window and other systems
         self.master.update()
 
     def Stop(self):
         print("killed splash screen")
         self.master.destroy()
-
-
-if __name__ == "__main__":
-    splash = SplashScreen()
-    splash.Start()
-    time.sleep(1)
-    splash.Stop()

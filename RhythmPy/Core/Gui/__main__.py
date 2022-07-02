@@ -25,7 +25,7 @@ class RhythmPy(tk.Frame):
         self.Running = False
         super().__init__(master)
         self.master.geometry("500x650")
-        self.master.title(u"RhythmPy")
+        self.master.title("RhythmPy")
         # IDK
         self.entry = tk.Entry(
             self.master,
@@ -56,11 +56,12 @@ class RhythmPy(tk.Frame):
             except Exception as e:
                 self.Start_StopBTN.configure(text="STOP")
                 messagebox.showerror(
-                    "Failed to Start", "The bot failed to start\n %s", e.with_traceback()
+                    "Failed to Start",
+                    "The bot failed to start\n %s",
+                    e.with_traceback(),
                 )
                 logger.exception("Failed to stop bot\n")
         else:
-            # run if no Config is selected
             messagebox.showwarning(
                 "No Config", "No Config is currently loaded, load one to continue."
             )
@@ -97,10 +98,10 @@ class RhythmPy(tk.Frame):
                     self.UpdateShownConfig()
                 except KeyError:
                     logger.exception("Invalid Config loaded\n")
+                    LogFile = str(self.appdatapath + self.CurrentDate + ".log")
                     messagebox.showerror(
                         "Config Error",
-                        "Invalid Config\nCheck Logs for details. %s"
-                        % loggerinit.GetCurrentLogFile(),
+                        "Invalid Config\nCheck Logs for details. %s" % LogFile,
                     )
         else:
             messagebox.showwarning(
@@ -113,7 +114,7 @@ class RhythmPy(tk.Frame):
         # destroys current lable
         self.ShownConfig.destroy()
         self.ShownConfig = None
-        # remakes label
+        # remake label with updated info
         self.ShownConfig = Label(
             self.master,
             font=BUTTON_FONT_BOLD,
@@ -126,16 +127,16 @@ class RhythmPy(tk.Frame):
     # Widgets
     def Create_Widgets(self):
         """Create all UI elements"""
-        # Settings Button
+        # Load all needed UI assets
         try:
-            # loads icon
-            try:
-                self.SettingsIcon = Gui.ResizeImage(76, 76, r"Assets/UI/icon-gear.png")
-            except Exception:
-                logger.exception(
-                    "can not load or find needed icons for Settings Button\n"
-                )
+            self.SettingsIcon = Gui.ResizeImage(76, 76, r"Assets/UI/icon-gear.png")
+            self.ConfigIcon = Gui.ResizeImage(82, 82, r"Assets/UI/Config-icon.png")
+        except Exception:
+            logger.exception("Failed to load UI assets\n")
 
+        # create all on screen buttons
+        try:
+            # Creates settings Button
             self.SettingsIcon = ImageTk.PhotoImage(self.SettingsIcon)
             self.SettingsBTN = Button(
                 self.master,
@@ -150,18 +151,8 @@ class RhythmPy(tk.Frame):
                 command=lambda: Settings.Run(),
             )
             self.SettingsBTN.place(x=415, y=565)
-        except Exception:
-            CloseGlobal(master=None, running=False)
 
-        # Config icon
-        try:
-            # loads icon
-            try:
-                self.ConfigIcon = Gui.ResizeImage(82, 82, r"Assets/UI/Config-icon.png")
-            except Exception:
-                logger.exception("can not load or find needed icons\n")
-
-            # used for changing games / configs
+            # Create config button
             self.ConfigIcon = ImageTk.PhotoImage(self.ConfigIcon)
             self.ConfigBTN = Button(
                 self.master,
@@ -176,11 +167,8 @@ class RhythmPy(tk.Frame):
                 command=lambda: self.ConfigSelect(),
             )
             self.ConfigBTN.place(x=0, y=568)
-        except Exception:
-            CloseGlobal(master=None, running=False)
 
-        # Start / Stop Button
-        try:
+            # Create Start / Stop button
             self.Start_StopBTN = Button(
                 self.master,
                 text="START",
@@ -197,14 +185,8 @@ class RhythmPy(tk.Frame):
                 command=self.StartStop,
             )
             self.Start_StopBTN.place(x=185, y=255)
-        except Exception:
-            logger.exception(
-                "something went very wrong while creating Start Stop Button\n"
-            )
-            CloseGlobal(master=None, running=False)
 
-        try:
-            # shows Currently loaded config
+            # Create label for currently loaded config
             self.ConfigName = "None"
             self.ShownConfig = Label(
                 self.master,
@@ -215,17 +197,16 @@ class RhythmPy(tk.Frame):
             )
             self.ShownConfig.pack()
         except Exception:
-            logger.exception("failed to create UI Lable for Loaded Config")
+            logger.exception("Failed to create UI elements\n")
             CloseGlobal(master=None, running=False)
 
 
 def Run():
     # sets global for logger
     global logger
-    global loggerinit
-    loggerinit = Logger()
-    loggerinit.CreateLogFolder()
-    logger = loggerinit.StartLogger(name=__name__)
+    logger = Logger()
+    logger.CreateLogFolder()
+    logger = logger.StartLogger(name=__name__)
 
     # loads settings for later use
     SettingsFile = FileManager.LoadSettings()
@@ -249,12 +230,10 @@ def Run():
             "WM_DELETE_WINDOW",
             lambda: CloseGlobal(master=root, running=App.Running),
         )
-        # root.overrideredirect(1)
         Gui.CenterWin(root)
         App.mainloop()
     except Exception:
-        # shows error in logger
-        logger.exception("something broke\n")
+        logger.exception("Failed to start RhythmPy GUI\n")
 
 
 if __name__ == "__main__":
